@@ -1,0 +1,79 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>MyCustomDiscordBot</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>Preview</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup>
+    <PackageReference Include="Discord.Net" Version="2.4.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="MongoDB.Bson" Version="2.13.2" />
+    <PackageReference Include="MongoDB.Driver" Version="2.13.2" />
+    <PackageReference Include="MongoDB.Driver.Core" Version="2.13.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Configuration.UserSecrets">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Configuration.UserSecrets.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting.Abstractions">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Hosting.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Discord.Net.WebSocket">
+      <HintPath>..\netcoreapp3.1\Discord.Net.WebSocket.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Configuration.Abstractions">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Configuration.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+    <Reference Include="Discord.Net.Commands">
+      <HintPath>..\netcoreapp3.1\Discord.Net.Commands.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Discord.Net.Core">
+      <HintPath>..\netcoreapp3.1\Discord.Net.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\netcoreapp3.1\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\netcoreapp3.1\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core">
+      <HintPath>..\netcoreapp3.1\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Discord.Net.Rest">
+      <HintPath>..\netcoreapp3.1\Discord.Net.Rest.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Hosting">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Configuration">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Logging.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Console">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Logging.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Logging.Debug">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Logging.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Options.ConfigurationExtensions">
+      <HintPath>..\netcoreapp3.1\Microsoft.Extensions.Options.ConfigurationExtensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
