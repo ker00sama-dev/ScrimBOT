@@ -265,7 +265,10 @@ aliases: " + prifx + @"needsubfor
                     }
                 }
                 await _databaseService.UpsertMatchAsync(base.Context.Guild.Id, match);
+                await base.Context.Message.DeleteMessageAfterSeconds(1);
+                await ReplyAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, base.Context.Guild.Id));
                 await ReplyAsync("The map vote has passed and the map has been changed to: `" + match.Map + "`!");
+
             }
             await base.Context.Message.DeleteMessageAfterSeconds(5);
         }
