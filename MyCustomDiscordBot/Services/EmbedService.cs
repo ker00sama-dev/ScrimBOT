@@ -188,7 +188,7 @@ namespace MyCustomDiscordBot.Services
                                select s[random.Next(s.Length)]).ToArray());
         }
         
-        public async Task<Embed> GetMatchEmbedAsync(Match match, ulong guildId, Team team1 = null, Team team2 = null)
+        public async Task<Embed> GetMatchEmbedAsync(Match match, ulong guildId, Team team1 = null, Team team2 = null,string pass = null)
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Green);
@@ -196,7 +196,16 @@ namespace MyCustomDiscordBot.Services
 
             if (guildId == ServerIDs())
             {
-                password = RandomString(4).ToLower();
+                if(pass)
+                {
+                    password = pass;
+
+                }
+                else
+                {
+                    password = RandomString(4).ToLower();
+
+                }
             }
             if (match.SortType == SortType.Elo)
             {

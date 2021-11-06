@@ -5,6 +5,7 @@ using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
 using System;
+using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 namespace DiscordBot.Modules
@@ -264,8 +265,14 @@ aliases: " + prifx + @"needsubfor
                         break;
                     }
                 }
+                int amount = 1000;
                 await _databaseService.UpsertMatchAsync(base.Context.Guild.Id, match);
-                await base.Context.Message.DeleteMessageAfterSeconds(1);
+                IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
+                await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
+                const int delay = 3000;
+                //IUserMessage m = await ReplyAsync($"I have deleted {amount} messages for ya. :)");
+              //  await Task.Delay(delay);
+               // await m.DeleteAsync();
                 await ReplyAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, base.Context.Guild.Id));
                 await ReplyAsync("The map vote has passed and the map has been changed to: `" + match.Map + "`!");
 
