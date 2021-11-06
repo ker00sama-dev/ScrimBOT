@@ -7,6 +7,7 @@ using MyCustomDiscordBot;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
+using ServiceStack.Text;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -241,7 +242,7 @@ namespace DiscordBot.Modules
                 await base.Context.Message.DeleteAsync();
             }
         }
-
+        
         [Command("setscorereporter")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Set the score reporter role.")]
@@ -260,7 +261,7 @@ namespace DiscordBot.Modules
                 _logger.LogError("Error setting score reporter role in " + base.Context.Guild.Name + ": " + e.Message);
             }
         }
-
+    
         [Command("createqueue")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Set up a reaction based queue in a given channel.")]
@@ -308,9 +309,42 @@ namespace DiscordBot.Modules
             _queueService.CreatePugQueue(qConfig);
             await blankEmbedMessage.AddReactionAsync(new Emoji("✅"));
             await blankEmbedMessage.AddReactionAsync(new Emoji("❌"));
-            await base.Context.Message.DeleteAsync();
-        }
+          
+            if (name.ToLower().Contains("crossfire"))
+            {
+                foreach (string map in qConfig.Maps)
+                {
+                    if (map.ToLower() == name.ToLower())
+                    {
+                        await ReplyAsync("That map: " + "Subbase" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "ankara" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "BlackWidow" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "Compound" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "Port" + " is already in the map pool for the " + qConfig.Name + " queue.");
 
+
+
+                        return;
+                    }
+                }
+
+                qConfig.Maps.Add("SubBase");
+                qConfig.Maps.Add("ankara");
+                qConfig.Maps.Add("BlackWidow");
+                qConfig.Maps.Add("Compound");
+                qConfig.Maps.Add("Port");
+
+                await _databaseService.UpsertServerConfigAsync(config);
+                _queueService.UpdatePugQueue(qConfig);
+                await base.Context.Message.DeleteAsync();
+
+            }
+
+            await base.Context.Message.DeleteAsync();
+         
+
+        }
+         
         [Command("setmatchlogs")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Set match logs channel.")]

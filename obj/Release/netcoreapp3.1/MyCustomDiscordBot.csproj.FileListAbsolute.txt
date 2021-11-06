@@ -71,3 +71,4 @@ C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Release\netcoreapp3
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Release\netcoreapp3.1\MyCustomDiscordBot.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Release\netcoreapp3.1\MyCustomDiscordBot.pdb
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Release\netcoreapp3.1\MyCustomDiscordBot.genruntimeconfig.cache
+C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Release\netcoreapp3.1\ServiceStack.Text.dll
