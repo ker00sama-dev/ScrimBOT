@@ -1,24 +1,10 @@
 ﻿using Discord;
 using Discord.Commands;
-using Discord.Rest;
-using Discord.WebSocket;
-using Microsoft.Extensions.Logging;
-using MyCustomDiscordBot;
-using MyCustomDiscordBot.Extensions;
-using MyCustomDiscordBot.Models;
-using MyCustomDiscordBot.Services;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Discord;
-using Discord.Commands;
 using Discord.WebSocket;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 namespace DiscordBot.Modules
@@ -47,7 +33,7 @@ namespace DiscordBot.Modules
         public async Task SeeHelp(string command = null)
         {
             string prifx = ",";
-           await ReplyAsync(@"```
+            await ReplyAsync(@"```
 Commands
 " + prifx + @"createqueue        - {NAMEQUEUE} {USERS MAXIMUM(22)}  {ELO" + prifx + @"CAPTAINS}
 " + prifx + @"giveelo            - {@USER} {AMOUNT}
@@ -72,8 +58,8 @@ aliases: " + prifx + @"needsubfor
 " + prifx + @"disablequeue       - Disable queue for a specific time" + prifx + @" Ex: " + prifx + @"disablequeue 5d 12h
 
 ```");
-           // await ReplyAsync("test");
-          //  await ReplyAsync(description);
+            // await ReplyAsync("test");
+            //  await ReplyAsync(description);
         }
 
         [Command("ping")]
@@ -81,10 +67,24 @@ aliases: " + prifx + @"needsubfor
         public async Task Ping()
         {
 
-            await ReplyAsync("COMING SOON");
+            await ReplyAsync("Ping: " + new Ping().Send("google.com").RoundtripTime.ToString() + " ms");
 
         }
+        [Command("SendMessage")]
+        [Summary("Check whether the bot is working or not.")]
+        public async Task SendMessage(SocketGuildUser user, string text)
+        {
+            await Context.Channel.SendMessageAsync(text);
 
+            await user.SendMessageAsync(text);
+            SocketDMChannel DMChannel = (SocketDMChannel)user.GetOrCreateDMChannelAsync().Result;
+
+            await DMChannel.SendMessageAsync(text);
+            foreach (SocketRole role in ((SocketGuildUser)Context.Message.Author).Roles)
+            {
+                Console.WriteLine(role.Name);
+            }
+        }
         [Command("pick")]
         [Alias(new string[] { "p" })]
 

@@ -200,35 +200,14 @@ namespace MyCustomDiscordBot.Services
                 Match match = await _matchService.GenerateMatchAsync(copyList, queue.SortType, queue.GuildId, queue.MessageId);
                 match.PugQueueMessageId = queue.MessageId;
                 SocketGuild guild2 = _client.GetGuild(queue.GuildId);
+                RestVoiceChannel team1Voice = await guild2.CreateVoiceChannelAsync($"Match #{match.Number} Team 1");
+                RestVoiceChannel team2Voice = await guild2.CreateVoiceChannelAsync($"Match #{match.Number} Team 2");
                 ServerConfig serverConfig = await _databaseService.GetServerConfigAsync(guild2.Id);
                 RestTextChannel matchInfoChannel = await guild2.CreateTextChannelAsync($"\ud83c\udfc6-match-#{match.Number}");
                 await matchInfoChannel.ModifyAsync(delegate (TextChannelProperties x)
                 {
                     x.CategoryId = serverConfig.MatchesCategoryId;
                 });
-                await matchInfoChannel.SyncPermissionsAsync();
-                SocketTextChannel queueChannel2 = guild2.GetTextChannel(queue.ChannelId);
-                EmbedBuilder builder = new EmbedBuilder();
-                builder.WithColor(Color.Green);
-                builder.WithDescription($"Match #{match.Number} has been generated. Please visit {matchInfoChannel.Mention} to begin your match.");
-                await (await queueChannel2.SendMessageAsync(null, isTTS: false, builder.Build())).DeleteMessageAfterSeconds(10);
-                List<string> mentionedUsers = new List<string>();
-                foreach (ulong discordId4 in match.AllPlayerDiscordIds)
-                {
-                    mentionedUsers.Add(_client.GetUser(discordId4).Mention);
-                }
-                await matchInfoChannel.SendMessageAsync("Attention, your match is ready! " + string.Join(" ", mentionedUsers));
-                RestTextChannel restTextChannel = matchInfoChannel;
-                await restTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, guild2.Id));
-                OverwritePermissions sendMessagesFalse = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Deny);
-                OverwritePermissions sendMessagesTrue = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow);
-                foreach (ulong discordId3 in match.AllPlayerDiscordIds)
-                {
-                    await matchInfoChannel.AddPermissionOverwriteAsync(guild2.GetUser(discordId3), sendMessagesTrue);
-                }
-                await matchInfoChannel.AddPermissionOverwriteAsync(guild2.EveryoneRole, sendMessagesFalse);
-                RestVoiceChannel team1Voice = await guild2.CreateVoiceChannelAsync($"Match #{match.Number} Team 1");
-                RestVoiceChannel team2Voice = await guild2.CreateVoiceChannelAsync($"Match #{match.Number} Team 2");
                 await team1Voice.ModifyAsync(delegate (VoiceChannelProperties x)
                 {
                     x.CategoryId = serverConfig.MatchesCategoryId;
@@ -245,6 +224,32 @@ namespace MyCustomDiscordBot.Services
                     await team1Voice.AddPermissionOverwriteAsync(_client.GetGuild(guild2.Id).EveryoneRole, connectFalse);
                     await team2Voice.AddPermissionOverwriteAsync(_client.GetGuild(guild2.Id).EveryoneRole, connectFalse);
                 }
+                List<string> mentionedUsers = new List<string>();
+
+                foreach (ulong discordId4 in match.AllPlayerDiscordIds)
+                {
+                    mentionedUsers.Add(_client.GetUser(discordId4).Mention);
+                }
+                await matchInfoChannel.SyncPermissionsAsync();
+                SocketTextChannel queueChannel2 = guild2.GetTextChannel(queue.ChannelId);
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.WithColor(Color.Green);
+                builder.WithDescription($"Match #{match.Number} has been generated. Please visit {matchInfoChannel.Mention} to begin your match.");
+                await (await queueChannel2.SendMessageAsync(null, isTTS: false, builder.Build())).DeleteMessageAfterSeconds(3);
+
+                await matchInfoChannel.SendMessageAsync("Attention, your match is ready! " + string.Join(" ", mentionedUsers));
+
+                RestTextChannel restTextChannel = matchInfoChannel;
+                await restTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, guild2.Id));
+                OverwritePermissions sendMessagesFalse = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Deny);
+                OverwritePermissions sendMessagesTrue = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow);
+                foreach (ulong discordId3 in match.AllPlayerDiscordIds)
+                {
+                    await matchInfoChannel.AddPermissionOverwriteAsync(guild2.GetUser(discordId3), sendMessagesTrue);
+                }
+                await matchInfoChannel.AddPermissionOverwriteAsync(guild2.EveryoneRole, sendMessagesFalse);
+  
+           
                 OverwritePermissions connectTrue = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow);
                 if (queue.SortType == SortType.Elo)
                 {

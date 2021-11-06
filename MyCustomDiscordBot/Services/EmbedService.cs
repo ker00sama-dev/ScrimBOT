@@ -184,16 +184,16 @@ namespace MyCustomDiscordBot.Services
 
         public string RandomString(int length)
         {
-            return new string((from s in Enumerable.Repeat("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789", length)
+            return new string((from s in Enumerable.Repeat("123364654654564974548548484", length)
                                select s[random.Next(s.Length)]).ToArray());
         }
-
+        
         public async Task<Embed> GetMatchEmbedAsync(Match match, ulong guildId, Team team1 = null, Team team2 = null)
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Green);
             string password = string.Empty;
-         
+
             if (guildId == ServerIDs())
             {
                 password = RandomString(4).ToLower();
@@ -221,6 +221,28 @@ namespace MyCustomDiscordBot.Services
                 }
                 builder.AddField("Team 1", team1Value3, inline: true);
                 builder.AddField("Team 2", team2Value3, inline: true);
+                string Mapup = match.Map.ToUpper();
+
+                if (Mapup.Contains("SUBBASE"))
+
+                {
+
+                    builder.WithImageUrl("https://media.discordapp.net/attachments/906240518533562408/906631055925190706/New_Sub_Base_Artwork.png");
+
+
+
+                }
+                else
+                {
+
+
+
+                    builder.WithImageUrl("https://lh3.googleusercontent.com/proxy/kdmaKyEV3y9LHL9t3aYniyiA_kzMFFutraQXiEkgx6q9Qgh8ZFLrIeVF3Fus5bh2yB1FPRfwhQp9SofMUbCZsBSi3nIJLz-DpLpIWra0D0iwnxzNVCK6V9xa7DO5jW2b");
+
+
+
+                }
+
             }
             else if (match.SortType == SortType.Captains)
             {

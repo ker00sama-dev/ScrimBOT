@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rtuhJwF73rU9aX/fAeOwsMOiVhMM30p9Oa9DBuBdTy3mvnvLMIu2K3PK7ITLEfLLnY5t4y1eTQnp4dhlwPLRtg==",
+  "dgSpecHash": "XWlQOellSTlTGDa5L62x2WOX+l13hlY3h6gZgYEKFhA9ep5GqUevTgHjM4OxAEl8e+W1cyR0r3iRjXImQcYMNA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Desktop\\KERO\\BetaVersion1.0\\KERO\\MyCustomDiscordBot.csproj",
+  "projectFilePath": "C:\\Users\\Administrator\\Documents\\GitHub\\DiscordGamingBOT\\MyCustomDiscordBot.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\discord.net\\2.4.0\\discord.net.2.4.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\discord.net.commands\\2.4.0\\discord.net.commands.2.4.0.nupkg.sha512",

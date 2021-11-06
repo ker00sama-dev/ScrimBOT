@@ -10,16 +10,6 @@ using MyCustomDiscordBot.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Discord;
-using Discord.Commands;
-using Discord.WebSocket;
-using MyCustomDiscordBot.Extensions;
-using MyCustomDiscordBot.Models;
-using MyCustomDiscordBot.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 namespace DiscordBot.Modules
 {
 
