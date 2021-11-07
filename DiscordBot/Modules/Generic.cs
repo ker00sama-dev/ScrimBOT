@@ -103,7 +103,7 @@ aliases: " + prifx + @"needsubfor
             await channel.SendMessageAsync("Here is a button!", component: new ComponentBuilder()
                             .WithButton(new ButtonBuilder("label", "customidhere"))
                             .Build());
-        }
+        }  
         [Command("SendMessage")]
         [Summary("Check whether the bot is working or not.")]
         public async Task SendMessage(Discord.WebSocket.SocketGuildUser user, string text)
