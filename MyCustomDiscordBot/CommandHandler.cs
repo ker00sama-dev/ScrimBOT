@@ -29,9 +29,10 @@ namespace MyCustomDiscordBot
 
         private readonly ILogger<Worker> _logger;
 
-        public CommandHandler(IServiceProvider sp, DiscordSocketClient client, CommandService commandService, GlobalServersService globalServersService, DatabaseService databaseService, QueueService queueService, UtilityService utilityService, ILogger<Worker> logger)
+        public CommandHandler(IServiceProvider sp, Discord.WebSocket.DiscordSocketClient client, CommandService commandService, GlobalServersService globalServersService, DatabaseService databaseService, QueueService queueService, UtilityService utilityService, ILogger<Worker> logger)
         {
             _client = client;
+            //_client = new DiscordSocketClient();
             _commands = commandService;
             _sp = sp;
             _logger = logger;

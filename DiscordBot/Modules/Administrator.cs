@@ -7,7 +7,6 @@ using MyCustomDiscordBot;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
-using ServiceStack.Text;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -242,7 +241,7 @@ namespace DiscordBot.Modules
                 await base.Context.Message.DeleteAsync();
             }
         }
-        
+
         [Command("setscorereporter")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Set the score reporter role.")]
@@ -261,7 +260,7 @@ namespace DiscordBot.Modules
                 _logger.LogError("Error setting score reporter role in " + base.Context.Guild.Name + ": " + e.Message);
             }
         }
-    
+
         [Command("createqueue")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Set up a reaction based queue in a given channel.")]
@@ -309,7 +308,7 @@ namespace DiscordBot.Modules
             _queueService.CreatePugQueue(qConfig);
             await blankEmbedMessage.AddReactionAsync(new Emoji("✅"));
             await blankEmbedMessage.AddReactionAsync(new Emoji("❌"));
-          
+
             if (name.ToLower().Contains("crossfire"))
             {
                 foreach (string map in qConfig.Maps)
@@ -341,10 +340,10 @@ namespace DiscordBot.Modules
             }
 
             await base.Context.Message.DeleteAsync();
-         
+
 
         }
-         
+
         [Command("setmatchlogs")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Set match logs channel.")]

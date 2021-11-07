@@ -187,8 +187,8 @@ namespace MyCustomDiscordBot.Services
             return new string((from s in Enumerable.Repeat("123364654654564974548548484", length)
                                select s[random.Next(s.Length)]).ToArray());
         }
-        
-        public async Task<Embed> GetMatchEmbedAsync(Match match, ulong guildId, Team team1 = null, Team team2 = null,string pass = null)
+
+        public async Task<Embed> GetMatchEmbedAsync(Match match, ulong guildId, Team team1 = null, Team team2 = null)
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Green);
@@ -196,16 +196,10 @@ namespace MyCustomDiscordBot.Services
 
             if (guildId == ServerIDs())
             {
-                if(pass)
-                {
-                    password = pass;
 
-                }
-                else
-                {
-                    password = RandomString(4).ToLower();
+                password = RandomString(4).ToLower();
 
-                }
+
             }
             if (match.SortType == SortType.Elo)
             {
@@ -231,22 +225,59 @@ namespace MyCustomDiscordBot.Services
                 builder.AddField("Team 1", team1Value3, inline: true);
                 builder.AddField("Team 2", team2Value3, inline: true);
                 string Mapup = match.Map.ToUpper();
-
+                //qConfig.Maps.Add("SubBase");
+                //qConfig.Maps.Add("ankara");
+                //qConfig.Maps.Add("BlackWidow");
+                //qConfig.Maps.Add("Compound");
+                //qConfig.Maps.Add("Port");
                 if (Mapup.Contains("SUBBASE"))
 
                 {
 
-                    builder.WithImageUrl("https://media.discordapp.net/attachments/906240518533562408/906631055925190706/New_Sub_Base_Artwork.png");
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/691520066575138866/906938436341104651/1000.png");
 
 
 
                 }
-                else
+                if (Mapup.Contains("COMPOUND"))
                 {
 
 
 
-                    builder.WithImageUrl("https://lh3.googleusercontent.com/proxy/kdmaKyEV3y9LHL9t3aYniyiA_kzMFFutraQXiEkgx6q9Qgh8ZFLrIeVF3Fus5bh2yB1FPRfwhQp9SofMUbCZsBSi3nIJLz-DpLpIWra0D0iwnxzNVCK6V9xa7DO5jW2b");
+
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/691520066575138866/906938077711331338/latest.jpg");
+
+
+
+                }
+                if (Mapup.Contains("PORT"))
+                {
+
+
+
+
+                    builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906939312652832828/480.png");
+
+
+
+                }
+                if (Mapup.Contains("BLACKWIDOW"))
+                {
+
+
+
+
+                    builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906939006724481054/1000.png?width=901&height=676");
+
+
+
+                }                if (Mapup.Contains("ANKARA"))
+                {
+
+
+
+
+                    builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906938745842970644/1000.png");
 
 
 

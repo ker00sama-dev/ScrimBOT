@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using Discord.Net;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
@@ -63,17 +64,49 @@ aliases: " + prifx + @"needsubfor
             //  await ReplyAsync(description);
         }
 
+        [Command("serverinfo")]
+        public async Task serverinfo()
+        {
+            EmbedBuilder builder = new EmbedBuilder();
+
+            builder.WithTitle($"Server: {Context.Guild.Name}")
+                .WithColor(Color.Magenta)
+                .WithThumbnailUrl(Context.Guild.IconUrl)
+                .AddField("Owner", $"{Context.Guild.Owner}", inline: true)
+                .AddField("Date Created", $"{Context.Guild.CreatedAt}", inline: true)
+                .AddField("Members", $"{Context.Guild.MemberCount}", inline: true)
+                .AddField("Roles", $"{Context.Guild.Roles.Count}", inline: true)
+                .AddField("Text Channels", $"{Context.Guild.TextChannels.Count}", inline: true)
+                .AddField("Voice Channels", $"{Context.Guild.VoiceChannels.Count}", inline: true)
+                .WithFooter($"{DateTime.Now}");
+
+            await ReplyAsync("", false, builder.Build());
+        }
+        [Command("purge")]
+        [RequireUserPermission(GuildPermission.ManageMessages)]
+        public async Task PurgeChat(int amount)
+        {
+            IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
+            await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
+            const int delay = 3000;
+            IUserMessage m = await ReplyAsync(base.Context.User.Mention + $"I have deleted messages :)");
+            await Task.Delay(delay);
+            await m.DeleteAsync();
+        }
+       
         [Command("ping")]
         [Summary("Check whether the bot is working or not.")]
         public async Task Ping()
         {
-
+            ISocketMessageChannel channel = base.Context.Channel;
             await ReplyAsync("Ping: " + new Ping().Send("google.com").RoundtripTime.ToString() + " ms");
-
+            await channel.SendMessageAsync("Here is a button!", component: new ComponentBuilder()
+                            .WithButton(new ButtonBuilder("label", "customidhere"))
+                            .Build());
         }
         [Command("SendMessage")]
         [Summary("Check whether the bot is working or not.")]
-        public async Task SendMessage(SocketGuildUser user, string text)
+        public async Task SendMessage(Discord.WebSocket.SocketGuildUser user, string text)
         {
             await Context.Channel.SendMessageAsync(text);
 
@@ -270,9 +303,9 @@ aliases: " + prifx + @"needsubfor
                 IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
                 await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
                 const int delay = 3000;
-                //IUserMessage m = await ReplyAsync($"I have deleted {amount} messages for ya. :)");
-              //  await Task.Delay(delay);
-               // await m.DeleteAsync();
+                // IUserMessage m = await ReplyAsync($"I have deleted {amount} messages for ya. :)");
+                // await Task.Delay(delay);
+                // await m.DeleteAsync();
                 await ReplyAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, base.Context.Guild.Id));
                 await ReplyAsync("The map vote has passed and the map has been changed to: `" + match.Map + "`!");
 

@@ -248,8 +248,8 @@ namespace MyCustomDiscordBot.Services
                     await matchInfoChannel.AddPermissionOverwriteAsync(guild2.GetUser(discordId3), sendMessagesTrue);
                 }
                 await matchInfoChannel.AddPermissionOverwriteAsync(guild2.EveryoneRole, sendMessagesFalse);
-  
-           
+
+
                 OverwritePermissions connectTrue = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow);
                 if (queue.SortType == SortType.Elo)
                 {
