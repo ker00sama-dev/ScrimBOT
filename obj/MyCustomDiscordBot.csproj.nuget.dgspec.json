@@ -48,10 +48,6 @@
               "target": "Package",
               "version": "[2.4.0, )"
             },
-            "Discord.Net.Labs.Core": {
-              "target": "Package",
-              "version": "[3.1.7, )"
-            },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
               "version": "[5.0.0, )"

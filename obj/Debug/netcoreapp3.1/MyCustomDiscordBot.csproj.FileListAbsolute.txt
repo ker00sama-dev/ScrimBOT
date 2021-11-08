@@ -418,7 +418,6 @@ C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Security.AccessControl.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
-C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.AssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.GeneratedMSBuildEditorConfig.editorconfig
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.CopyComplete
@@ -426,3 +425,4 @@ C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.pdb
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.genruntimeconfig.cache
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\ServiceStack.Text.dll
+C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.AssemblyReference.cache
