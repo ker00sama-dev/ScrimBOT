@@ -57,7 +57,7 @@ namespace MyCustomDiscordBot
             if ((arg2.Status == UserStatus.Offline || arg2.Status == UserStatus.AFK || arg2.Status == UserStatus.Idle) && await _queueService.HandleUserWentAFK(arg2))
             {
                 await arg2.SendMessageAsync("Hi, it looks like you went AFK or offline in Discord. You have been removed from any PUG queues you were in. If this was not intentional, please make sure your status in discord is set to `online`. Thank you!");
-            }
+            } 
         }
 
         private async Task HandleReactionAdded(Cacheable<IUserMessage, ulong> messageCacheable, ISocketMessageChannel channel, SocketReaction reaction)
