@@ -197,7 +197,7 @@ namespace MyCustomDiscordBot.Services
             if (guildId == ServerIDs())
             {
 
-                password = RandomString(3).ToLower();
+                password = "PUG" + RandomString(3).ToLower();
 
 
             }
