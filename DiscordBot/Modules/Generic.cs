@@ -157,7 +157,8 @@ aliases: " + prifx + @"needsubfor
         //{
         //    ISocketMessageChannel channel = base.Context.Channel;
         //    //await ReplyAsync("Ping: " + new Ping().Send("google.com").RoundtripTime.ToString() + " ms");
-        //    //await channel.SendMessageAsync("Here is a button!", component: new ComponentBuilder()
+        //    //await channel.
+        //    ("Here is a button!", component: new ComponentBuilder()
         //    //                .WithButton(new ButtonBuilder("label", "customidhere"))
         //    //                .Build());
         //}  
@@ -317,8 +318,9 @@ aliases: " + prifx + @"needsubfor
         }
 
         [Command("changemap")]
+        [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Vote to change to another random map.")]
-        public async Task VoteMap()
+        public  async Task VoteMap()
         {
             SocketTextChannel channel = base.Context.Channel as SocketTextChannel;
             if (channel == null)

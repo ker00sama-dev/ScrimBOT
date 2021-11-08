@@ -298,8 +298,8 @@ namespace DiscordBot.Modules
             {
                 qConfig.SortType = SortType.Elo;
             }
-            ButtonBuilder lastButton = new ButtonBuilder() { Label = "Join", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "join" };
-            ButtonBuilder nextButton = new ButtonBuilder() { Label = "Exit", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "exit" };
+            ButtonBuilder lastButton = new ButtonBuilder() { Label = "Join", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "join" };
+            ButtonBuilder nextButton = new ButtonBuilder() { Label = "Exit", IsDisabled = false, Style = ButtonStyle.Danger, CustomId = "exit" };
             ComponentBuilder componentBuilder = new ComponentBuilder()
                   .WithButton(lastButton)
                   .WithButton(nextButton);
@@ -632,7 +632,7 @@ namespace DiscordBot.Modules
             ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
             if (base.Context.Channel.Id != config.StatsChannelId)
             {
-                await ReplyAsync(base.Context.User.Mention + ", please use this command in the stats channel only." + config.StatsChannelId + "Channel ID" + base.Context.Channel.Id);
+                await ReplyAsync(base.Context.User.Mention + ", please use this command in the stats channel only.");
 
                 await base.Context.Message.DeleteAsync();
                 return;

@@ -1,4 +1,4 @@
-using Discord;
+﻿using Discord;
 using Discord.Rest;
 using Discord.WebSocket;
 using MyCustomDiscordBot.Extensions;
@@ -156,7 +156,7 @@ namespace MyCustomDiscordBot.Services
             return true;
         }
 
-        public async Task<bool> AddToPugQueue(ulong messageId, DbUser user, ulong guildId)
+        public async Task<bool> AddToPugQueue(ulong messageId, DbUser user, ulong guildId )
         {
             foreach (PugQueue queueCurr in Queues)
             {
@@ -165,6 +165,7 @@ namespace MyCustomDiscordBot.Services
                     DbUser userFound = queueCurr.Users.Find((DbUser x) => x.DiscordId == user.DiscordId);
                     if (userFound != null)
                     {
+                       
                         await (await _client.GetGuild(guildId).GetTextChannel(queueCurr.ChannelId).SendMessageAsync(_client.GetUser(user.DiscordId).Mention + " you are already in a queue for this server.")).DeleteMessageAfterSeconds(5);
                         return true;
                     }
@@ -240,9 +241,21 @@ namespace MyCustomDiscordBot.Services
                 await matchInfoChannel.SendMessageAsync("Attention, your match is ready! " + string.Join(" ", mentionedUsers));
 
                 RestTextChannel restTextChannel = matchInfoChannel;
-                await restTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, guild2.Id));
+                RestUserMessage blankEmbedMessage = await restTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, guild2.Id));
+
+
+                ButtonBuilder bl = new ButtonBuilder() { Label = "🏆-Team #1 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "bl" };
+                ButtonBuilder gr = new ButtonBuilder() { Label = "🏆-Team #2 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "gr" };
+                ButtonBuilder map = new ButtonBuilder() { Label = "Change Map", IsDisabled = false, Style = ButtonStyle.Secondary, CustomId = "map" };
+                ComponentBuilder componentBuilder = new ComponentBuilder()
+                      .WithButton(bl)
+                      .WithButton(gr)
+                      .WithButton(map);
+                await blankEmbedMessage.ModifyAsync(x => x.Components = componentBuilder.Build());
+
                 OverwritePermissions sendMessagesFalse = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Deny);
                 OverwritePermissions sendMessagesTrue = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow);
+
                 foreach (ulong discordId3 in match.AllPlayerDiscordIds)
                 {
                     await matchInfoChannel.AddPermissionOverwriteAsync(guild2.GetUser(discordId3), sendMessagesTrue);
@@ -279,7 +292,7 @@ namespace MyCustomDiscordBot.Services
                         {
                             await moveMe.ModifyAsync(delegate (GuildUserProperties x)
                             {
-                                //	x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)team2Voice;
+                                ///x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)team2Voice;
                             });
                         }
                     }

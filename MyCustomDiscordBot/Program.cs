@@ -23,7 +23,13 @@ namespace MyCustomDiscordBot
             {
                 IConfiguration configuration = hostContext.Configuration;
                 services.Configure<BotSettings>(configuration.GetSection("BotSettings"));
-                services.AddSingleton<DatabaseService>().AddSingleton<DiscordSocketClient>().AddSingleton<UtilityService>()
+                DiscordSocketClient discord = new DiscordSocketClient(new DiscordSocketConfig()
+                {
+                    GatewayIntents = Discord.GatewayIntents.All,
+                });
+                services.AddSingleton<DatabaseService>()
+                .AddSingleton(discord)//lets try now
+                .AddSingleton<UtilityService>()
                     .AddSingleton<GlobalServersService>()
                     .AddSingleton<BaseSocketClient, DiscordSocketClient>((IServiceProvider sp) => sp.GetRequiredService<DiscordSocketClient>())
                     .AddSingleton<CommandHandler>()

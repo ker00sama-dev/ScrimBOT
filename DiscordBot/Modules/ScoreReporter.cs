@@ -300,7 +300,7 @@ namespace DiscordBot.Modules
         [Command("report")]
         [Summary("Report a victory by the team number.")]
         public async Task ReportVictory(int teamNumber)
-        {
+        { /// same it ?tsa??
             ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
             SocketGuildUser author = base.Context.User as SocketGuildUser;
             if (author != null)
@@ -345,7 +345,7 @@ namespace DiscordBot.Modules
                 {
                     await moveMe.ModifyAsync(delegate (GuildUserProperties x)
                     {
-                        //x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)waiting;
+                  //      x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)waiting;//can you fix ? 
                     });
                     await Task.Delay(250);
                 }
