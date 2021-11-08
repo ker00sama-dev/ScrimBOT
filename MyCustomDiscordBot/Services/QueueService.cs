@@ -236,7 +236,7 @@ namespace MyCustomDiscordBot.Services
                 EmbedBuilder builder = new EmbedBuilder();
                 builder.WithColor(Color.Green);
                 builder.WithDescription($"Match #{match.Number} has been generated. Please visit {matchInfoChannel.Mention} to begin your match.");
-                await (await queueChannel2.SendMessageAsync(null, isTTS: false, builder.Build())).DeleteMessageAfterSeconds(3);
+                await (await queueChannel2.SendMessageAsync(null, isTTS: false, builder.Build())).DeleteMessageAfterSeconds(1);
 
                 await matchInfoChannel.SendMessageAsync("Attention, your match is ready! " + string.Join(" ", mentionedUsers));
 
@@ -246,7 +246,7 @@ namespace MyCustomDiscordBot.Services
 
                 ButtonBuilder bl = new ButtonBuilder() { Label = "🏆-Team #1 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "bl" };
                 ButtonBuilder gr = new ButtonBuilder() { Label = "🏆-Team #2 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "gr" };
-                ButtonBuilder map = new ButtonBuilder() { Label = "Change Map", IsDisabled = false, Style = ButtonStyle.Secondary, CustomId = "map" };
+                ButtonBuilder map = new ButtonBuilder() { Label = "Change Map :map: ", IsDisabled = false, Style = ButtonStyle.Link, CustomId = "map" };
                 ComponentBuilder componentBuilder = new ComponentBuilder()
                       .WithButton(bl)
                       .WithButton(gr)

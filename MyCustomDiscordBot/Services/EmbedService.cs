@@ -197,7 +197,7 @@ namespace MyCustomDiscordBot.Services
             if (guildId == ServerIDs())
             {
 
-                password = RandomString(4).ToLower();
+                password = RandomString(3).ToLower();
 
 
             }
@@ -207,6 +207,7 @@ namespace MyCustomDiscordBot.Services
                 if (password != string.Empty)
                 {
                     builder.WithDescription("Map: *" + match.Map + "*\n\nPassword: *" + password + "*");
+
                 }
                 else
                 {
