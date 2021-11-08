@@ -222,8 +222,12 @@ namespace MyCustomDiscordBot.Services
                 {
                     team2Value3 += $"`{(await _databaseService.GetUserInGuild(discordId5, guildId)).ELO}`{_client.GetUser(discordId5).Mention}\n";
                 }
+
                 builder.AddField("Team 1", team1Value3, inline: true);
                 builder.AddField("Team 2", team2Value3, inline: true);
+
+           
+
                 string Mapup = match.Map.ToUpper();
                 //qConfig.Maps.Add("SubBase");
                 //qConfig.Maps.Add("ankara");

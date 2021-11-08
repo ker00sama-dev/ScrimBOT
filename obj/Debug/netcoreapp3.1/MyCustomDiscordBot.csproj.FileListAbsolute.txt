@@ -414,7 +414,6 @@ C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\linux\native\libmongocrypt.so
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\osx\native\libmongocrypt.dylib
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\native\mongocrypt.dll
-C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Diagnostics.EventLog.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Security.AccessControl.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
@@ -426,3 +425,6 @@ C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.genruntimeconfig.cache
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\ServiceStack.Text.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.AssemblyReference.cache
+C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
+C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Diagnostics.EventLog.Messages.dll
+C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Diagnostics.EventLog.dll

@@ -260,11 +260,10 @@ namespace DiscordBot.Modules
                 _logger.LogError("Error setting score reporter role in " + base.Context.Guild.Name + ": " + e.Message);
             }
         }
-
         [Command("createqueue")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Set up a reaction based queue in a given channel.")]
-        public async Task CreateReactionQueue(string name, int capacity, string sortType)
+        public async Task CreateReactionQueueb(string name, int capacity, string sortType)
         {
             ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
             if (config.MatchesCategoryId == 0 || config.StatsChannelId == 0 || config.MatchLogsChannelId == 0 || config.ScoreReporterRoleId == 0 || config.MaximumTeamSize <= 0 || config.WaitingForMatchChannelId == 0)
@@ -299,15 +298,26 @@ namespace DiscordBot.Modules
             {
                 qConfig.SortType = SortType.Elo;
             }
+            ButtonBuilder lastButton = new ButtonBuilder() { Label = "Join", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "join" };
+            ButtonBuilder nextButton = new ButtonBuilder() { Label = "Exit", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "exit" };
+            ComponentBuilder componentBuilder = new ComponentBuilder()
+                  .WithButton(lastButton)
+                  .WithButton(nextButton);
             await blankEmbedMessage.ModifyAsync(delegate (MessageProperties x)
             {
                 x.Embed = _embedService.GetPugQueueCreatedEmbed(qConfig);
             });
+            await blankEmbedMessage.ModifyAsync(x => x.Components = componentBuilder.Build());
+
             config.QueueConfigs.Add(qConfig);
             await _databaseService.UpsertServerConfigAsync(config);
             _queueService.CreatePugQueue(qConfig);
-            await blankEmbedMessage.AddReactionAsync(new Emoji("✅"));
-            await blankEmbedMessage.AddReactionAsync(new Emoji("❌"));
+
+            //await blankEmbedMessage.AddReactionAsync(new Emoji("✅"));
+            //await blankEmbedMessage.AddReactionAsync(new Emoji("❌"));
+  
+
+
 
             if (name.ToLower().Contains("crossfire"))
             {
@@ -343,6 +353,88 @@ namespace DiscordBot.Modules
 
 
         }
+        //[Command("createqueue")]
+        //[RequireUserPermission(GuildPermission.Administrator)]
+        //[Summary("Set up a reaction based queue in a given channel.")]
+        //public async Task CreateReactionQueue(string name, int capacity, string sortType)
+        //{
+        //    ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+        //    if (config.MatchesCategoryId == 0 || config.StatsChannelId == 0 || config.MatchLogsChannelId == 0 || config.ScoreReporterRoleId == 0 || config.MaximumTeamSize <= 0 || config.WaitingForMatchChannelId == 0)
+        //    {
+        //        await ReplyAsync("Please make sure to set the matches category, stats channel, match logs channel and the score reporter role before setting up a queue. You may use `.config` to see your progress.");
+        //        return;
+        //    }
+        //    if (name.Length <= 1 || name.Length > 14)
+        //    {
+        //        await ReplyAsync("Please specify the name of the queue to be between 2 and 14 characters long.");
+        //        return;
+        //    }
+        //    if (capacity > 22 || capacity % 2 != 0)
+        //    {
+        //        await ReplyAsync("Please make sure the queue only holds up a maximum of 22 users, and that is an even number.");
+        //        return;
+        //    }
+        //    if (sortType.ToLower() != "captains" && sortType.ToLower() != "elo")
+        //    {
+        //        await ReplyAsync("Please make sure the queue's sort type is only `captains` or `elo`.");
+        //        return;
+        //    }
+        //    EmbedBuilder builder = new EmbedBuilder();
+        //    builder.WithDescription("Setting up queue...");
+        //    RestUserMessage blankEmbedMessage = await base.Context.Channel.SendMessageAsync(null, isTTS: false, builder.Build());
+        //    QueueConfig qConfig = new QueueConfig(name, capacity, base.Context.Guild.Id, base.Context.Channel.Id, blankEmbedMessage.Id);
+        //    if (sortType.ToLower() == "captains")
+        //    {
+        //        qConfig.SortType = SortType.Captains;
+        //    }
+        //    else if (sortType.ToLower() == "elo")
+        //    {
+        //        qConfig.SortType = SortType.Elo;
+        //    }
+        //    await blankEmbedMessage.ModifyAsync(delegate (MessageProperties x)
+        //    {
+        //        x.Embed = _embedService.GetPugQueueCreatedEmbed(qConfig);
+        //    });
+        //    config.QueueConfigs.Add(qConfig);
+        //    await _databaseService.UpsertServerConfigAsync(config);
+        //    _queueService.CreatePugQueue(qConfig);
+        //    await blankEmbedMessage.AddReactionAsync(new Emoji("✅"));
+        //    await blankEmbedMessage.AddReactionAsync(new Emoji("❌"));
+
+        //    if (name.ToLower().Contains("crossfire"))
+        //    {
+        //        foreach (string map in qConfig.Maps)
+        //        {
+        //            if (map.ToLower() == name.ToLower())
+        //            {
+        //                await ReplyAsync("That map: " + "Subbase" + " is already in the map pool for the " + qConfig.Name + " queue.");
+        //                await ReplyAsync("That map: " + "ankara" + " is already in the map pool for the " + qConfig.Name + " queue.");
+        //                await ReplyAsync("That map: " + "BlackWidow" + " is already in the map pool for the " + qConfig.Name + " queue.");
+        //                await ReplyAsync("That map: " + "Compound" + " is already in the map pool for the " + qConfig.Name + " queue.");
+        //                await ReplyAsync("That map: " + "Port" + " is already in the map pool for the " + qConfig.Name + " queue.");
+
+
+
+        //                return;
+        //            }
+        //        }
+
+        //        qConfig.Maps.Add("SubBase");
+        //        qConfig.Maps.Add("ankara");
+        //        qConfig.Maps.Add("BlackWidow");
+        //        qConfig.Maps.Add("Compound");
+        //        qConfig.Maps.Add("Port");
+
+        //        await _databaseService.UpsertServerConfigAsync(config);
+        //        _queueService.UpdatePugQueue(qConfig);
+        //        await base.Context.Message.DeleteAsync();
+
+        //    }
+
+        //    await base.Context.Message.DeleteAsync();
+
+
+        //}
 
         [Command("setmatchlogs")]
         [RequireUserPermission(GuildPermission.Administrator)]

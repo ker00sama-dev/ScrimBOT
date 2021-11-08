@@ -44,13 +44,25 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
-            "Discord.Net": {
+            "Discord.Net.Labs": {
               "target": "Package",
-              "version": "[2.4.0, )"
+              "version": "[3.1.7, )"
+            },
+            "Discord.Net.Labs.Commands": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Discord.Net.Labs.Core": {
+              "target": "Package",
+              "version": "[3.1.7, )"
+            },
+            "Discord.Net.Labs.Rest": {
+              "target": "Package",
+              "version": "[3.1.7, )"
             },
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
-              "version": "[5.0.0, )"
+              "version": "[6.0.0, )"
             },
             "MongoDB.Bson": {
               "target": "Package",

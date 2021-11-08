@@ -15,7 +15,7 @@ namespace MyCustomDiscordBot
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
-        }
+        }//where are your handling 
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
