@@ -246,7 +246,7 @@ namespace MyCustomDiscordBot.Services
 
                 ButtonBuilder bl = new ButtonBuilder() { Label = "🏆-Team #1 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "bl" };
                 ButtonBuilder gr = new ButtonBuilder() { Label = "🏆-Team #2 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "gr" };
-                ButtonBuilder map = new ButtonBuilder() { Label = "Change Map :map: ", IsDisabled = false, Style = ButtonStyle.Link, CustomId = "map" };
+                ButtonBuilder map = new ButtonBuilder() { Label = "Change Map 🗺️", IsDisabled = false, Style = ButtonStyle.Secondary, CustomId = "map" };
                 ComponentBuilder componentBuilder = new ComponentBuilder()
                       .WithButton(bl)
                       .WithButton(gr)
