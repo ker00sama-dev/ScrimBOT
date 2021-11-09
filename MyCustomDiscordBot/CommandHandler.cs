@@ -80,7 +80,8 @@ namespace MyCustomDiscordBot
 
             //await interaction.UpdateAsync(x =>
             //{
-            //    x.Components = null;
+            //    x.Components =
+            //    ;
             //    x.Embed = new EmbedBuilder() { Title = "wait.." }.Build();
             //    x.Content = $"<@{interaction.User.Id}>";
             //});

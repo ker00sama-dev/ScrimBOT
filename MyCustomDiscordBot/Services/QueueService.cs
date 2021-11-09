@@ -277,7 +277,7 @@ namespace MyCustomDiscordBot.Services
                         {
                             await moveMe2.ModifyAsync(delegate (GuildUserProperties x)
                             {
-                                //x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)team1Voice;
+                                x.Channel = team1Voice;
                             });
                         }
                     }
@@ -292,7 +292,7 @@ namespace MyCustomDiscordBot.Services
                         {
                             await moveMe.ModifyAsync(delegate (GuildUserProperties x)
                             {
-                                ///x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)team2Voice;
+                                x.Channel = team2Voice;
                             });
                         }
                     }

@@ -350,7 +350,7 @@ aliases: " + prifx + @"needsubfor
                         {
                             await moveMe3.ModifyAsync(delegate (GuildUserProperties x)
                             {
-                                //	x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)team1Voice;
+                                x.Channel = team1Voice;
                             });
                         }
                     }
@@ -361,7 +361,7 @@ aliases: " + prifx + @"needsubfor
                         {
                             await moveMe4.ModifyAsync(delegate (GuildUserProperties x)
                             {
-                                ///	x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)team2Voice;
+                                x.Channel = team2Voice;
                             });
                         }
                     }

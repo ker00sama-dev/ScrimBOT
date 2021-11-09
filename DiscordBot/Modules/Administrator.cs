@@ -261,10 +261,25 @@ namespace DiscordBot.Modules
             }
         }
         [Command("createqueue")]
+        //    [Remarks("prefix [new prefix]")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Set up a reaction based queue in a given channel.")]
-        public async Task CreateReactionQueueb(string name, int capacity, string sortType)
+        public async Task CreateReactionQueueb(string name = null, int capacity = 0, string sortType = null)
         {
+          
+            if (name == null || capacity == null || sortType == null)
+            {
+
+              await ( await ReplyAsync($"{Config.Prfix}createqueue [name] [maximum users] [captains or elo ]")).DeleteMessageAfterSeconds(2);
+                return;
+
+            }
+
+            if (string.IsNullOrEmpty(sortType))
+            {
+                throw new ArgumentException($"'{nameof(sortType)}' cannot be null or empty.", nameof(sortType));
+            }
+
             ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
             if (config.MatchesCategoryId == 0 || config.StatsChannelId == 0 || config.MatchLogsChannelId == 0 || config.ScoreReporterRoleId == 0 || config.MaximumTeamSize <= 0 || config.WaitingForMatchChannelId == 0)
             {
