@@ -315,7 +315,7 @@ namespace DiscordBot.Modules
 
             //await blankEmbedMessage.AddReactionAsync(new Emoji("✅"));
             //await blankEmbedMessage.AddReactionAsync(new Emoji("❌"));
-  
+
 
 
 
@@ -624,37 +624,7 @@ namespace DiscordBot.Modules
             await _databaseService.UpsertServerConfigAsync(config);
             await ReplyAsync($"Win amount has been set to: `{config.WinAmount}`. Loss amount has been set to: `{config.LossAmount}`.");
         }
-        [Command("kero")]
-        [Alias(new string[] { "mina", "asdsad" })]
-        [Summary("See your profile, or pull up a user's profile!")]
-        public async Task SeeProfile(SocketGuildUser user = null)
-        {
-            ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
-            if (base.Context.Channel.Id != config.StatsChannelId)
-            {
-                await ReplyAsync(base.Context.User.Mention + ", please use this command in the stats channel only.");
 
-                await base.Context.Message.DeleteAsync();
-                return;
-            }
-            SocketUser user2 = base.Context.User;
-            SocketGuildUser member = user2 as SocketGuildUser;
-            if (member != null)
-            {
-                if (user != null)
-                {
-                    member = user;
-                }
-                DbUser dbUser = await _databaseService.GetUserInGuild(member.Id, base.Context.Guild.Id);
-                if (dbUser == null)
-                {
-                    await ReplyAsync(member.Mention + " does not have a profile in our system yet. To get one, simply play a match.");
-                    return;
-                }
-                ISocketMessageChannel channel = base.Context.Channel;
-                await channel.SendMessageAsync(null, isTTS: false, await _embedService.ProfileEmbed(dbUser));
-            }
-        }
         [Command("config")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("See your server's configuration.")]
@@ -696,5 +666,7 @@ namespace DiscordBot.Modules
             });
             await ReplyAsync(null, isTTS: false, builder.Build());
         }
+
+        
     }
 }

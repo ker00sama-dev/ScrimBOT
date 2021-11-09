@@ -20,7 +20,7 @@ namespace MyCustomDiscordBot.Services
         public DatabaseService(IOptions<BotSettings> botSettings)
         {
             _botSettings = botSettings.Value;
-            Client = new MongoClient(_botSettings.DBConnectionString);
+            Client = new MongoClient(Config.DBConnectionString);
             Databases = new List<IMongoDatabase>();
         }
 

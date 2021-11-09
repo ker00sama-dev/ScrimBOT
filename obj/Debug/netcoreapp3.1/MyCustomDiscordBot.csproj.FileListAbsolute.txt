@@ -424,7 +424,8 @@ C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.pdb
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.genruntimeconfig.cache
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\ServiceStack.Text.dll
-C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.AssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\System.Text.Encodings.Web.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Diagnostics.EventLog.Messages.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Diagnostics.EventLog.dll
+C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\Microsoft.Bot.Schema.dll
+C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.AssemblyReference.cache

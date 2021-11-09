@@ -90,7 +90,16 @@ namespace MyCustomDiscordBot.Services
             builder.WithDescription($"**Captain:** {_client.GetUser(team.CaptainDiscordId).Mention}\n**Members**: {memberMentions} **Points**: `{team.Points}`\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`\n\n");
             return builder.Build();
         }
+        public async Task<Embed> Pic(ulong user)
+        {
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.WithColor(Color.Blue);
+            builder.WithTitle("Avatar");
+            builder.WithImageUrl(_client.GetUser(user).GetAvatarUrl(ImageFormat.Auto, 128));
+            builder.WithFooter($"{_client.GetUser(user).Username}");
 
+            return builder.Build();
+        }
         public async Task<Embed> ProfileEmbed(DbUser user)
         {
             EmbedBuilder builder = new EmbedBuilder();
@@ -362,6 +371,6 @@ namespace MyCustomDiscordBot.Services
             return builder.Build();
         }
 
-        public static ulong ServerIDs() => 903657723495866408L;
+        public static ulong ServerIDs() => Config.id;
     }
 }

@@ -7,9 +7,13 @@ using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using MyCustomDiscordBot;
+using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Microsoft.Bot.Schema;
 
 namespace DiscordBot.Modules
 {
@@ -23,20 +27,35 @@ namespace DiscordBot.Modules
 
         private readonly CommandService _commandService;
 
-        public Generic(DatabaseService databaseService, QueueService queueService, EmbedService embedService, CommandService commandService)
+        public Generic(DatabaseService databaseService, QueueService queueService, EmbedService embedService, CommandService commandService )
         {
             _databaseService = databaseService;
             _queueService = queueService;
             _embedService = embedService;
             _commandService = commandService;
         }
+        [Command("info")]
+        public async Task BotInfo()
+        {
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.WithTitle($"Bot Info")
+    .WithColor(Color.Green)
+    .WithThumbnailUrl(Context.Client.CurrentUser.GetAvatarUrl())
+    .WithDescription($"The bot was made by {MentionUtils.MentionUser(488567658686447638)}\n\n"+
+                     $"Current Prefix **{Config.Prfix}**")
+    .WithFooter($"{DateTime.Now}");
+
+            await ReplyAsync("", false, builder.Build());
+
+        }
+
 
         [Command("help")]
-        [Alias(new string[] { "info", "commands" })]
+        [Alias(new string[] { "commands" })]
         [Summary("Get more information on how to use the bot.")]
         public async Task SeeHelp(string command = null)
         {
-            string prifx = ",";
+            string prifx = Config.Prfix.ToString();
             await ReplyAsync(@"```
 Commands
 " + prifx + @"createqueue        - {NAMEQUEUE} {USERS MAXIMUM(22)}  {ELO" + prifx + @"CAPTAINS}
@@ -84,6 +103,64 @@ aliases: " + prifx + @"needsubfor
 
             await ReplyAsync("", false, builder.Build());
         }
+          [Command("kick")]
+        [Summary("Kick a user from the server.")]
+        [RequireBotPermission(GuildPermission.KickMembers)]
+        [RequireUserPermission(GuildPermission.KickMembers)]
+        public async Task Kick(SocketGuildUser targetUser, [Remainder]string reason = "No reason provided.")
+        {
+            await targetUser.KickAsync(reason);
+            await ReplyAsync($"**{targetUser}** has been kicked. Bye bye :wave:");
+        }
+
+        [Command("ban")]
+        [Summary("Ban a user from the server")]
+        [RequireUserPermission(GuildPermission.BanMembers)]
+        [RequireBotPermission(GuildPermission.BanMembers)]
+        public async Task Ban(SocketGuildUser targetUser, [Remainder]string reason = "No reason provided.")
+        {
+            await Context.Guild.AddBanAsync(targetUser.Id, 0, reason);
+            await ReplyAsync($"**{targetUser}** has been banned. Bye bye :wave:");
+        }
+
+        [Command("unban")]
+        [Summary("Unban a user from the server")]
+        [RequireBotPermission(GuildPermission.BanMembers)]
+        [RequireUserPermission(GuildPermission.BanMembers)]
+        public async Task Unban(ulong targetUser)
+        {
+            await Context.Guild.RemoveBanAsync(targetUser);
+            await Context.Channel.SendMessageAsync($"The user has been unbanned :clap:");
+        }
+        [Command("role")]
+        [Alias("roleinfo")]
+        [Summary("Show information about a role.")]
+        public async Task RoleInfo([Remainder] SocketRole role)
+        {
+            // Just in case someone tries to be funny.
+            if (role.Id == Context.Guild.EveryoneRole.Id)
+                return;
+            await ReplyAsync(
+                $":flower_playing_cards: **{role.Name}** information```ini" +
+                $"\n[Members]             {role.Members.Count()}" +
+                $"\n[Role ID]             {role.Id}" +
+                $"\n[Hoisted status]      {role.IsHoisted}" +
+                $"\n[Created at]          {role.CreatedAt:dd/M/yyyy}" +
+                $"\n[Hierarchy position]  {role.Position}" +
+                $"\n[Color Hex]           {role.Color}```");
+        }
+
+        //[Command("purge")]
+        //[Summary("Bulk deletes messages in chat")]
+        //[RequireBotPermission(GuildPermission.ManageMessages)]
+        //[RequireUserPermission(GuildPermission.ManageMessages)]
+        //public async Task Purge(int delNumber)
+        //{
+        //    var channel = Context.Channel as SocketTextChannel;
+        //    var items = await channel.GetMessagesAsync(delNumber + 1).FlattenAsync();
+        //    await channel.DeleteMessagesAsync(items);
+        //}
+
         [Command("purge")]
         [RequireUserPermission(GuildPermission.ManageMessages)]
         public async Task PurgeChat(int amount)
@@ -151,6 +228,32 @@ aliases: " + prifx + @"needsubfor
             };
 
             await message.ModifyAsync(m => m.Embed = embed2.Build());
+        }
+
+        [Command("avatar")]
+        [Summary("See your profile, or pull up a user's profile!")]
+        public async Task KeroPHOTO(SocketGuildUser user = null)
+        {
+
+          //  SocketGuildUser member = user as SocketGuildUser;
+
+            if (user != null)
+            {
+
+                await ReplyAsync("", false, await  _embedService.Pic(user.Id));
+
+                return;
+            }
+         
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.WithTitle("Avatar")
+        //.WithThumbnailUrl(Context.User.GetAvatarUrl())
+        .WithImageUrl(Context.User.GetAvatarUrl(ImageFormat.Auto, 128))
+        .WithFooter($"{Context.User.Username}");
+
+                await ReplyAsync("", false, builder.Build());
+       
+
         }
 
         //public async Task Ping()
@@ -371,7 +474,7 @@ aliases: " + prifx + @"needsubfor
             }
             await base.Context.Message.DeleteMessageAfterSeconds(5);
         }
-
+       
         [Command("stats")]
         [Alias(new string[] { "profile", "statistics" })]
         [Summary("See your profile, or pull up a user's profile!")]
@@ -403,7 +506,7 @@ aliases: " + prifx + @"needsubfor
                 await channel.SendMessageAsync(null, isTTS: false, await _embedService.ProfileEmbed(dbUser));
             }
         }
-
+     
         [Command("leaderboard")]
         [Alias(new string[] { "lb" })]
         [Summary("See the top 25 users in your server.")]

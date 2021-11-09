@@ -510,7 +510,7 @@ namespace MyCustomDiscordBot
             if (message != null)
             {
                 int argPos = 0;
-                if ((message.HasCharPrefix(',', ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
+                if ((message.HasCharPrefix(Config.Prfix, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
                 {
                     SocketCommandContext context = new SocketCommandContext(_client, message);
                     await _commands.ExecuteAsync(context, argPos, _sp);
