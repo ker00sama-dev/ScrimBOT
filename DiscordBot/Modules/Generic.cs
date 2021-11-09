@@ -160,7 +160,7 @@ aliases: " + prifx + @"needsubfor
         //    var items = await channel.GetMessagesAsync(delNumber + 1).FlattenAsync();
         //    await channel.DeleteMessagesAsync(items);
         //}
-
+      
         [Command("purge")]
         [RequireUserPermission(GuildPermission.ManageMessages)]
         public async Task PurgeChat(int amount)
@@ -230,31 +230,31 @@ aliases: " + prifx + @"needsubfor
             await message.ModifyAsync(m => m.Embed = embed2.Build());
         }
 
-        [Command("avatar")]
-        [Summary("See your profile, or pull up a user's profile!")]
-        public async Task KeroPHOTO(SocketGuildUser user = null)
-        {
+        //[Command("avatar")]
+        //[Summary("See your profile, or pull up a user's profile!")]
+        //public async Task KeroPHOTO(SocketGuildUser user = null)
+        //{
 
-          //  SocketGuildUser member = user as SocketGuildUser;
+        //  //  SocketGuildUser member = user as SocketGuildUser;
 
-            if (user != null)
-            {
+        //    if (user != null)
+        //    {
 
-                await ReplyAsync("", false, await  _embedService.Pic(user.Id));
+        //        await ReplyAsync("", false, await  _embedService.Pic(user.Id));
 
-                return;
-            }
+        //        return;
+        //    }
          
-                EmbedBuilder builder = new EmbedBuilder();
-                builder.WithTitle("Avatar")
-        //.WithThumbnailUrl(Context.User.GetAvatarUrl())
-        .WithImageUrl(Context.User.GetAvatarUrl(ImageFormat.Auto, 128))
-        .WithFooter($"{Context.User.Username}");
+        //        EmbedBuilder builder = new EmbedBuilder();
+        //        builder.WithTitle("Avatar")
+        ////.WithThumbnailUrl(Context.User.GetAvatarUrl())
+        //.WithImageUrl(Context.User.GetAvatarUrl(ImageFormat.Auto, 128))
+        //.WithFooter($"{Context.User.Username}");
 
-                await ReplyAsync("", false, builder.Build());
+        //        await ReplyAsync("", false, builder.Build());
        
 
-        }
+        //}
 
         //public async Task Ping()
         //{
