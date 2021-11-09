@@ -166,7 +166,7 @@ namespace MyCustomDiscordBot.Services
                     if (userFound != null)
                     {
                        
-                        await (await _client.GetGuild(guildId).GetTextChannel(queueCurr.ChannelId).SendMessageAsync(_client.GetUser(user.DiscordId).Mention + " you are already in a queue for this server.")).DeleteMessageAfterSeconds(5);
+                        await (await _client.GetGuild(guildId).GetTextChannel(queueCurr.ChannelId).SendMessageAsync(_client.GetUser(user.DiscordId).Mention + " you are already in a queue for this server.")).DeleteMessageAfterSeconds(2);
                         return true;
                     }
                 }
@@ -179,14 +179,14 @@ namespace MyCustomDiscordBot.Services
             _ = user.SuspensionReturnDate;
             if (user.SuspensionReturnDate > DateTime.UtcNow)
             {
-                await (await _client.GetGuild(queue.GuildId).GetTextChannel(queue.ChannelId).SendMessageAsync($"{_client.GetUser(user.DiscordId).Mention}, you are suspended from pugs for {Math.Round((user.SuspensionReturnDate - DateTime.UtcNow).TotalMinutes, 2)} minutes.")).DeleteMessageAfterSeconds(5);
+                await (await _client.GetGuild(queue.GuildId).GetTextChannel(queue.ChannelId).SendMessageAsync($"{_client.GetUser(user.DiscordId).Mention}, you are suspended from pugs for {Math.Round((user.SuspensionReturnDate - DateTime.UtcNow).TotalMinutes, 2)} minutes.")).DeleteMessageAfterSeconds(2);
                 return true;
             }
             if (queue.Maps.Count <= 0)
             {
                 SocketGuild guild = _client.GetGuild(queue.GuildId);
                 SocketTextChannel queueChannel = guild.GetTextChannel(queue.ChannelId);
-                await (await queueChannel.SendMessageAsync("There are no maps in the " + queue.Name + " map pool. Please add at least one before continuing.")).DeleteMessageAfterSeconds(5);
+                await (await queueChannel.SendMessageAsync("There are no maps in the " + queue.Name + " map pool. Please add at least one before continuing.")).DeleteMessageAfterSeconds(2);
                 return true;
             }
             queue.Users.Add(user);

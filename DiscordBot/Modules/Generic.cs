@@ -473,7 +473,7 @@ aliases: " + prifx + @"needsubfor
                 await ReplyAsync("The map vote has passed and the map has been changed to: `" + match.Map + "`!");
 
             }
-            await base.Context.Message.DeleteMessageAfterSeconds(5);
+            await base.Context.Message.DeleteMessageAfterSeconds(2);
         }
        
         [Command("stats")]
