@@ -270,16 +270,11 @@ aliases: " + prifx + @"needsubfor
         [Summary("Check whether the bot is working or not.")]
         public async Task SendMessage(Discord.WebSocket.SocketGuildUser user, string text)
         {
-            //await Context.Channel.SendMessageAsync(text);
+           // await Context.Channel.SendMessageAsync(text);
 
-            //await user.SendMessageAsync(text);
-            //SocketDMChannel DMChannel = (SocketDMChannel)user.GetOrCreateDMChannelAsync().Result;
-
-            //await DMChannel.SendMessageAsync(text);
-            //foreach (SocketRole role in ((SocketGuildUser)Context.Message.Author).Roles)
-            //{
-            //    Console.WriteLine(role.Name);
-            //}
+            await user.SendMessageAsync(text);
+  
+        
         }
         [Command("pick")]
         [Alias(new string[] { "p" })]
