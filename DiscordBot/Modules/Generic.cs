@@ -262,7 +262,8 @@ aliases: " + prifx + @"needsubfor
         //    //await ReplyAsync("Ping: " + new Ping().Send("google.com").RoundtripTime.ToString() + " ms");
         //    //await channel.
         //    ("Here is a button!", component: new ComponentBuilder()
-        //    //                .WithButton(new ButtonBuilder("label", "customidhere"))
+        //    //                .WithButton(new
+        //    ("label", "customidhere"))
         //    //                .Build());
         //}  
         [Command("SendMessage")]

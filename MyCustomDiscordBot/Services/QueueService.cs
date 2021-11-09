@@ -244,6 +244,7 @@ namespace MyCustomDiscordBot.Services
                 RestUserMessage blankEmbedMessage = await restTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, guild2.Id));
 
 
+
                 ButtonBuilder bl = new ButtonBuilder() { Label = "🏆-Team #1 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "bl" };
                 ButtonBuilder gr = new ButtonBuilder() { Label = "🏆-Team #2 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "gr" };
                 ButtonBuilder map = new ButtonBuilder() { Label = "Change Map 🗺️", IsDisabled = false, Style = ButtonStyle.Secondary, CustomId = "map" };

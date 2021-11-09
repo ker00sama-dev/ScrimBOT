@@ -313,8 +313,8 @@ namespace DiscordBot.Modules
             {
                 qConfig.SortType = SortType.Elo;
             }
-            ButtonBuilder lastButton = new ButtonBuilder() { Label = "Join", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "join" };
-            ButtonBuilder nextButton = new ButtonBuilder() { Label = "Exit", IsDisabled = false, Style = ButtonStyle.Danger, CustomId = "exit" };
+            ButtonBuilder lastButton = new ButtonBuilder() { Label = "Join  👋", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "join" };
+            ButtonBuilder nextButton = new ButtonBuilder() { Label = "leave ✋", IsDisabled = false, Style = ButtonStyle.Danger, CustomId = "exit" };
             ComponentBuilder componentBuilder = new ComponentBuilder()
                   .WithButton(lastButton)
                   .WithButton(nextButton);
