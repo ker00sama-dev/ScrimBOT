@@ -14,6 +14,7 @@ using System.Net.NetworkInformation;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using Microsoft.Bot.Schema;
+using Discord.Rest;
 
 namespace DiscordBot.Modules
 {
@@ -461,10 +462,25 @@ aliases: " + prifx + @"needsubfor
                 IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
                 await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
                 const int delay = 3000;
+
+
                 // IUserMessage m = await ReplyAsync($"I have deleted {amount} messages for ya. :)");
                 // await Task.Delay(delay);
                 // await m.DeleteAsync();
-                await ReplyAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, base.Context.Guild.Id));
+                ISocketMessageChannel channelkero = base.Context.Channel; //i found the problem, your embed service is returned null
+
+                RestUserMessage blankEmbedMessage = await channelkero.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, base.Context.Guild.Id));
+
+
+
+                ButtonBuilder bl = new ButtonBuilder() { Label = "🏆-Team #1 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "bl" };
+                ButtonBuilder gr = new ButtonBuilder() { Label = "🏆-Team #2 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "gr" };
+                //ButtonBuilder map = new ButtonBuilder() { Label = "Change Map", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "map" };
+                ComponentBuilder componentBuilder = new ComponentBuilder()
+                      .WithButton(bl)
+                      .WithButton(gr);
+                //  .WithButton(map);
+                await blankEmbedMessage.ModifyAsync(x => x.Components = componentBuilder.Build());
                 await ReplyAsync("The map vote has passed and the map has been changed to: `" + match.Map + "`!");
 
             }

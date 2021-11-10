@@ -299,7 +299,7 @@ namespace MyCustomDiscordBot
                     }
                     if (!roleFound)
                     {
-                        await interaction.Channel.SendMessageAsync(author.Mention + ", you do not have the score reporting role.");
+                        await (await interaction.Channel.SendMessageAsync(author.Mention + ", you do not have the score reporting role.")).DeleteMessageAfterSeconds(1);
                         await interaction.UpdateAsync(x =>
                         {
                             //    x.Content = "text"; //text

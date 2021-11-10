@@ -165,10 +165,12 @@ namespace MyCustomDiscordBot.Services
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithTitle($"{config.Name} Queue: 0 / {config.Capacity}");
+            builder.WithDescription("Click the **Join button** to join the Mixed EG/EU queue or Click **leave button** to leave queue\n\n**Players**\n");
             builder.WithColor(Color.Gold);
+
             builder.WithFooter(new EmbedFooterBuilder
             {
-                Text = $"Teams arranged by {config.SortType}"
+                Text = $"Powered by CrossFire Stars League"
             });
             return builder.Build();
         }
@@ -177,16 +179,16 @@ namespace MyCustomDiscordBot.Services
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Gold);
-            builder.WithTitle($"{queue.Name} Queue: {queue.Users.Count} / {queue.Capacity}");
+            builder.WithTitle($"{queue.Name}");
             string description = "";
             foreach (DbUser user in queue.Users)
             {
                 description += $"`{user.ELO}`{_client.GetUser(user.DiscordId).Mention}\n";
             }
-            builder.WithDescription(description);
+            builder.WithDescription($"Click the **Join button** to join the Mixed EG/EU queue or Click **leave button** to leave queue\n\n**Players**                       **{queue.Users.Count()} / {queue.Capacity}**\n" + description);
             builder.WithFooter(new EmbedFooterBuilder
             {
-                Text = $"Teams arranged by {queue.SortType}"
+                Text = $"Powered by CrossFire Stars League"
             });
             return builder.Build();
         }
@@ -206,7 +208,7 @@ namespace MyCustomDiscordBot.Services
             if (guildId == ServerIDs())
             {
 
-                password = "PUG" + RandomString(3).ToLower();
+                password =  RandomString(3).ToLower();
 
 
             }
