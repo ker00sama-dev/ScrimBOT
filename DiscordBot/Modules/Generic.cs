@@ -417,6 +417,75 @@ aliases: " + prifx + @"needsubfor
             }
         }
 
+        [Command("votemap")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+        [Summary("Vote to change to another random map.")]
+        public async Task vote(string map)
+        {
+            SocketTextChannel channel = base.Context.Channel as SocketTextChannel;
+            if (channel == null)
+            {
+                return;
+            }
+            Match match = await _databaseService.GetMatchForChannelAsync(base.Context.Guild.Id, channel.Id);
+            if (match == null)
+            {
+                await ReplyAsync("This is not a match channel or something weird happened.");
+                return;
+            }
+            if (match.MapChangeVoteDiscordIds.Contains(base.Context.User.Id))
+            {
+                await ReplyAsync(base.Context.User.Mention + " you have already voted to change the map.");
+                return;
+            }
+            match.MapChangeVoteDiscordIds.Add(base.Context.User.Id);
+            int mapChangeVotesNeeded = _queueService.GetPugQueue(match.PugQueueMessageId).Capacity / 2 + 1;
+            if (match.MapChangeVoteDiscordIds.Count < mapChangeVotesNeeded)
+            {
+                await _databaseService.UpsertMatchAsync(base.Context.Guild.Id, match);
+                await ReplyAsync($"{base.Context.User.Mention} has voted to change the map. `{match.MapChangeVoteDiscordIds.Count} / {mapChangeVotesNeeded}`");
+            }
+            else
+            {
+                foreach (QueueConfig qConfig in (await _databaseService.GetServerConfigAsync(base.Context.Guild.Id)).QueueConfigs)
+                {
+                    if (qConfig.MessageId == match.PugQueueMessageId)
+                    {
+                        Random randomer = new Random();
+                        match.Map = qConfig.Maps[randomer.Next(qConfig.Maps.Count)];
+                        match.MapChangeVoteDiscordIds.Clear();
+                        break;
+                    }
+                }
+                int amount = 1000;
+                await _databaseService.UpsertMatchAsync(base.Context.Guild.Id, match);
+                IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
+                await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
+                const int delay = 3000;
+
+
+                // IUserMessage m = await ReplyAsync($"I have deleted {amount} messages for ya. :)");
+                // await Task.Delay(delay);
+                // await m.DeleteAsync();
+                ISocketMessageChannel channelkero = base.Context.Channel; //i found the problem, your embed service is returned null
+
+                RestUserMessage blankEmbedMessage = await channelkero.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, base.Context.Guild.Id));
+
+
+
+                ButtonBuilder bl = new ButtonBuilder() { Label = "🏆-Team #1 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "bl" };
+                ButtonBuilder gr = new ButtonBuilder() { Label = "🏆-Team #2 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "gr" };
+                //ButtonBuilder map = new ButtonBuilder() { Label = "Change Map", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "map" };
+                ComponentBuilder componentBuilder = new ComponentBuilder()
+                      .WithButton(bl)
+                      .WithButton(gr);
+                //  .WithButton(map);
+                await blankEmbedMessage.ModifyAsync(x => x.Components = componentBuilder.Build());
+                await ReplyAsync("The map vote has passed and the map has been changed to: `" + match.Map + "`!");
+
+            }
+            await base.Context.Message.DeleteMessageAfterSeconds(2);
+        }
         [Command("changemap")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Vote to change to another random map.")]
