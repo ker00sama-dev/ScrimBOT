@@ -24,10 +24,12 @@ namespace MyCustomDiscordBot.Services
             Databases = new List<IMongoDatabase>();
         }
 
+
         public IMongoDatabase GetDatabaseFromGuild(ulong guildId)
         {
             return Client.GetDatabase(guildId.ToString());
         }
+
 
         public IMongoCollection<Team> GetTeamsForGuild(ulong guildId)
         {

@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
 namespace MyCustomDiscordBot.Services
 {
     public class EmbedService
@@ -208,7 +207,7 @@ namespace MyCustomDiscordBot.Services
             if (guildId == ServerIDs())
             {
 
-                password =  RandomString(3).ToLower();
+                password = RandomString(3).ToLower();
 
 
             }
@@ -234,11 +233,11 @@ namespace MyCustomDiscordBot.Services
                 {
                     team2Value3 += $"`{(await _databaseService.GetUserInGuild(discordId5, guildId)).ELO}`{_client.GetUser(discordId5).Mention}\n";
                 }
-              
+
                 builder.AddField("Team 1", team1Value3, inline: true);
                 builder.AddField("Team 2", team2Value3, inline: true);
 
-           
+
 
                 string Mapup = match.Map.ToUpper();
                 //qConfig.Maps.Add("SubBase");
@@ -287,7 +286,8 @@ namespace MyCustomDiscordBot.Services
 
 
 
-                }                if (Mapup.Contains("ANKARA"))
+                }
+                if (Mapup.Contains("ANKARA"))
                 {
 
 

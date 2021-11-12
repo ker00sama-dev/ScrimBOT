@@ -19,9 +19,27 @@ namespace MyCustomDiscordBot.Models
         public DateTime SuspensionReturnDate { get; set; }
 
         public ObjectId TeamId { get; set; }
+        public int Experience { get; set; }
+        public int Level { get; set; }
+
+        public void IncreaseExperience(int experience)
+        {
+            static int MaxExperience(int Level) => (Level + 20) * 50;
+
+
+            Experience += experience;
+            var maxExperience = MaxExperience(Level);
+            if (Experience >= maxExperience)
+            {
+                Experience = Experience - maxExperience;
+                Level++;
+            }
+        }
+
 
         public DbUser(string username, ulong discordId)
         {
+
             Id = ObjectId.GenerateNewId();
             DiscordId = discordId;
             Username = username;

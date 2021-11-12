@@ -1,20 +1,16 @@
 ﻿using Discord;
 using Discord.Commands;
+using Discord.Rest;
 using Discord.WebSocket;
-using Discord.Net;
+using MyCustomDiscordBot;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using MyCustomDiscordBot;
-using System.Collections.Generic;
-using System.Net.NetworkInformation;
-using System.Threading.Tasks;
 using System.Diagnostics;
-using Microsoft.Bot.Schema;
-using Discord.Rest;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace DiscordBot.Modules
 {
@@ -28,7 +24,7 @@ namespace DiscordBot.Modules
 
         private readonly CommandService _commandService;
 
-        public Generic(DatabaseService databaseService, QueueService queueService, EmbedService embedService, CommandService commandService )
+        public Generic(DatabaseService databaseService, QueueService queueService, EmbedService embedService, CommandService commandService)
         {
             _databaseService = databaseService;
             _queueService = queueService;
@@ -42,7 +38,7 @@ namespace DiscordBot.Modules
             builder.WithTitle($"Bot Info")
     .WithColor(Color.Green)
     .WithThumbnailUrl(Context.Client.CurrentUser.GetAvatarUrl())
-    .WithDescription($"The bot was made by {MentionUtils.MentionUser(488567658686447638)}\n\n"+
+    .WithDescription($"The bot was made by {MentionUtils.MentionUser(488567658686447638)}\n\n" +
                      $"Current Prefix **{Config.Prfix}**")
     .WithFooter($"{DateTime.Now}");
 
@@ -104,11 +100,11 @@ aliases: " + prifx + @"needsubfor
 
             await ReplyAsync("", false, builder.Build());
         }
-          [Command("kick")]
+        [Command("kick")]
         [Summary("Kick a user from the server.")]
         [RequireBotPermission(GuildPermission.KickMembers)]
         [RequireUserPermission(GuildPermission.KickMembers)]
-        public async Task Kick(SocketGuildUser targetUser, [Remainder]string reason = "No reason provided.")
+        public async Task Kick(SocketGuildUser targetUser, [Remainder] string reason = "No reason provided.")
         {
             await targetUser.KickAsync(reason);
             await ReplyAsync($"**{targetUser}** has been kicked. Bye bye :wave:");
@@ -118,7 +114,7 @@ aliases: " + prifx + @"needsubfor
         [Summary("Ban a user from the server")]
         [RequireUserPermission(GuildPermission.BanMembers)]
         [RequireBotPermission(GuildPermission.BanMembers)]
-        public async Task Ban(SocketGuildUser targetUser, [Remainder]string reason = "No reason provided.")
+        public async Task Ban(SocketGuildUser targetUser, [Remainder] string reason = "No reason provided.")
         {
             await Context.Guild.AddBanAsync(targetUser.Id, 0, reason);
             await ReplyAsync($"**{targetUser}** has been banned. Bye bye :wave:");
@@ -161,7 +157,7 @@ aliases: " + prifx + @"needsubfor
         //    var items = await channel.GetMessagesAsync(delNumber + 1).FlattenAsync();
         //    await channel.DeleteMessagesAsync(items);
         //}
-      
+
         [Command("purge")]
         [RequireUserPermission(GuildPermission.ManageMessages)]
         public async Task PurgeChat(int amount)
@@ -173,7 +169,7 @@ aliases: " + prifx + @"needsubfor
             await Task.Delay(delay);
             await m.DeleteAsync();
         }
-       
+
         [Command("ping")]
         [Summary("Check whether the bot is working or not.")]
 
@@ -245,7 +241,7 @@ aliases: " + prifx + @"needsubfor
 
         //        return;
         //    }
-         
+
         //        EmbedBuilder builder = new EmbedBuilder();
         //        builder.WithTitle("Avatar")
         ////.WithThumbnailUrl(Context.User.GetAvatarUrl())
@@ -253,7 +249,7 @@ aliases: " + prifx + @"needsubfor
         //.WithFooter($"{Context.User.Username}");
 
         //        await ReplyAsync("", false, builder.Build());
-       
+
 
         //}
 
@@ -271,11 +267,11 @@ aliases: " + prifx + @"needsubfor
         [Summary("Check whether the bot is working or not.")]
         public async Task SendMessage(Discord.WebSocket.SocketGuildUser user, string text)
         {
-           // await Context.Channel.SendMessageAsync(text);
+            // await Context.Channel.SendMessageAsync(text);
 
             await user.SendMessageAsync(text);
-  
-        
+
+
         }
         [Command("pick")]
         [Alias(new string[] { "p" })]
@@ -417,79 +413,11 @@ aliases: " + prifx + @"needsubfor
             }
         }
 
-        [Command("votemap")]
-        [RequireUserPermission(GuildPermission.Administrator)]
-        [Summary("Vote to change to another random map.")]
-        public async Task vote(string map)
-        {
-            SocketTextChannel channel = base.Context.Channel as SocketTextChannel;
-            if (channel == null)
-            {
-                return;
-            }
-            Match match = await _databaseService.GetMatchForChannelAsync(base.Context.Guild.Id, channel.Id);
-            if (match == null)
-            {
-                await ReplyAsync("This is not a match channel or something weird happened.");
-                return;
-            }
-            if (match.MapChangeVoteDiscordIds.Contains(base.Context.User.Id))
-            {
-                await ReplyAsync(base.Context.User.Mention + " you have already voted to change the map.");
-                return;
-            }
-            match.MapChangeVoteDiscordIds.Add(base.Context.User.Id);
-            int mapChangeVotesNeeded = _queueService.GetPugQueue(match.PugQueueMessageId).Capacity / 2 + 1;
-            if (match.MapChangeVoteDiscordIds.Count < mapChangeVotesNeeded)
-            {
-                await _databaseService.UpsertMatchAsync(base.Context.Guild.Id, match);
-                await ReplyAsync($"{base.Context.User.Mention} has voted to change the map. `{match.MapChangeVoteDiscordIds.Count} / {mapChangeVotesNeeded}`");
-            }
-            else
-            {
-                foreach (QueueConfig qConfig in (await _databaseService.GetServerConfigAsync(base.Context.Guild.Id)).QueueConfigs)
-                {
-                    if (qConfig.MessageId == match.PugQueueMessageId)
-                    {
-                        Random randomer = new Random();
-                        match.Map = qConfig.Maps[randomer.Next(qConfig.Maps.Count)];
-                        match.MapChangeVoteDiscordIds.Clear();
-                        break;
-                    }
-                }
-                int amount = 1000;
-                await _databaseService.UpsertMatchAsync(base.Context.Guild.Id, match);
-                IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
-                await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
-                const int delay = 3000;
 
-
-                // IUserMessage m = await ReplyAsync($"I have deleted {amount} messages for ya. :)");
-                // await Task.Delay(delay);
-                // await m.DeleteAsync();
-                ISocketMessageChannel channelkero = base.Context.Channel; //i found the problem, your embed service is returned null
-
-                RestUserMessage blankEmbedMessage = await channelkero.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, base.Context.Guild.Id));
-
-
-
-                ButtonBuilder bl = new ButtonBuilder() { Label = "🏆-Team #1 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "bl" };
-                ButtonBuilder gr = new ButtonBuilder() { Label = "🏆-Team #2 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "gr" };
-                //ButtonBuilder map = new ButtonBuilder() { Label = "Change Map", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "map" };
-                ComponentBuilder componentBuilder = new ComponentBuilder()
-                      .WithButton(bl)
-                      .WithButton(gr);
-                //  .WithButton(map);
-                await blankEmbedMessage.ModifyAsync(x => x.Components = componentBuilder.Build());
-                await ReplyAsync("The map vote has passed and the map has been changed to: `" + match.Map + "`!");
-
-            }
-            await base.Context.Message.DeleteMessageAfterSeconds(2);
-        }
         [Command("changemap")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Vote to change to another random map.")]
-        public  async Task VoteMap()
+        public async Task VoteMap()
         {
             SocketTextChannel channel = base.Context.Channel as SocketTextChannel;
             if (channel == null)
@@ -541,21 +469,22 @@ aliases: " + prifx + @"needsubfor
                 RestUserMessage blankEmbedMessage = await channelkero.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, base.Context.Guild.Id));
 
 
-
                 ButtonBuilder bl = new ButtonBuilder() { Label = "🏆-Team #1 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "bl" };
                 ButtonBuilder gr = new ButtonBuilder() { Label = "🏆-Team #2 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "gr" };
-                //ButtonBuilder map = new ButtonBuilder() { Label = "Change Map", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "map" };
+                ButtonBuilder map = new ButtonBuilder() { Label = "Change Map 🗺️", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "map" };
+                ButtonBuilder Cancel = new ButtonBuilder() { Label = "Cancel ❌", IsDisabled = false, Style = ButtonStyle.Danger, CustomId = "Cancel" };
                 ComponentBuilder componentBuilder = new ComponentBuilder()
                       .WithButton(bl)
-                      .WithButton(gr);
-                //  .WithButton(map);
+                      .WithButton(gr)
+                      .WithButton(map)
+                     .WithButton(Cancel);
                 await blankEmbedMessage.ModifyAsync(x => x.Components = componentBuilder.Build());
                 await ReplyAsync("The map vote has passed and the map has been changed to: `" + match.Map + "`!");
 
             }
             await base.Context.Message.DeleteMessageAfterSeconds(2);
         }
-       
+
         [Command("stats")]
         [Alias(new string[] { "profile", "statistics" })]
         [Summary("See your profile, or pull up a user's profile!")]
@@ -585,9 +514,11 @@ aliases: " + prifx + @"needsubfor
                 }
                 ISocketMessageChannel channel = base.Context.Channel;
                 await channel.SendMessageAsync(null, isTTS: false, await _embedService.ProfileEmbed(dbUser));
+                await ReplyAsync(dbUser.ELO.ToDiscordProgressBar(100));
+
             }
         }
-     
+
         [Command("leaderboard")]
         [Alias(new string[] { "lb" })]
         [Summary("See the top 25 users in your server.")]

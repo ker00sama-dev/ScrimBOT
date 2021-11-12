@@ -345,7 +345,7 @@ namespace DiscordBot.Modules
                 {
                     await moveMe.ModifyAsync(delegate (GuildUserProperties x)
                     {
-                  //      x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)waiting;//can you fix ? 
+                        //      x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)waiting;//can you fix ? 
                     });
                     await Task.Delay(250);
                 }

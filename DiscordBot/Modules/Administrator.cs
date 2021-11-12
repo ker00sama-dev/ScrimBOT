@@ -266,11 +266,11 @@ namespace DiscordBot.Modules
         [Summary("Set up a reaction based queue in a given channel.")]
         public async Task CreateReactionQueueb(string name = null, int capacity = 0, string sortType = null)
         {
-          
+
             if (name == null || capacity == null || sortType == null)
             {
 
-              await ( await ReplyAsync($"{Config.Prfix}createqueue [name] [maximum users] [captains or elo ]")).DeleteMessageAfterSeconds(2);
+                await (await ReplyAsync($"{Config.Prfix}createqueue [name] [maximum users] [captains or elo ]")).DeleteMessageAfterSeconds(2);
                 return;
 
             }
@@ -682,6 +682,6 @@ namespace DiscordBot.Modules
             await ReplyAsync(null, isTTS: false, builder.Build());
         }
 
-        
+
     }
 }

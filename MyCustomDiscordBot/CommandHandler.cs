@@ -2,6 +2,7 @@ using Discord;
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
@@ -11,7 +12,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 namespace MyCustomDiscordBot
 {
     public class CommandHandler
@@ -238,18 +238,20 @@ namespace MyCustomDiscordBot
                     //await Task.Delay(delay);
                     // await m.DeleteAsync();
                     ISocketMessageChannel channel2 = interaction.Channel; //i found the problem, your embed service is returned null
-                  //  await channel2.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, VOTEChannel.Guild.Id)); // notworking i dont know why 
+                                                                          //  await channel2.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, VOTEChannel.Guild.Id)); // notworking i dont know why 
                     RestUserMessage blankEmbedMessage = await channel2.SendMessageAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, VOTEChannel.Guild.Id));
 
 
 
                     ButtonBuilder bl = new ButtonBuilder() { Label = "🏆-Team #1 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "bl" };
                     ButtonBuilder gr = new ButtonBuilder() { Label = "🏆-Team #2 WIN", IsDisabled = false, Style = ButtonStyle.Success, CustomId = "gr" };
-                    //ButtonBuilder map = new ButtonBuilder() { Label = "Change Map", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "map" };
+                    ButtonBuilder map = new ButtonBuilder() { Label = "Change Map 🗺️", IsDisabled = false, Style = ButtonStyle.Primary, CustomId = "map" };
+                    ButtonBuilder Cancel = new ButtonBuilder() { Label = "Cancel ❌", IsDisabled = false, Style = ButtonStyle.Danger, CustomId = "Cancel" };
                     ComponentBuilder componentBuilder = new ComponentBuilder()
                           .WithButton(bl)
-                          .WithButton(gr);
-                        //  .WithButton(map);
+                          .WithButton(gr)
+                          .WithButton(map)
+                         .WithButton(Cancel);
                     await blankEmbedMessage.ModifyAsync(x => x.Components = componentBuilder.Build());
                     await interaction.UpdateAsync(x =>
                     {
@@ -335,7 +337,7 @@ namespace MyCustomDiscordBot
                     {
                         await moveMe.ModifyAsync(delegate (GuildUserProperties x)
                         {
-                            //      x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)waiting;//can you fix ? 
+                            x.Channel = waiting;//can you fix ? 
                         });
                         await Task.Delay(250);
                     }
@@ -426,7 +428,7 @@ namespace MyCustomDiscordBot
                     {
                         await moveMe.ModifyAsync(delegate (GuildUserProperties x)
                         {
-                            //      x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)waiting;//can you fix ? 
+                            x.Channel = waiting;
                         });
                         await Task.Delay(250);
                     }
@@ -458,6 +460,68 @@ namespace MyCustomDiscordBot
 
 
             //////////////// bl
+            //    /////////////// Channge Map 
+
+
+            if (interaction.Data.CustomId == "Cancel")
+            {
+                SocketTextChannel Cancel = interaction.Channel as SocketTextChannel;
+
+                ServerConfig config = await _databaseService.GetServerConfigAsync(Cancel.Guild.Id);
+                SocketGuildUser author = interaction.User as SocketGuildUser;
+                if (author != null)
+                {
+                    bool roleFound = false;
+                    foreach (SocketRole role in author.Roles)
+                    {
+                        if (role.Id == config.ScoreReporterRoleId)
+                        {
+                            roleFound = true;
+                            break;
+                        }
+                    }
+                    if (!roleFound)
+                    {
+                        await interaction.Channel.SendMessageAsync(author.Mention + ", you do not have the score reporting role.");
+
+                        return;
+                    }
+                }
+                Match match = await _databaseService.GetMatchForChannelAsync(Cancel.Guild.Id, interaction.Channel.Id);
+                if (match.Winners == 0 || match.Winners == 1 || match.Winners == 2)
+                {
+                    await interaction.Channel.SendMessageAsync("This match has already been reported. You may use the `.giveelo` and `.takeelo` commands to make any corrections.");
+                    return;
+                }
+                match.Winners = 0;
+                await _databaseService.UpsertMatchAsync(Cancel.Guild.Id, match);
+                SocketVoiceChannel team1Voice = Cancel.Guild.GetVoiceChannel(match.Team1VoiceChannelId);
+                if (team1Voice != null)
+                {
+                    await team1Voice.DeleteAsync();
+                }
+                await Task.Delay(250);
+                SocketVoiceChannel team2Voice = Cancel.Guild.GetVoiceChannel(match.Team2VoiceChannelId);
+                if (team2Voice != null)
+                {
+                    await team2Voice.DeleteAsync();
+                }
+                await Task.Delay(250);
+                SocketTextChannel matchInfoChannel = interaction.Channel as SocketTextChannel;
+                if (matchInfoChannel != null)
+                {
+                    await matchInfoChannel.DeleteAsync();
+                }
+                SocketTextChannel matchLogsChannel = Cancel.Guild.GetTextChannel(config.MatchLogsChannelId);
+                SocketTextChannel socketTextChannel = matchLogsChannel;
+                await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, Cancel.Guild.Id));
+
+            }
+
+
+
+
+            //////////////// Change Map 
 
         }//you shoud set it first, no any ref
 
