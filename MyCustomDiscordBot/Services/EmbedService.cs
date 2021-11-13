@@ -1,5 +1,6 @@
 using Discord;
 using Discord.WebSocket;
+using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using System;
 using System.Collections.Generic;
@@ -37,18 +38,89 @@ namespace MyCustomDiscordBot.Services
             });
             return builder.Build();
         }
+        public string[] Getrank(int elo)
+        {
 
+            if (elo <= 0)
+            {
+                string[] level = { "<:norank050:909110612456517632>", "<:pronz50100:909110618752155699>" };
+
+                return level;
+
+            }
+            if (elo <= 50)
+            {
+
+                string[] level = { "<:pronz50100:909110618752155699>", "<:silver100200:909110626134163477>" };
+
+                return level;
+            }
+            if (elo <= 180)
+            {
+                string[] level = { "<:silver100200:909110626134163477>", "<:gold200300:909110626742337546>" };
+
+                return level;
+
+            }
+            if (elo <= 250)
+            {
+                string[] level = { "<:gold200300:909110626742337546>", "<:plat300400:909110628818501702>" };
+
+                return level;
+
+            }
+            if (elo <= 350)
+            {
+
+                string[] level = { "<:plat300400:909110628818501702>", "<:diamond400500:909110629766418442>" };
+
+                return level;
+            }
+            if (elo <= 500)
+            {
+
+                string[] level = { "<:diamond400500:909110629766418442>", "<:Master500600:909110629795758130>" };
+
+                return level;
+            }
+            if (elo <= 750)
+            {
+                string[] level = { "<:Master500600:909110629795758130>", "<:legend600700:909110629288263722>" };
+
+                return level;
+
+            }
+            if (elo <= 850)
+            {
+                string[] level = { "<:legend600700:909110629288263722>", "<:mythical700900:909109955955654686>" };
+
+                return level;
+
+            }
+            if (elo <= 1000)
+            {
+                string[] level = { "<:mythical700900:909109955955654686>", "<:grandm9001000:909109348633026590>" };
+
+                return level;
+
+            }
+
+            string[] levelp = { "<:grandm9001000:909109348633026590>", "<:grandm9001000:909109348633026590>" };
+            return levelp;
+        }
         public async Task<Embed> LeaderboardEmbed(List<DbUser> topPlayers)
         {
             EmbedBuilder builder = new EmbedBuilder();
-            builder.WithColor(Color.Gold);
-            string description = "**RANK | ELO | PLAYER**\n";
+            builder.WithTitle("**RANK | ELO | PLAYER**");
+            builder.WithColor(Color.Red);
+            string description = "";
+
             for (int i = 0; i < topPlayers.Count; i++)
             {
                 SocketUser user = _client.GetUser(topPlayers[i].DiscordId);
                 if (user != null)
                 {
-                    description += $"`#{i + 1} | {topPlayers[i].ELO}` {user.Mention}\n";
+                    description += $"`#{i + 1} | {topPlayers[i].ELO}` {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/1000`\n";
                 }
             }
             builder.WithDescription(description);
@@ -99,7 +171,7 @@ namespace MyCustomDiscordBot.Services
 
             return builder.Build();
         }
-        public async Task<Embed> ProfileEmbed(DbUser user)
+        public Embed ProfileEmbed(DbUser user)
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Blue);
@@ -113,7 +185,8 @@ namespace MyCustomDiscordBot.Services
                 totalLosses += record.Losses;
             }
             int gamesPlayed = totalLosses + totalWins;
-            builder.WithDescription($"**ELO**: `{user.ELO}`\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`\n\n");
+            var elo = $"\n{user.ELO.ToDiscordProgressBar(12)} `{user.ELO}/1000`";
+            builder.WithDescription($"**ELO**: `{user.ELO}`\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`\n{elo}");
             builder.WithThumbnailUrl(_client.GetUser(user.DiscordId).GetAvatarUrl(ImageFormat.Auto, 128));
             return builder.Build();
         }

@@ -12,6 +12,7 @@
           "Discord.Net.Labs.Commands": "3.2.0",
           "Discord.Net.Labs.Core": "3.2.0",
           "Discord.Net.Labs.Rest": "3.2.0",
+          "HtmlAgilityPack": "1.11.38",
           "Microsoft.Bot.Schema": "4.14.1",
           "Microsoft.Extensions.Hosting": "6.0.0",
           "MongoDB.Bson": "2.13.2",
@@ -97,6 +98,14 @@
           "lib/netstandard2.1/DnsClient.dll": {
             "assemblyVersion": "1.4.0.0",
             "fileVersion": "1.4.0.0"
+          }
+        }
+      },
+      "HtmlAgilityPack/1.11.38": {
+        "runtime": {
+          "lib/netstandard2.0/HtmlAgilityPack.dll": {
+            "assemblyVersion": "1.11.38.0",
+            "fileVersion": "1.11.38.0"
           }
         }
       },
@@ -897,6 +906,13 @@
       "sha512": "sha512-CO1NG1zQdV0nEAXmr/KppLZ0S1qkaPwV0kPX5YPgmYBtrBVh1XMYHM54IXy3RBJu1k4thFtpzwo4HNHqxiuFYw==",
       "path": "dnsclient/1.4.0",
       "hashPath": "dnsclient.1.4.0.nupkg.sha512"
+    },
+    "HtmlAgilityPack/1.11.38": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DC1j3GzU9lBp8hSXb9eYRHiJOUS5sxjBjme/4RTYjTXlgiFCOMXkIY+rmL+BtUss1pCwCN4LaVlZ/ci/fWY+lA==",
+      "path": "htmlagilitypack/1.11.38",
+      "hashPath": "htmlagilitypack.1.11.38.nupkg.sha512"
     },
     "Microsoft.Bot.Schema/4.14.1": {
       "type": "package",

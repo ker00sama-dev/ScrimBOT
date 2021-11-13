@@ -2,6 +2,7 @@
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
+using HtmlAgilityPack;
 using MyCustomDiscordBot;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
@@ -10,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
+using System.Reflection.Metadata;
 using System.Threading.Tasks;
 
 namespace DiscordBot.Modules
@@ -484,7 +487,25 @@ aliases: " + prifx + @"needsubfor
             }
             await base.Context.Message.DeleteMessageAfterSeconds(2);
         }
+        //[Command("setnickname")]
+        //[Summary("")]
+        //public async Task SetNickCF(string url)
+        //{
+        //    if (url == null)
+        //    {
 
+        //        await (await ReplyAsync($"{Config.Prfix}setnickname [URL = https://crossfire.z8games.com/profile/19323248] ")).DeleteMessageAfterSeconds(2);
+        //        return;
+
+        //    }
+        //    SocketUser user = base.Context.User;
+        //    var html = new WebClient().DownloadString(url);
+        //    HtmlDocument doc = new HtmlDocument();
+        //    doc.Load(html);
+        //    var result = doc.DocumentNode.SelectNodes("//h1[@class='PlayerHeader_ign_heading__AT-l_']");
+        //    ISocketMessageChannel channel = base.Context.Channel;
+        //    await channel.SendMessageAsync(result.ToString());
+        //}
         [Command("stats")]
         [Alias(new string[] { "profile", "statistics" })]
         [Summary("See your profile, or pull up a user's profile!")]
@@ -513,8 +534,8 @@ aliases: " + prifx + @"needsubfor
                     return;
                 }
                 ISocketMessageChannel channel = base.Context.Channel;
-                await channel.SendMessageAsync(null, isTTS: false, await _embedService.ProfileEmbed(dbUser));
-                await ReplyAsync(dbUser.ELO.ToDiscordProgressBar(100));
+                await channel.SendMessageAsync(null, isTTS: false, _embedService.ProfileEmbed(dbUser));
+              
 
             }
         }

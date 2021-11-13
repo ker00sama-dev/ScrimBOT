@@ -60,6 +60,10 @@
               "target": "Package",
               "version": "[3.2.0, )"
             },
+            "HtmlAgilityPack": {
+              "target": "Package",
+              "version": "[1.11.38, )"
+            },
             "Microsoft.Bot.Schema": {
               "target": "Package",
               "version": "[4.14.1, )"

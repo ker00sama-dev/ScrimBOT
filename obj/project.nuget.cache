@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "DsVgSubRt4fdAPdzhKvwK+OrHuarnhDIgZiF4+RIGMNKErDYHqrHSGBbDIwBufwZyK0z1VzLijwMXLZ2w1/Xcg==",
+  "dgSpecHash": "oUDyYL+ZpwykB9s3HnznekV7W/EyGme097UdPaENaZt3XcB56HXREiZseDoRbqRm3D9BZbKXi69JYEbJ0Ealqg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Administrator\\Documents\\GitHub\\DiscordGamingBOT\\MyCustomDiscordBot.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,7 @@
     "C:\\Users\\Administrator\\.nuget\\packages\\discord.net.labs.webhook\\3.2.0\\discord.net.labs.webhook.3.2.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\discord.net.labs.websocket\\3.2.0\\discord.net.labs.websocket.3.2.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\dnsclient\\1.4.0\\dnsclient.1.4.0.nupkg.sha512",
+    "C:\\Users\\Administrator\\.nuget\\packages\\htmlagilitypack\\1.11.38\\htmlagilitypack.1.11.38.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.bot.schema\\4.14.1\\microsoft.bot.schema.4.14.1.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\microsoft.extensions.configuration\\6.0.0\\microsoft.extensions.configuration.6.0.0.nupkg.sha512",
