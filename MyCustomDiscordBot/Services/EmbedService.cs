@@ -120,7 +120,7 @@ namespace MyCustomDiscordBot.Services
                 SocketUser user = _client.GetUser(topPlayers[i].DiscordId);
                 if (user != null)
                 {
-                    description += $"`#{i + 1} | {topPlayers[i].ELO}` {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO)[2]}`\n";
+                    description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO)[2]}`\n";
                 }
             }
             builder.WithDescription(description);
@@ -129,7 +129,7 @@ namespace MyCustomDiscordBot.Services
                 Text = "Leaderboard"
             });
             return builder.Build();
-        }
+        }  
 
         public async Task<Embed> TeamEmbed(Team team)
         {
@@ -186,7 +186,7 @@ namespace MyCustomDiscordBot.Services
             }
             int gamesPlayed = totalLosses + totalWins;
             var elo = $"\n{Getrank(user.ELO)[0]} {user.ELO.ToDiscordProgressBar(12)} {Getrank(user.ELO)[1]} `{user.ELO}/{Getrank(user.ELO)[2]}`";
-            builder.WithDescription($"**ELO**: `{user.ELO}`\n**RANK**: {Getrank(user.ELO)[3]}\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`\n{elo}");
+            builder.WithDescription($"**ELO**: `{user.ELO}`\n**Rank**: {Getrank(user.ELO)[3]}\n{elo}\n\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`");
             builder.WithThumbnailUrl(_client.GetUser(user.DiscordId).GetAvatarUrl(ImageFormat.Auto, 128));
             return builder.Build();
         }
