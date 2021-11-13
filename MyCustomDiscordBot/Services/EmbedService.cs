@@ -43,7 +43,7 @@ namespace MyCustomDiscordBot.Services
 
             if (elo <= 0)
             {
-                string[] level = { "<:norank050:909110612456517632>", "<:pronz50100:909110618752155699>" };
+                string[] level = { "<:norank050:909110612456517632>", "<:pronz50100:909110618752155699>", "50" , "No Rank <:norank050:909110612456517632>" };
 
                 return level;
 
@@ -51,20 +51,20 @@ namespace MyCustomDiscordBot.Services
             if (elo <= 50)
             {
 
-                string[] level = { "<:pronz50100:909110618752155699>", "<:silver100200:909110626134163477>" };
+                string[] level = { "<:pronz50100:909110618752155699>", "<:silver100200:909110626134163477>", "180", "Bronze <:pronz50100:909110618752155699>" };
 
                 return level;
             }
             if (elo <= 180)
             {
-                string[] level = { "<:silver100200:909110626134163477>", "<:gold200300:909110626742337546>" };
+                string[] level = { "<:silver100200:909110626134163477>", "<:gold200300:909110626742337546>", "250", "Silver <:silver100200:909110626134163477>" };
 
                 return level;
 
             }
             if (elo <= 250)
             {
-                string[] level = { "<:gold200300:909110626742337546>", "<:plat300400:909110628818501702>" };
+                string[] level = { "<:gold200300:909110626742337546>", "<:plat300400:909110628818501702>", "350", "Gold <:gold200300:909110626742337546>" };
 
                 return level;
 
@@ -72,40 +72,40 @@ namespace MyCustomDiscordBot.Services
             if (elo <= 350)
             {
 
-                string[] level = { "<:plat300400:909110628818501702>", "<:diamond400500:909110629766418442>" };
+                string[] level = { "<:plat300400:909110628818501702>", "<:diamond400500:909110629766418442>", "500", "Platinum <:plat300400:909110628818501702>" };
 
                 return level;
             }
             if (elo <= 500)
             {
 
-                string[] level = { "<:diamond400500:909110629766418442>", "<:Master500600:909110629795758130>" };
+                string[] level = { "<:diamond400500:909110629766418442>", "<:Master500600:909110629795758130>", "750", "Diamond <:diamond400500:909110629766418442>" };
 
                 return level;
             }
             if (elo <= 750)
             {
-                string[] level = { "<:Master500600:909110629795758130>", "<:legend600700:909110629288263722>" };
+                string[] level = { "<:Master500600:909110629795758130>", "<:legend600700:909110629288263722>", "850", "Master <:Master500600:909110629795758130>" };
 
                 return level;
 
             }
             if (elo <= 850)
             {
-                string[] level = { "<:legend600700:909110629288263722>", "<:mythical700900:909109955955654686>" };
+                string[] level = { "<:legend600700:909110629288263722>", "<:mythical700900:909109955955654686>", "1000", "Mythical <:mythical700900:909109955955654686>" };
 
                 return level;
 
             }
             if (elo <= 1000)
             {
-                string[] level = { "<:mythical700900:909109955955654686>", "<:grandm9001000:909109348633026590>" };
+                string[] level = { "<:mythical700900:909109955955654686>", "<:grandm9001000:909109348633026590>", "1000" , "Grand Master <:grandm9001000:909109348633026590>" };
 
                 return level;
 
             }
 
-            string[] levelp = { "<:grandm9001000:909109348633026590>", "<:grandm9001000:909109348633026590>" };
+            string[] levelp = { "<:grandm9001000:909109348633026590>", "<:grandm9001000:909109348633026590>","99999", "Grand Master <:grandm9001000:909109348633026590>" };
             return levelp;
         }
         public async Task<Embed> LeaderboardEmbed(List<DbUser> topPlayers)
@@ -120,7 +120,7 @@ namespace MyCustomDiscordBot.Services
                 SocketUser user = _client.GetUser(topPlayers[i].DiscordId);
                 if (user != null)
                 {
-                    description += $"`#{i + 1} | {topPlayers[i].ELO}` {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/1000`\n";
+                    description += $"`#{i + 1} | {topPlayers[i].ELO}` {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO)[2]}`\n";
                 }
             }
             builder.WithDescription(description);
@@ -185,8 +185,8 @@ namespace MyCustomDiscordBot.Services
                 totalLosses += record.Losses;
             }
             int gamesPlayed = totalLosses + totalWins;
-            var elo = $"\n{user.ELO.ToDiscordProgressBar(12)} `{user.ELO}/1000`";
-            builder.WithDescription($"**ELO**: `{user.ELO}`\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`\n{elo}");
+            var elo = $"\n{Getrank(user.ELO)[0]} {user.ELO.ToDiscordProgressBar(12)} {Getrank(user.ELO)[1]} `{user.ELO}/{Getrank(user.ELO)[2]}`";
+            builder.WithDescription($"**ELO**: `{user.ELO}`\n**RANK**: {Getrank(user.ELO)[3]}\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`\n{elo}");
             builder.WithThumbnailUrl(_client.GetUser(user.DiscordId).GetAvatarUrl(ImageFormat.Auto, 128));
             return builder.Build();
         }
