@@ -11,7 +11,9 @@ using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
+#pragma warning disable CS0105 // The using directive for 'MyCustomDiscordBot.MyCustomDiscordBot' appeared previously in this namespace
 using MyCustomDiscordBot.MyCustomDiscordBot;
+#pragma warning restore CS0105 // The using directive for 'MyCustomDiscordBot.MyCustomDiscordBot' appeared previously in this namespace
 
 namespace MyCustomDiscordBot
 {
@@ -65,6 +67,7 @@ namespace MyCustomDiscordBot
                     // Run the application
 
 
+                   // CreateHostBuilder(args).Build().Run();
 
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);

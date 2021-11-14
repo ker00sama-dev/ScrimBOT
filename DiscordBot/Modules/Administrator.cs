@@ -45,7 +45,9 @@ namespace DiscordBot.Modules
         [Summary("Add the reactions to a queue.")]
         public async Task AddReactionsToQueue(ulong messageId)
         {
+#pragma warning disable CS0472 // The result of the expression is always 'false' since a value of type 'ulong' is never equal to 'null' of type 'ulong?'
             if (messageId == null)
+#pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'ulong' is never equal to 'null' of type 'ulong?'
             {
                 await ReplyAsync("I could not find a message by that Id.");
 
@@ -270,7 +272,9 @@ namespace DiscordBot.Modules
         public async Task CreateReactionQueueb(string name = null, int capacity = 0, string sortType = null)
         {
 
+#pragma warning disable CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
             if (name == null || capacity == null || sortType == null)
+#pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
             {
 
                 await (await ReplyAsync($"{Config.Prfix}createqueue [name] [maximum users] [captains or elo ]")).DeleteMessageAfterSeconds(2);

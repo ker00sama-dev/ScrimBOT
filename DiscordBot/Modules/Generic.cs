@@ -460,7 +460,9 @@ aliases: " + prifx + @"needsubfor
                 await _databaseService.UpsertMatchAsync(base.Context.Guild.Id, match);
                 IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
                 await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
+#pragma warning disable CS0219 // The variable 'delay' is assigned but its value is never used
                 const int delay = 3000;
+#pragma warning restore CS0219 // The variable 'delay' is assigned but its value is never used
 
 
                 // IUserMessage m = await ReplyAsync($"I have deleted {amount} messages for ya. :)");

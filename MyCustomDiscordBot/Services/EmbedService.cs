@@ -24,7 +24,9 @@ namespace MyCustomDiscordBot.Services
             _databaseService = databaseService;
         }
 
+#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         public async Task<Embed> ScrimBoardEmbed(List<ScrimInvite> invites)
+#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Green);
@@ -110,7 +112,9 @@ namespace MyCustomDiscordBot.Services
             string[] levelp = { "<:grandm9001000:909109348633026590>", "<:grandm9001000:909109348633026590>", "99999", "Grand Master <:grandm9001000:909109348633026590>" };
             return levelp;
         }
+#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         public async Task<Embed> LeaderboardEmbed(List<DbUser> topPlayers)
+#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithTitle("**RANK | ELO | PLAYER**");
@@ -133,7 +137,9 @@ namespace MyCustomDiscordBot.Services
             return builder.Build();
         }
 
+#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         public async Task<Embed> TeamEmbed(Team team)
+#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Blue);
@@ -163,7 +169,9 @@ namespace MyCustomDiscordBot.Services
             builder.WithDescription($"**Captain:** {_client.GetUser(team.CaptainDiscordId).Mention}\n**Members**: {memberMentions} **Points**: `{team.Points}`\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`\n\n");
             return builder.Build();
         }
+#pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         public async Task<Embed> Pic(ulong user)
+#pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Blue);

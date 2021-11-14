@@ -428,7 +428,6 @@ C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Diagnostics.EventLog.Messages.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Diagnostics.EventLog.dll
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\Microsoft.Bot.Schema.dll
-C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.AssemblyReference.cache
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\bin\Debug\netcoreapp3.1\HtmlAgilityPack.dll
 D:\github\DiscordGamingBOT\bin\Debug\netcoreapp3.1\snappy32.dll
 D:\github\DiscordGamingBOT\bin\Debug\netcoreapp3.1\snappy64.dll
@@ -510,3 +509,4 @@ D:\github\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.pdb
 D:\github\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.genruntimeconfig.cache
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.GenerateResource.cache
 C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming.resources
+C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.AssemblyReference.cache

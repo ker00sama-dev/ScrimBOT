@@ -108,7 +108,9 @@ namespace MyCustomDiscordBot
             if (textChannel == null)
             {
                 return;
+#pragma warning disable CS0162 // Unreachable code detected
                 await interaction.UpdateAsync(x =>
+#pragma warning restore CS0162 // Unreachable code detected
                 {
                     //  x.Content = "text"; //text
                     // x.Components = null;
