@@ -10,6 +10,9 @@ using MyCustomDiscordBot.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using MyCustomDiscordBot.MyCustomDiscordBot;
+using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
+
 namespace DiscordBot.Modules
 {
 

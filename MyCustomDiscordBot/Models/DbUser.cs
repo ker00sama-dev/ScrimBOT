@@ -1,7 +1,7 @@
 using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
 using System;
 using System.Collections.Generic;
-using MongoDB.Bson.Serialization.Attributes;
 namespace MyCustomDiscordBot.Models
 {
     [BsonIgnoreExtraElements]
@@ -20,7 +20,7 @@ namespace MyCustomDiscordBot.Models
         public DateTime SuspensionReturnDate { get; set; }
 
         public ObjectId TeamId { get; set; }
-     
+
         public DbUser(string username, ulong discordId)
         {
 

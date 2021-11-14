@@ -6,24 +6,6 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "MyCustomDiscordBot/1.0.0": {
-        "dependencies": {
-          "Discord.Net.Labs": "3.2.0",
-          "Discord.Net.Labs.Commands": "3.2.0",
-          "Discord.Net.Labs.Core": "3.2.0",
-          "Discord.Net.Labs.Rest": "3.2.0",
-          "HtmlAgilityPack": "1.11.38",
-          "Microsoft.Bot.Schema": "4.14.1",
-          "Microsoft.Extensions.Hosting": "6.0.0",
-          "MongoDB.Bson": "2.13.2",
-          "MongoDB.Driver": "2.13.2",
-          "MongoDB.Driver.Core": "2.13.2",
-          "ServiceStack.Text": "5.12.0"
-        },
-        "runtime": {
-          "MyCustomDiscordBot.dll": {}
-        }
-      },
       "Discord.Net.Labs/3.2.0": {
         "dependencies": {
           "Discord.Net.Labs.Commands": "3.2.0",
@@ -618,6 +600,12 @@
           "System.Runtime": "4.3.1",
           "System.Runtime.Extensions": "4.3.0",
           "System.Threading": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.0/System.Collections.Immutable.dll": {
+            "assemblyVersion": "1.2.1.0",
+            "fileVersion": "4.6.24816.1"
+          }
         }
       },
       "System.Diagnostics.Debug/4.3.0": {
@@ -699,6 +687,12 @@
           "System.Resources.ResourceManager": "4.3.0",
           "System.Runtime": "4.3.1",
           "System.Runtime.Extensions": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.6/System.Linq.dll": {
+            "assemblyVersion": "4.1.1.0",
+            "fileVersion": "4.6.24705.1"
+          }
         }
       },
       "System.Linq.Async/5.0.0": {
@@ -811,6 +805,20 @@
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0",
           "System.Runtime.CompilerServices.Unsafe": "6.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.Text.Encoding.CodePages.dll": {
+            "assemblyVersion": "4.1.1.0",
+            "fileVersion": "4.6.27129.4"
+          }
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/netcoreapp2.0/System.Text.Encoding.CodePages.dll": {
+            "rid": "win",
+            "assetType": "runtime",
+            "assemblyVersion": "4.1.1.0",
+            "fileVersion": "4.6.27129.4"
+          }
         }
       },
       "System.Text.Encodings.Web/6.0.0": {
@@ -840,6 +848,12 @@
         "dependencies": {
           "System.Runtime": "4.3.1",
           "System.Threading.Tasks": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/System.Threading.dll": {
+            "assemblyVersion": "4.0.12.0",
+            "fileVersion": "4.6.24705.1"
+          }
         }
       },
       "System.Threading.Tasks/4.3.0": {
@@ -853,11 +867,6 @@
     }
   },
   "libraries": {
-    "MyCustomDiscordBot/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Discord.Net.Labs/3.2.0": {
       "type": "package",
       "serviceable": true,

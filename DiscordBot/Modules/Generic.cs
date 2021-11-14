@@ -2,7 +2,6 @@
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
-using HtmlAgilityPack;
 using MyCustomDiscordBot;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
@@ -11,9 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Net;
-using System.Reflection.Metadata;
 using System.Threading.Tasks;
+using MyCustomDiscordBot.MyCustomDiscordBot;
+using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
 
 namespace DiscordBot.Modules
 {
@@ -535,7 +534,7 @@ aliases: " + prifx + @"needsubfor
                 }
                 ISocketMessageChannel channel = base.Context.Channel;
                 await channel.SendMessageAsync(null, isTTS: false, _embedService.ProfileEmbed(dbUser));
-              
+
 
             }
         }

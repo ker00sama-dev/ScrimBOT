@@ -6,6 +6,7 @@ using MyCustomDiscordBot.Settings;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
 
 namespace MyCustomDiscordBot.Services
 {

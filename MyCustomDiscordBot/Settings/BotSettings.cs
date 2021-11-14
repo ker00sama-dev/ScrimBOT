@@ -4,6 +4,6 @@ namespace MyCustomDiscordBot.Settings
     {
         public string Token { get; set; }
 
-        public string DBConnectionString { get; set; }
+        public string Perfix { get; set; }
     }
 }

@@ -508,3 +508,5 @@ D:\github\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.Cop
 D:\github\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.dll
 D:\github\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.pdb
 D:\github\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.genruntimeconfig.cache
+C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.csproj.GenerateResource.cache
+C:\Users\Administrator\Documents\GitHub\DiscordGamingBOT\obj\Debug\netcoreapp3.1\MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming.resources

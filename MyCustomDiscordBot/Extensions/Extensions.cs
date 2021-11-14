@@ -5,7 +5,7 @@ namespace MyCustomDiscordBot.Extensions
 {
     public static class Extensions
     {
-        public static string ToDiscordProgressBar(this int number, int size) 
+        public static string ToDiscordProgressBar(this int number, int size)
         {
             if (number == 0) number = 1;
             number = (int)(number / (size * 6.7));

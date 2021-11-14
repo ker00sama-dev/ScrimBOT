@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
+
 namespace MyCustomDiscordBot.Services
 {
     public class EmbedService
@@ -43,7 +45,7 @@ namespace MyCustomDiscordBot.Services
 
             if (elo <= 0)
             {
-                string[] level = { "<:norank050:909110612456517632>", "<:pronz50100:909110618752155699>", "50" , "No Rank <:norank050:909110612456517632>" };
+                string[] level = { "<:norank050:909110612456517632>", "<:pronz50100:909110618752155699>", "50", "No Rank <:norank050:909110612456517632>" };
 
                 return level;
 
@@ -99,13 +101,13 @@ namespace MyCustomDiscordBot.Services
             }
             if (elo <= 1000)
             {
-                string[] level = { "<:mythical700900:909109955955654686>", "<:grandm9001000:909109348633026590>", "1000" , "Grand Master <:grandm9001000:909109348633026590>" };
+                string[] level = { "<:mythical700900:909109955955654686>", "<:grandm9001000:909109348633026590>", "1000", "Grand Master <:grandm9001000:909109348633026590>" };
 
                 return level;
 
             }
 
-            string[] levelp = { "<:grandm9001000:909109348633026590>", "<:grandm9001000:909109348633026590>","99999", "Grand Master <:grandm9001000:909109348633026590>" };
+            string[] levelp = { "<:grandm9001000:909109348633026590>", "<:grandm9001000:909109348633026590>", "99999", "Grand Master <:grandm9001000:909109348633026590>" };
             return levelp;
         }
         public async Task<Embed> LeaderboardEmbed(List<DbUser> topPlayers)
@@ -129,7 +131,7 @@ namespace MyCustomDiscordBot.Services
                 Text = "Leaderboard"
             });
             return builder.Build();
-        }  
+        }
 
         public async Task<Embed> TeamEmbed(Team team)
         {
