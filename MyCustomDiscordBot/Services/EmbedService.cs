@@ -17,7 +17,16 @@ namespace MyCustomDiscordBot.Services
         private readonly DatabaseService _databaseService;
 
         private Random random = new Random();
-
+        static string norank;
+        static string Bronze;
+        static string Silver;
+        static string Gold;
+        static string Platinum;
+        static string Diamond;
+        static string Master;
+        static string legend;
+        static string mythical;
+        static string GrandMaster;
         public EmbedService(DiscordSocketClient client, DatabaseService databaseService)
         {
             _client = client;
@@ -45,9 +54,40 @@ namespace MyCustomDiscordBot.Services
         public string[] Getrank(int elo)
         {
 
+            if (XXXXX.GetValue(@"norank") != null || XXXXX.GetValue(@"Bronze") != null || XXXXX.GetValue(@"Silver") != null || XXXXX.GetValue(@"Gold") != null || XXXXX.GetValue(@"Platinum") != null || XXXXX.GetValue(@"Diamond") != null || XXXXX.GetValue(@"Master") != null || XXXXX.GetValue(@"legend") != null || XXXXX.GetValue(@"mythical") != null || XXXXX.GetValue(@"GrandMaster") != null)
+            {
+
+                norank = "<" + XXXXX.GetValue(@"norank").ToString() + ">";
+                Bronze = "<" + XXXXX.GetValue(@"Bronze").ToString() + ">";
+                Silver = "<" + XXXXX.GetValue(@"Silver").ToString() + ">";
+                Gold = "<" + XXXXX.GetValue(@"Gold").ToString() + ">";
+                Platinum = "<" + XXXXX.GetValue(@"Platinum").ToString() + ">";
+                Diamond = "<" + XXXXX.GetValue(@"Diamond").ToString() + ">";
+                Master = "<" + XXXXX.GetValue(@"Master").ToString() + ">";
+                legend = "<" + XXXXX.GetValue(@"legend").ToString() + ">";
+                mythical = "<" + XXXXX.GetValue(@"mythical").ToString() + ">";
+                GrandMaster = "<" + XXXXX.GetValue(@"GrandMaster").ToString() + ">";
+
+            }
+            else
+            {
+                norank = "<:norank050:909110612456517632>";
+                Bronze = "<:pronz50100:909110618752155699>";
+                Silver = "<:silver100200:909110626134163477>";
+                Gold = "<:gold200300:909110626742337546>";
+                Platinum = "<:plat300400:909110628818501702>";
+                Diamond = "<:diamond400500:909110629766418442>";
+                Master = "<:Master500600:909110629795758130>";
+                legend = "<:legend600700:909110629288263722>";
+                mythical = "<:mythical700900:909109955955654686>";
+                GrandMaster = "<:grandm9001000:909109348633026590>";
+
+            }
+
+
             if (elo <= 0)
             {
-                string[] level = { "<:norank050:909110612456517632>", "<:pronz50100:909110618752155699>", "50", "No Rank <:norank050:909110612456517632>" };
+                string[] level = { norank, Bronze, "50", "No Rank "+ norank };
 
                 return level;
 
@@ -55,20 +95,20 @@ namespace MyCustomDiscordBot.Services
             if (elo <= 50)
             {
 
-                string[] level = { "<:pronz50100:909110618752155699>", "<:silver100200:909110626134163477>", "180", "Bronze <:pronz50100:909110618752155699>" };
+                string[] level = { Bronze, Silver, "180", "Bronze " + Bronze};
 
                 return level;
             }
             if (elo <= 180)
             {
-                string[] level = { "<:silver100200:909110626134163477>", "<:gold200300:909110626742337546>", "250", "Silver <:silver100200:909110626134163477>" };
+                string[] level = { Silver, Gold, "250", "Silver "+ Silver };
 
                 return level;
 
             }
             if (elo <= 250)
             {
-                string[] level = { "<:gold200300:909110626742337546>", "<:plat300400:909110628818501702>", "350", "Gold <:gold200300:909110626742337546>" };
+                string[] level = { Gold, Platinum, "350", "Gold "+ Gold };
 
                 return level;
 
@@ -76,40 +116,40 @@ namespace MyCustomDiscordBot.Services
             if (elo <= 350)
             {
 
-                string[] level = { "<:plat300400:909110628818501702>", "<:diamond400500:909110629766418442>", "500", "Platinum <:plat300400:909110628818501702>" };
+                string[] level = { Platinum, Diamond, "500", "Platinum "+ Platinum };
 
                 return level;
             }
             if (elo <= 500)
             {
 
-                string[] level = { "<:diamond400500:909110629766418442>", "<:Master500600:909110629795758130>", "750", "Diamond <:diamond400500:909110629766418442>" };
+                string[] level = { Diamond, Master, "750", "Diamond " + Diamond };
 
                 return level;
             }
             if (elo <= 750)
             {
-                string[] level = { "<:Master500600:909110629795758130>", "<:legend600700:909110629288263722>", "850", "Master <:Master500600:909110629795758130>" };
+                string[] level = { Master, legend, "850", "Master "+Master };
 
                 return level;
 
             }
             if (elo <= 850)
             {
-                string[] level = { "<:legend600700:909110629288263722>", "<:mythical700900:909109955955654686>", "1000", "Mythical <:mythical700900:909109955955654686>" };
+                string[] level = { legend, mythical, "1000", "Mythical "+ mythical };
 
                 return level;
 
             }
             if (elo <= 1000)
             {
-                string[] level = { "<:mythical700900:909109955955654686>", "<:grandm9001000:909109348633026590>", "1000", "Grand Master <:grandm9001000:909109348633026590>" };
+                string[] level = { mythical, GrandMaster, "1000", "Grand Master "+ GrandMaster };
 
                 return level;
 
             }
 
-            string[] levelp = { "<:grandm9001000:909109348633026590>", "<:grandm9001000:909109348633026590>", "99999", "Grand Master <:grandm9001000:909109348633026590>" };
+            string[] levelp = { GrandMaster, GrandMaster, "99999", "Grand Master " + GrandMaster };
             return levelp;
         }
 #pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.

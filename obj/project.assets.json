@@ -1080,6 +1080,15 @@
         "runtime": {
           "lib/netcoreapp2.0/_._": {}
         }
+      },
+      "VMProtect.SDK/1.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net461/VMProtect.SDK.dll": {}
+        },
+        "runtime": {
+          "lib/net461/VMProtect.SDK.dll": {}
+        }
       }
     }
   },
@@ -3667,6 +3676,30 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "VMProtect.SDK/1.0.0": {
+      "sha512": "sy339gPQImvFV1LLeLP0vmV3onQzVzMNemTGkFRllq/ceKFyWhSewHs9sErCC1qWV4lJVvoYG4tk/71qqVugWg==",
+      "type": "package",
+      "path": "vmprotect.sdk/1.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net20/VMProtect.SDK.dll",
+        "lib/net35/VMProtect.SDK.dll",
+        "lib/net40/VMProtect.SDK.dll",
+        "lib/net45/VMProtect.SDK.dll",
+        "lib/net451/VMProtect.SDK.dll",
+        "lib/net452/VMProtect.SDK.dll",
+        "lib/net46/VMProtect.SDK.dll",
+        "lib/net461/VMProtect.SDK.dll",
+        "lib/net462/VMProtect.SDK.dll",
+        "lib/net47/VMProtect.SDK.dll",
+        "lib/net471/VMProtect.SDK.dll",
+        "lib/net472/VMProtect.SDK.dll",
+        "lib/net48/VMProtect.SDK.dll",
+        "vmprotect.sdk.1.0.0.nupkg.sha512",
+        "vmprotect.sdk.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -3681,7 +3714,8 @@
       "MongoDB.Bson >= 2.13.2",
       "MongoDB.Driver >= 2.13.2",
       "MongoDB.Driver.Core >= 2.13.2",
-      "ServiceStack.Text >= 5.12.0"
+      "ServiceStack.Text >= 5.12.0",
+      "VMProtect.SDK >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -3771,6 +3805,10 @@
           "ServiceStack.Text": {
             "target": "Package",
             "version": "[5.12.0, )"
+          },
+          "VMProtect.SDK": {
+            "target": "Package",
+            "version": "[1.0.0, )"
           }
         },
         "imports": [
@@ -3812,5 +3850,17 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100-rc.2.21505.57\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'VMProtect.SDK 1.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "VMProtect.SDK",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

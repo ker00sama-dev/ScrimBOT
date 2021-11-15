@@ -25,7 +25,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
                 perfix.Text = XXXXX.GetValue(@"perfix").ToString();
                 Token2.Text = XXXXX.GetValue(@"Token2").ToString();
                 serverid.Text = XXXXX.GetValue(@"serverid").ToString();
-            
+
                 // XXXXX.Close();
 
             }
@@ -39,6 +39,21 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
                 Startnull.Text = XXXXX.GetValue(@"startnull").ToString();
                 Centernull.Text = XXXXX.GetValue(@"centernull").ToString();
                 Endnull.Text = XXXXX.GetValue(@"endnull").ToString();
+
+            }
+            if (XXXXX.GetValue(@"norank") != null || XXXXX.GetValue(@"Bronze") != null || XXXXX.GetValue(@"Silver") != null || XXXXX.GetValue(@"Gold") != null || XXXXX.GetValue(@"Platinum") != null || XXXXX.GetValue(@"Diamond") != null || XXXXX.GetValue(@"Master") != null || XXXXX.GetValue(@"legend") != null || XXXXX.GetValue(@"mythical") != null || XXXXX.GetValue(@"GrandMaster") != null)
+            {
+
+                XXXXX.GetValue(@"norank").ToString();
+                XXXXX.GetValue(@"Bronze").ToString();
+                XXXXX.GetValue(@"Silver").ToString();
+                XXXXX.GetValue(@"Gold").ToString();
+                XXXXX.GetValue(@"Platinum").ToString();
+                XXXXX.GetValue(@"Diamond").ToString();
+                XXXXX.GetValue(@"Master").ToString();
+                XXXXX.GetValue(@"legend").ToString();
+                XXXXX.GetValue(@"mythical").ToString();
+                XXXXX.GetValue(@"GrandMaster").ToString();
 
             }
         }
@@ -91,6 +106,8 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 
                 Debug.Visible = true;
                 Conncet.Enabled = false;
+                button2.Enabled = false;
+                button3.Enabled = false;
                 // Conncet.Text = "Connecting";
                 Thread.Sleep(1000);
                 Conncet.Text = "Connected";
@@ -98,6 +115,8 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
                 Debug.Text = @"Press Ctrl+C to shut down at Console";
                 await BOT.RunAsync();
                 Conncet.Enabled = true;
+                button2.Enabled = true;
+                button3.Enabled = true;
                 await BOT.StopAsync();
                 Console.Clear();
                 Conncet.Text = "Connect";
@@ -206,5 +225,35 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             MessageBox.Show("Done");
 
         }
+
+        private void groupBox2_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (norank.Text == "" || Bronze.Text == "" || Silver.Text == "" || Gold.Text == "" || Platinum.Text == "" || Diamond.Text == "" || Master.Text == "" || legend.Text == "" || mythical.Text == "" || GrandMaster.Text == "")
+            {
+                MessageBox.Show("Please Write (ALL ID's Emoji) !");
+
+
+                return;
+
+            }
+            XXXXX.SetValue(@"norank", norank.Text);
+            XXXXX.SetValue(@"Bronze", Bronze.Text);
+            XXXXX.SetValue(@"Silver", Silver.Text);
+            XXXXX.SetValue(@"Gold", Gold.Text);
+            XXXXX.SetValue(@"Platinum", Platinum.Text);
+            XXXXX.SetValue(@"Diamond", Diamond.Text);
+            XXXXX.SetValue(@"Master", Master.Text);
+            XXXXX.SetValue(@"legend", legend.Text);
+            XXXXX.SetValue(@"mythical", mythical.Text);
+            XXXXX.SetValue(@"GrandMaster", GrandMaster.Text);
+            MessageBox.Show("Done");
+        }
+
+        }
     }
-}
+

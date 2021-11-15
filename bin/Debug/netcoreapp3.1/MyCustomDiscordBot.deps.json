@@ -18,7 +18,8 @@
           "MongoDB.Bson": "2.13.2",
           "MongoDB.Driver": "2.13.2",
           "MongoDB.Driver.Core": "2.13.2",
-          "ServiceStack.Text": "5.12.0"
+          "ServiceStack.Text": "5.12.0",
+          "VMProtect.SDK": "1.0.0"
         },
         "runtime": {
           "MyCustomDiscordBot.dll": {}
@@ -849,7 +850,15 @@
           "System.Runtime": "4.3.1"
         }
       },
-      "System.ValueTuple/4.5.0": {}
+      "System.ValueTuple/4.5.0": {},
+      "VMProtect.SDK/1.0.0": {
+        "runtime": {
+          "lib/net461/VMProtect.SDK.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
     }
   },
   "libraries": {
@@ -1375,6 +1384,13 @@
       "sha512": "sha512-okurQJO6NRE/apDIP23ajJ0hpiNmJ+f0BwOlB/cSqTLQlw5upkf+5+96+iG2Jw40G1fCVCyPz/FhIABUjMR+RQ==",
       "path": "system.valuetuple/4.5.0",
       "hashPath": "system.valuetuple.4.5.0.nupkg.sha512"
+    },
+    "VMProtect.SDK/1.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-sy339gPQImvFV1LLeLP0vmV3onQzVzMNemTGkFRllq/ceKFyWhSewHs9sErCC1qWV4lJVvoYG4tk/71qqVugWg==",
+      "path": "vmprotect.sdk/1.0.0",
+      "hashPath": "vmprotect.sdk.1.0.0.nupkg.sha512"
     }
   }
 }
