@@ -44,16 +44,16 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             if (XXXXX.GetValue(@"norank") != null || XXXXX.GetValue(@"Bronze") != null || XXXXX.GetValue(@"Silver") != null || XXXXX.GetValue(@"Gold") != null || XXXXX.GetValue(@"Platinum") != null || XXXXX.GetValue(@"Diamond") != null || XXXXX.GetValue(@"Master") != null || XXXXX.GetValue(@"legend") != null || XXXXX.GetValue(@"mythical") != null || XXXXX.GetValue(@"GrandMaster") != null)
             {
 
-                XXXXX.GetValue(@"norank").ToString();
-                XXXXX.GetValue(@"Bronze").ToString();
-                XXXXX.GetValue(@"Silver").ToString();
-                XXXXX.GetValue(@"Gold").ToString();
-                XXXXX.GetValue(@"Platinum").ToString();
-                XXXXX.GetValue(@"Diamond").ToString();
-                XXXXX.GetValue(@"Master").ToString();
-                XXXXX.GetValue(@"legend").ToString();
-                XXXXX.GetValue(@"mythical").ToString();
-                XXXXX.GetValue(@"GrandMaster").ToString();
+                norank.Text =  XXXXX.GetValue(@"norank").ToString();
+                Bronze.Text = XXXXX.GetValue(@"Bronze").ToString();
+                Silver.Text = XXXXX.GetValue(@"Silver").ToString();
+                Gold.Text = XXXXX.GetValue(@"Gold").ToString();
+                Platinum.Text = XXXXX.GetValue(@"Platinum").ToString();
+                Diamond.Text = XXXXX.GetValue(@"Diamond").ToString();
+                Master.Text = XXXXX.GetValue(@"Master").ToString();
+                legend.Text = XXXXX.GetValue(@"legend").ToString();
+                mythical.Text = XXXXX.GetValue(@"mythical").ToString();
+                GrandMaster.Text = XXXXX.GetValue(@"GrandMaster").ToString();
 
             }
         }
