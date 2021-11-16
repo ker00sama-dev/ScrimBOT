@@ -322,7 +322,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             this.groupBox3.Controls.Add(this.Token2);
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(405, 193);
+            this.groupBox3.Size = new System.Drawing.Size(405, 200);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Configuration";

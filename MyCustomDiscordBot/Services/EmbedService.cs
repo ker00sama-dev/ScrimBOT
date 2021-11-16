@@ -287,7 +287,7 @@ namespace MyCustomDiscordBot.Services
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithTitle($"{config.Name} Queue: 0 / {config.Capacity}");
-            builder.WithDescription("Click the **Join button** to join the Mixed EG/EU queue or Click **leave button** to leave queue\n\n**Players**\n");
+            builder.WithDescription("Click the **Join button** to join the queue or Click **leave button** to leave queue\n\n**Players**\n");
             builder.WithColor(Color.Gold);
 
             builder.WithFooter(new EmbedFooterBuilder
@@ -303,15 +303,18 @@ namespace MyCustomDiscordBot.Services
             builder.WithColor(Color.Gold);
             builder.WithTitle($"{queue.Name}");
             string description = "";
+
             foreach (DbUser user in queue.Users)
             {
                 description += $"`{user.ELO}`{_client.GetUser(user.DiscordId).Mention}\n";
             }
+
             builder.WithDescription($"Click the **Join button** to join the Mixed EG/EU queue or Click **leave button** to leave queue\n\n**Players**                       **{queue.Users.Count()} / {queue.Capacity}**\n" + description);
             builder.WithFooter(new EmbedFooterBuilder
             {
-                Text = $"Powered by CrossFire Stars League"
-            });
+              
+              //Text = $"Powered by {base.Context.Guild.Name}" 
+            });;
             return builder.Build();
         }
 
