@@ -8,7 +8,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
     public partial class DiscordBOTGaming : Form
     {
         public static Microsoft.Win32.RegistryKey XXXXX = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
-
+        public static string versions = "1.0.0.0";
         //public static char ConfigPerfix = (char)XXXXX.GetValue(@"perfix");
         //public static string ConfigToken = (string)XXXXX.GetValue(@"Token2");
         //public static ulong Configserverid = (ulong)XXXXX.GetValue(@"serverid");
@@ -16,6 +16,8 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
         public DiscordBOTGaming()
         {
             InitializeComponent();
+            version.Text = versions;
+
             if (XXXXX.GetValue(@"perfix") != null || XXXXX.GetValue(@"Token2") != null || XXXXX.GetValue(@"serverid") != null)
             {
 
@@ -254,6 +256,10 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             MessageBox.Show("Done");
         }
 
+        private void version_Click(object sender, EventArgs e)
+        {
+
         }
+    }
     }
 

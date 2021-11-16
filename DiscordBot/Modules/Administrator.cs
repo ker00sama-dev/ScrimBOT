@@ -370,6 +370,35 @@ namespace DiscordBot.Modules
                 await base.Context.Message.DeleteAsync();
 
             }
+            else if (name.ToLower().Contains("valorant"))
+            {
+                foreach (string map in qConfig.Maps)
+                {
+                    if (map.ToLower() == name.ToLower())
+                    {
+                        await ReplyAsync("That map: " + "Fracture" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "ASCENT" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "SPLIT" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "HAVEN" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "BIND" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "ICEBOX" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "BREEZE" + " is already in the map pool for the " + qConfig.Name + " queue.");
+
+                        return;
+                    }
+                }
+
+                qConfig.Maps.Add("Fracture");
+                qConfig.Maps.Add("ASCENT");
+                qConfig.Maps.Add("SPLIT");
+                qConfig.Maps.Add("HAVEN");
+                qConfig.Maps.Add("BIND");
+                qConfig.Maps.Add("ICEBOX");
+                qConfig.Maps.Add("BREEZE");
+                await _databaseService.UpsertServerConfigAsync(config);
+                _queueService.UpdatePugQueue(qConfig);
+                await base.Context.Message.DeleteAsync();
+            }
 
             await base.Context.Message.DeleteAsync();
 

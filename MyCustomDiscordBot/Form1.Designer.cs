@@ -57,6 +57,8 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.version = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -327,12 +329,33 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Configuration";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(315, 579);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 15);
+            this.label1.TabIndex = 23;
+            this.label1.Text = "Version :";
+            // 
+            // version
+            // 
+            this.version.AutoSize = true;
+            this.version.Location = new System.Drawing.Point(366, 579);
+            this.version.Name = "version";
+            this.version.Size = new System.Drawing.Size(40, 15);
+            this.version.TabIndex = 24;
+            this.version.Text = "1.0.0.0";
+            this.version.Click += new System.EventHandler(this.version_Click);
+            // 
             // DiscordBOTGaming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(412, 595);
             this.ControlBox = false;
+            this.Controls.Add(this.version);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
@@ -346,6 +369,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -382,5 +406,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label version;
     }
 }

@@ -292,7 +292,7 @@ namespace MyCustomDiscordBot.Services
 
             builder.WithFooter(new EmbedFooterBuilder
             {
-                Text = $"Powered by CrossFire Stars League"
+             //   Text = $"Powered by CrossFire Stars League"
             });
             return builder.Build();
         }
@@ -371,6 +371,7 @@ namespace MyCustomDiscordBot.Services
                 //qConfig.Maps.Add("BlackWidow");
                 //qConfig.Maps.Add("Compound");
                 //qConfig.Maps.Add("Port");
+
                 if (Mapup.Contains("SUBBASE"))
 
                 {
@@ -420,6 +421,82 @@ namespace MyCustomDiscordBot.Services
 
 
                     builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906938745842970644/1000.png");
+
+
+
+                }
+                if (Mapup.Contains("Fracture"))
+
+                {
+
+                    builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/909178833125662760/1000.png");
+
+
+
+                }
+                if (Mapup.Contains("ASCENT"))
+                {
+
+
+
+
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909179873510187058/ascent1.png");
+
+
+
+                }
+                if (Mapup.Contains("SPLIT"))
+                {
+
+
+
+
+                    builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/909180017739698196/split4-2.png");
+
+
+
+                }
+                if (Mapup.Contains("HAVEN"))
+                {
+
+
+
+
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909180170559176764/haven4.png");
+
+
+
+                }
+                if (Mapup.Contains("BIND"))
+                {
+
+
+
+
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909180454186414120/bind3.png");
+
+
+
+                }
+
+                if (Mapup.Contains("ICEBOX"))
+                {
+
+
+
+
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909181094597906492/icebox_6.png");
+
+
+
+                }
+                if (Mapup.Contains("BREEZE"))
+                {
+
+
+
+
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909181272650301500/breeze_1.png");
 
 
 
