@@ -579,7 +579,8 @@ namespace MyCustomDiscordBot
             if (message != null)
             {
                 int argPos = 0;
-                if ((message.HasCharPrefix(Config.Prfix, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
+                 Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+                if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
                 {
                     SocketCommandContext context = new SocketCommandContext(_client, message);
                     await _commands.ExecuteAsync(context, argPos, _sp);
