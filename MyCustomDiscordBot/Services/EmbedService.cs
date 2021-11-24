@@ -425,7 +425,7 @@ namespace MyCustomDiscordBot.Services
 
 
                 }
-                if (Mapup.Contains("Fracture"))
+                if (Mapup.Contains("FRACTURE"))
 
                 {
 

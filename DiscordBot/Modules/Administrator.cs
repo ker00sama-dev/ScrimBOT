@@ -10,6 +10,7 @@ using MyCustomDiscordBot.Services;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using VMProtect;
 using MyCustomDiscordBot.MyCustomDiscordBot;
 using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
 
@@ -18,6 +19,7 @@ namespace DiscordBot.Modules
 
     public class Administrator : ModuleBase<SocketCommandContext>
     {
+
         private readonly DatabaseService _databaseService;
 
         private readonly EmbedService _embedService;
@@ -32,6 +34,7 @@ namespace DiscordBot.Modules
 
         public Administrator(DatabaseService databaseService, EmbedService embedService, QueueService queueService, UtilityService utilityService, ILogger<Worker> logger, ScrimService scrimService)
         {
+
             _databaseService = databaseService;
             _embedService = embedService;
             _queueService = queueService;
@@ -39,7 +42,6 @@ namespace DiscordBot.Modules
             _scrimService = scrimService;
             _logger = logger;
         }
-
         [Command("addreactions")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Add the reactions to a queue.")]
@@ -52,7 +54,6 @@ namespace DiscordBot.Modules
                 await ReplyAsync("I could not find a message by that Id.");
 
             }
-
             IMessage message = base.Context.Channel.GetCachedMessage(messageId);
             if (message == null)
             {
@@ -376,7 +377,7 @@ namespace DiscordBot.Modules
                 {
                     if (map.ToLower() == name.ToLower())
                     {
-                        await ReplyAsync("That map: " + "Fracture" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "FRACTURE" + " is already in the map pool for the " + qConfig.Name + " queue.");
                         await ReplyAsync("That map: " + "ASCENT" + " is already in the map pool for the " + qConfig.Name + " queue.");
                         await ReplyAsync("That map: " + "SPLIT" + " is already in the map pool for the " + qConfig.Name + " queue.");
                         await ReplyAsync("That map: " + "HAVEN" + " is already in the map pool for the " + qConfig.Name + " queue.");
@@ -388,7 +389,7 @@ namespace DiscordBot.Modules
                     }
                 }
 
-                qConfig.Maps.Add("Fracture");
+                qConfig.Maps.Add("FRACTURE");
                 qConfig.Maps.Add("ASCENT");
                 qConfig.Maps.Add("SPLIT");
                 qConfig.Maps.Add("HAVEN");

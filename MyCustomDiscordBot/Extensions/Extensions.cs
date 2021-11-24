@@ -1,5 +1,6 @@
 using Discord;
 using System.Threading.Tasks;
+using VMProtect;
 
 namespace MyCustomDiscordBot.Extensions
 {

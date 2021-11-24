@@ -8,6 +8,7 @@ using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
 using System;
 using System.Threading.Tasks;
+using VMProtect;
 
 namespace MyCustomDiscordBot.Commands
 {
@@ -85,7 +86,7 @@ namespace MyCustomDiscordBot.Commands
         {
             if (enemy == null)
             {
-                await (await ReplyAsync(base.Context.User.Mention + ", please specify a user on the board to accept their scrim challenge.")).DeleteMessageAfterSeconds(10);
+                await (await ReplyAsync(base.Context.User.Mention + ", please specify a user on the board to accept their scrim challenge.")).DeleteMessageAfterSeconds(2);
                 await base.Context.Message.DeleteAsync();
                 return;
             }

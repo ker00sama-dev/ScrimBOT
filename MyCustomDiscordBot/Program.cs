@@ -13,7 +13,9 @@ using System.Threading;
 using System.Windows.Forms;
 #pragma warning disable CS0105 // The using directive for 'MyCustomDiscordBot.MyCustomDiscordBot' appeared previously in this namespace
 using MyCustomDiscordBot.MyCustomDiscordBot;
+using System.Security.Principal;
 #pragma warning restore CS0105 // The using directive for 'MyCustomDiscordBot.MyCustomDiscordBot' appeared previously in this namespace
+using VMProtect;
 
 namespace MyCustomDiscordBot
 {
@@ -50,25 +52,36 @@ namespace MyCustomDiscordBot
         /// <summary>
         /// Punto de entrada principal para la aplicación.
         /// </summary>
+        static bool isAdmin()
+        {
+            return new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator);
+        }
         [STAThread]
         public static void Main(string[] args)
         {
 
+            using (WindowsIdentity identity = WindowsIdentity.GetCurrent())
+            {
+                WindowsPrincipal principal = new WindowsPrincipal(identity);
+                if (!principal.IsInRole(WindowsBuiltInRole.Administrator))
+                {
+                   
 
+                    MessageBox.Show($"Application must be run as administrator. Right click the 'Application.exe' file and select 'run as administrator'.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
-            //AntiDebuggers antiDebuggers = new AntiDebuggers();
-
-            //Task.Run(() => antiDebuggers.RegisteredWaitHandleAssemblyProductAttribute());
-            Mutex mutex = new System.Threading.Mutex(false, "MyUniqueMutexName");
+                Mutex mutex = new System.Threading.Mutex(false, "MyUniqueMutexName");
             try
             {
+
                 if (mutex.WaitOne(0, false))
                 {
                     // Run the application
 
 
-                   // CreateHostBuilder(args).Build().Run();
-
+                    // CreateHostBuilder(args).Build().Run();
+                    // RequireAdministrator();
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
                     Application.Run(new DiscordBOTGaming());
@@ -88,10 +101,17 @@ namespace MyCustomDiscordBot
                 }
             }
         }
+    }
+
         //public  static void kero()
         //  {
         //     
         //  }//where are your handling 
+
+        /// <summary>
+        /// Asks for administrator privileges upgrade if the platform supports it, otherwise does nothing
+        /// </summary>
+
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {

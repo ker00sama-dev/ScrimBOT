@@ -1,8 +1,10 @@
 ﻿using MyCustomDiscordBot.MyCustomDiscordBot;
 using System;
+using VMProtect;
 
 namespace MyCustomDiscordBot
 {
+
     //public static class Config
     //{
     //    public static string token = "OTA3NTkwMTUxOTIyOTEzMjgw.YYpZMg.1uSiJjFfnY1ijIw5boYUqB2X4ZI";
@@ -12,6 +14,7 @@ namespace MyCustomDiscordBot
     //}
     public static class Config
     {
+
         public static Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
 
         //   public static string token = "OTA3NTkwMTUxOTIyOTEzMjgw.YYpZMg.1uSiJjFfnY1ijIw5boYUqB2X4ZI";

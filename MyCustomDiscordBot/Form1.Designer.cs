@@ -30,6 +30,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DiscordBOTGaming));
             this.button1 = new System.Windows.Forms.Button();
             this.serverid = new System.Windows.Forms.TextBox();
             this.Debug = new System.Windows.Forms.Label();
@@ -352,13 +353,14 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(412, 595);
+            this.ClientSize = new System.Drawing.Size(412, 582);
             this.ControlBox = false;
             this.Controls.Add(this.version);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "DiscordBOTGaming";
             this.Text = "DiscordBOTGaming";
             this.Load += new System.EventHandler(this.Form1_Load);

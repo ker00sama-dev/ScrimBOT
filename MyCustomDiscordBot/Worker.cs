@@ -6,6 +6,7 @@ using MyCustomDiscordBot.Settings;
 using System.Threading;
 using System.Threading.Tasks;
 using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
+using VMProtect;
 
 namespace MyCustomDiscordBot
 {

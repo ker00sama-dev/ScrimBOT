@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -8,7 +9,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
     public partial class DiscordBOTGaming : Form
     {
         public static Microsoft.Win32.RegistryKey XXXXX = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
-        public static string versions = "1.0.0.0";
+        public static string ToolVersion = "1.0.0.0";
         //public static char ConfigPerfix = (char)XXXXX.GetValue(@"perfix");
         //public static string ConfigToken = (string)XXXXX.GetValue(@"Token2");
         //public static ulong Configserverid = (ulong)XXXXX.GetValue(@"serverid");
@@ -16,8 +17,26 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
         public DiscordBOTGaming()
         {
             InitializeComponent();
-            version.Text = versions;
+            version.Text = ToolVersion;
+            INetWorkComunucator nc = new INetWorkComunucator();
+            string versioncheck = nc.Version();
 
+            //if (versioncheck == "CONECTION_ERROR")
+            //{
+            //    MessageBox.Show("There is no internet Connections!", "Error!", MessageBoxButtons.OK,
+            //        MessageBoxIcon.Error);
+            //    Environment.Exit(0);
+            //    return;
+            //}
+
+            //if (ToolVersion != versioncheck)
+            //{
+            //    MessageBox.Show("A new version [" + versioncheck + "] was realeased with some improves!. Please download it and try again the bypass process. This version was deprecated.", "ERROR: This version is deprecated!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    //Process.Start("https://www.itools-removal.com/");
+            //    // Process.Start("https://mega.nz/folder/yfZUkbgC#mBZCQwIyrlEQl2xYmiBtUA");
+            //    Environment.Exit(0);
+            //    return;
+            //}
             if (XXXXX.GetValue(@"perfix") != null || XXXXX.GetValue(@"Token2") != null || XXXXX.GetValue(@"serverid") != null)
             {
 
@@ -110,6 +129,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
                 Conncet.Enabled = false;
                 button2.Enabled = false;
                 button3.Enabled = false;
+                button1.Enabled = false;
                 // Conncet.Text = "Connecting";
                 Thread.Sleep(1000);
                 Conncet.Text = "Connected";
@@ -117,6 +137,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
                 Debug.Text = @"Press Ctrl+C to shut down at Console";
                 await BOT.RunAsync();
                 Conncet.Enabled = true;
+                button1.Enabled = true;
                 button2.Enabled = true;
                 button3.Enabled = true;
                 await BOT.StopAsync();

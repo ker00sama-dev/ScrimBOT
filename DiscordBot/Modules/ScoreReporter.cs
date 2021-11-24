@@ -132,7 +132,7 @@ namespace DiscordBot.Modules
             }
         }
 
-        [Command("suspend")]
+        [Command("cooldown")]
         [Summary("Suspend a user for X minutes from PUGs.")]
         public async Task SuspendUser(SocketGuildUser user, double minutes)
         {
@@ -164,6 +164,40 @@ namespace DiscordBot.Modules
             dbUser.SuspensionReturnDate = DateTime.UtcNow.AddMinutes(minutes);
             await _databaseService.UpsertUser(base.Context.Guild.Id, dbUser);
             await ReplyAsync($"{user.Mention} has been suspended from pick up games for {minutes} minutes.");
+        }
+
+        [Command("removecd")]
+        [Summary("Suspend a user for X minutes from PUGs.")]
+        public async Task UnSuspeend(SocketGuildUser user, double minutes = -99999)
+        {
+            ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+            SocketGuildUser author = base.Context.User as SocketGuildUser;
+            if (author != null)
+            {
+                bool roleFound = false;
+                foreach (SocketRole role in author.Roles)
+                {
+                    if (role.Id == config.ScoreReporterRoleId)
+                    {
+                        roleFound = true;
+                        break;
+                    }
+                }
+                if (!roleFound)
+                {
+                    await ReplyAsync(author.Mention + ", you need the score reporting role to do this.");
+                    return;
+                }
+            }
+            DbUser dbUser = await _databaseService.GetUserInGuild(user.Id, base.Context.Guild.Id);
+            if (dbUser == null)
+            {
+                await ReplyAsync(user.Mention + " has not played any matches yet and does not have an account in our database.");
+                return;
+            }
+            dbUser.SuspensionReturnDate = DateTime.UtcNow.AddMinutes(minutes);
+            await _databaseService.UpsertUser(base.Context.Guild.Id, dbUser);
+            await ReplyAsync($"{user.Mention} has been Unsuspended");
         }
 
         [Command("takeelo")]

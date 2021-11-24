@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.ServiceProcess;
 using System.Text;
+using VMProtect;
 
 namespace MyCustomDiscordBot
 {
@@ -28,72 +30,45 @@ namespace MyCustomDiscordBot
         {
 
             Protection.CheckForAnyProxyConnections();
-
+            Protection.StopService("HTTPDebuggerPro",15);
 
             try
             {
-                //Genero el desafio
-                var random = new Random(System.DateTime.Now.Millisecond);
-                int challenge = random.Next(100000, 999999);
-             var httpContent =  challenge.ToString();
+                var url = "https://scrimbot.co/versionxyz.php";
 
-                var encriptedHttpContent = IRequestEncriptor.Encrypt(httpContent);
+                var httpRequest = (HttpWebRequest)WebRequest.Create(url);
+                httpRequest.Method = "POST";
 
-                HttpWebRequest request = HttpWebRequest.Create(url1) as HttpWebRequest;
-                request.UserAgent = USERAGENT;
-                AntiFiddler();
-                request.Method = "POST";
-                request.Timeout = 12000;
-                request.Headers.Add("DiscordBOT", APPTOKEN);
+                httpRequest.Headers["User-agent"] = "DiscordBOT";
+                httpRequest.Headers["Cache-Control"] = "no-cache";
+                httpRequest.Headers["Pragma"] = "no-cache";
+                httpRequest.ContentType = "application/x-www-form-urlencoded";
+                httpRequest.Headers["Content-Length"] = "0";
 
-                string postData = encriptedHttpContent;
-                byte[] byteArray = Encoding.UTF8.GetBytes(postData);
 
-                request.ContentType = "application/x-www-form-urlencoded";
-                //request.ContentLength = byteArray.Length;
-                Stream dataStream = request.GetRequestStream();
-                dataStream.Write(byteArray, 0, byteArray.Length);
-                dataStream.Close();
 
-                WebResponse response = request.GetResponse();
-                string finalResponse = "";
+                var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
 
-                using (dataStream = response.GetResponseStream())
+                string finalResponse;
+                using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
                 {
-                    StreamReader reader = new StreamReader(dataStream);
-                    string responseFromServer = reader.ReadToEnd();
-                    finalResponse = responseFromServer;
+                    finalResponse = streamReader.ReadToEnd();
                 }
+       
 
-                Console.WriteLine(">>response>>" + finalResponse);
+                Console.WriteLine(">>Connceted");
+                Console.WriteLine(">>Version>>" + finalResponse);
 
-                bool challengeTest = false;
-                foreach (string key in response.Headers.AllKeys)
-                {
 
-                    Console.WriteLine(">>response>>" + key.ToUpper() + ">>" + response.Headers[key]);
 
-                    if (key.ToUpper() == "ITOOLS-CHALLENGE" && response.Headers[key] == challenge.ToString())
-                    {
-                        challengeTest = true;
-                        break;
-                    }
-                }
-
-                response.Close();
-
-                if (challengeTest == false)
-                {
-                    Console.WriteLine(">>response App>>" + ">>" + challenge.ToString());
-
-                    return "NOT_MATCH";
-                }
 
                 return finalResponse; //devuelve la version 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                // Console.WriteLine(ex.ToString());
+                Console.WriteLine(">>CONECTION_ERROR");
+
                 return "CONECTION_ERROR";
             }
         }

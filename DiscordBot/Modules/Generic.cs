@@ -515,9 +515,9 @@ aliases: " + prifx + @"needsubfor
             ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
             if (base.Context.Channel.Id != config.StatsChannelId)
             {
-                await ReplyAsync(base.Context.User.Mention + ", please use this command in the stats channel only." + config.StatsChannelId + "Channel ID" + base.Context.Channel.Id);
+                await (await ReplyAsync(base.Context.User.Mention + ", please use this command in the stats channel only.")).DeleteMessageAfterSeconds(1);
 
-                await base.Context.Message.DeleteAsync();
+             //   await base.Context.Message.DeleteAsync();
                 return;
             }
             SocketUser user2 = base.Context.User;
