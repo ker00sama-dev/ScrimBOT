@@ -32,6 +32,7 @@ namespace DiscordBot.Modules
 
         private readonly ScrimService _scrimService;
 
+
         public Administrator(DatabaseService databaseService, EmbedService embedService, QueueService queueService, UtilityService utilityService, ILogger<Worker> logger, ScrimService scrimService)
         {
 
@@ -66,6 +67,15 @@ namespace DiscordBot.Modules
             }
             await message.AddReactionAsync(new Emoji("✅"));
             await message.AddReactionAsync(new Emoji("❌"));
+        }
+        [Command("resetelo")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+        [Summary("Add the reactions to a queue.")]
+        public async Task resetelo()
+        {
+            await _databaseService.ResetUser(base.Context.Guild.Id, channel: base.Context.Channel, base.Context.User.Mention, base.Context.Guild);
+         //   await ReplyAsync(@"All Users Has been Reset To ELO : ( 0 ) ");
+
         }
 
         [Command("setteamsort")]
@@ -217,7 +227,7 @@ namespace DiscordBot.Modules
         [Command("deletequeue")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Delete a queue by its name.")]
-        public async Task DeleteQueueByName(string name)
+        public async Task DeleteQueueByName(string name = null)
         {
             ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
             int removeIndex = -1;

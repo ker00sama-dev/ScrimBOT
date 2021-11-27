@@ -80,4 +80,3 @@ D:\github\DiscordGamingBOT\obj\x64\Release\netcoreapp3.1\MyCustomDiscordBot.dll
 D:\github\DiscordGamingBOT\obj\x64\Release\netcoreapp3.1\MyCustomDiscordBot.pdb
 D:\github\DiscordGamingBOT\obj\x64\Release\netcoreapp3.1\MyCustomDiscordBot.genruntimeconfig.cache
 D:\github\DiscordGamingBOT\obj\x64\Release\netcoreapp3.1\MyCustomDiscordBot.csproj.CopyComplete
-D:\github\DiscordGamingBOT\obj\x64\Release\netcoreapp3.1\MyCustomDiscordBot.csproj.AssemblyReference.cache

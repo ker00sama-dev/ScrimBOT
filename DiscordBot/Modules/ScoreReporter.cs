@@ -25,7 +25,107 @@ namespace DiscordBot.Modules
             _embedService = embedService;
             _queueService = queueService;
         }
-
+        [Command("replace")]
+        [Summary("Request a sub from the queue.")]
+        public async Task replace(SocketGuildUser userToSub, SocketGuildUser userToSubto)
+        {
+            ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+            SocketGuildUser author = base.Context.User as SocketGuildUser;
+            if (author != null)
+            {
+                bool roleFound = false;
+                foreach (SocketRole role in author.Roles)
+                {
+                    if (role.Id == config.ScoreReporterRoleId)
+                    {
+                        roleFound = true;
+                        break;
+                    }
+                }
+                if (!roleFound)
+                {
+                    await ReplyAsync(author.Mention + ", you need the score reporting role to do this.");
+                    return;
+                }
+            }
+            Match match = await _databaseService.GetMatchForChannelAsync(base.Context.Guild.Id, base.Context.Channel.Id);
+            if (match == null)
+            {
+                await ReplyAsync("Either this is not a match channel or something went wrong.");
+                return;
+            }
+            PugQueue queue = _queueService.GetPugQueue(match.PugQueueMessageId);
+            if (queue == null)
+            {
+                await ReplyAsync(base.Context.User.Mention + ", something weird happened and the queue was not found.");
+            }
+            else if (match.Team1DiscordIds.Contains(userToSub.Id))
+            {
+                ulong playerInQueueDiscordId2 = userToSubto.Id;
+                match.Team1DiscordIds.Add(playerInQueueDiscordId2);
+                match.Team1DiscordIds.Remove(userToSub.Id);
+                await _queueService.RemoveFromPugQueue(queue.MessageId, playerInQueueDiscordId2);
+                await _databaseService.UpsertMatchAsync(base.Context.Guild.Id, match);
+                SocketGuildUser userSubbedIn2 = base.Context.Guild.GetUser(playerInQueueDiscordId2);
+                await ReplyAsync(userSubbedIn2.Mention + " has been subbed in for " + userToSub.Mention + ".");
+                await Task.Delay(250);
+                await ReplyAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, base.Context.Guild.Id));
+                SocketVoiceChannel team1 = base.Context.Guild.GetVoiceChannel(match.Team1VoiceChannelId);
+                if (team1 != null)
+                {
+                    OverwritePermissions connectTrue2 = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow);
+                    await team1.AddPermissionOverwriteAsync(userSubbedIn2, connectTrue2);
+                }
+                try
+                {
+                    if (userSubbedIn2.VoiceChannel != null)
+                    {
+                        await userSubbedIn2.ModifyAsync(delegate (GuildUserProperties x)
+                        {
+                            x.Channel = team1;
+                        });
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+            else if (match.Team2DiscordIds.Contains(userToSub.Id))
+            {
+                ulong playerInQueueDiscordId2 = userToSubto.Id;
+                match.Team2DiscordIds.Add(playerInQueueDiscordId2);
+                match.Team2DiscordIds.Remove(userToSub.Id);
+                await _queueService.RemoveFromPugQueue(queue.MessageId, playerInQueueDiscordId2);
+                await _databaseService.UpsertMatchAsync(base.Context.Guild.Id, match);
+                SocketGuildUser userSubbedIn2 = base.Context.Guild.GetUser(playerInQueueDiscordId2);
+                await ReplyAsync(userSubbedIn2.Mention + " has been subbed in for " + userToSub.Mention + ".");
+                await Task.Delay(250);
+                await ReplyAsync(null, isTTS: false, await _embedService.GetMatchEmbedAsync(match, base.Context.Guild.Id));
+                SocketVoiceChannel team2 = base.Context.Guild.GetVoiceChannel(match.Team2VoiceChannelId);
+                if (team2 != null)
+                {
+                    OverwritePermissions connectTrue = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow);
+                    await team2.AddPermissionOverwriteAsync(userSubbedIn2, connectTrue);
+                }
+                try
+                {
+                    if (userSubbedIn2.VoiceChannel != null)
+                    {
+                        await userSubbedIn2.ModifyAsync(delegate (GuildUserProperties x)
+                        {
+                            x.Channel = team2;
+                        });
+                    }
+                }
+                catch (Exception)
+                {
+                }
+            }
+            else
+            {
+                await ReplyAsync(base.Context.User.Mention + ", " + userToSub.Mention + " is not a player in this match.");
+            }
+        }
         [Command("needsub")]
         [Summary("Request a sub from the queue.")]
         public async Task NeedSub(SocketGuildUser userToSub)
@@ -87,7 +187,7 @@ namespace DiscordBot.Modules
                     {
                         await userSubbedIn2.ModifyAsync(delegate (GuildUserProperties x)
                         {
-                            //x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)team1;
+                          x.Channel = team1;
                         });
                     }
                 }
@@ -118,7 +218,7 @@ namespace DiscordBot.Modules
                     {
                         await userSubbedIn2.ModifyAsync(delegate (GuildUserProperties x)
                         {
-                            //	x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)team2;
+                            	x.Channel = team2;
                         });
                     }
                 }
@@ -328,7 +428,7 @@ namespace DiscordBot.Modules
             }
             SocketTextChannel matchLogsChannel = base.Context.Guild.GetTextChannel(config.MatchLogsChannelId);
             SocketTextChannel socketTextChannel = matchLogsChannel;
-            await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, base.Context.Guild.Id));
+            await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, base.Context.Guild.Id, base.Context.User));
         }
 
         [Command("report")]
@@ -362,7 +462,9 @@ namespace DiscordBot.Modules
             Match match = await _databaseService.GetMatchForChannelAsync(base.Context.Guild.Id, base.Context.Channel.Id);
             if (match.Winners == 1 || match.Winners == 2)
             {
-                await ReplyAsync($"This match has already been reported as a team ${match.Winners} victory. You may use `.giveelo @User AMOUNT` and `.takeelo @User AMOUNT` to correct any mistakes.");
+                        Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+
+        await ReplyAsync($"This match has already been reported as a team ${match.Winners} victory. You may use `{char.Parse(XXXXX2.GetValue(@"perfix").ToString())}giveelo @User AMOUNT` and ` {char.Parse(XXXXX2.GetValue(@"perfix").ToString())}takeelo @User AMOUNT` to correct any mistakes.");
                 return;
             }
             if (match == null)
@@ -379,7 +481,7 @@ namespace DiscordBot.Modules
                 {
                     await moveMe.ModifyAsync(delegate (GuildUserProperties x)
                     {
-                        //      x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)waiting;//can you fix ? 
+                        x.Channel = waiting;
                     });
                     await Task.Delay(250);
                 }
@@ -402,7 +504,7 @@ namespace DiscordBot.Modules
             }
             SocketTextChannel matchLogsChannel = base.Context.Guild.GetTextChannel(config.MatchLogsChannelId);
             SocketTextChannel socketTextChannel = matchLogsChannel;
-            await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, base.Context.Guild.Id));
+            await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, base.Context.Guild.Id, base.Context.User));
         }
     }
 }

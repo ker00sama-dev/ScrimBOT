@@ -23,7 +23,7 @@ namespace MyCustomDiscordBot.Models
 
         public ObjectId TeamId { get; set; }
 
-        public DbUser(string username, ulong discordId)
+        public  DbUser(string username, ulong discordId)
         {
 
             Id = ObjectId.GenerateNewId();

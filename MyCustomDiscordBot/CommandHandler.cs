@@ -83,24 +83,29 @@ namespace MyCustomDiscordBot
         {
             SocketUserMessage message = messageParam as SocketUserMessage;
 
-            if (message.Author.IsBot) return;
-            SocketCommandContext context = new SocketCommandContext(_client, message);
+            //if (message.Author.IsBot) return;
 
-            int pos = 0;
+            //int pos = 0;
             if (message != null)
             {
                 int argPos = 0;
                 Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
                 if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
                 {
+                    SocketCommandContext context = new SocketCommandContext(_client, message);
                     var result = await _commands.ExecuteAsync(context, argPos, _sp);
                     if (!result.IsSuccess)
                     {
                         var reason = result.Error;
+                        string q = message.ToString().ToLower();
+                        if (!q.Contains("createqueue") || !q.Contains("resetelo"))
+                        {
+                            await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered());
 
-                        await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered());
-                      ///  await context.Channel.SendMessageAsync($"The following error occured: \n{reason}");
-                        Console.WriteLine(reason);
+
+                        }
+                        ///  await context.Channel.SendMessageAsync($"The following error occured: \n{reason}");
+                     //   Console.WriteLine(reason);
                     }
                 }
             }
@@ -429,8 +434,7 @@ namespace MyCustomDiscordBot
                 }
                 SocketTextChannel matchLogsChannel = BL.Guild.GetTextChannel(config.MatchLogsChannelId);
                 SocketTextChannel socketTextChannel = matchLogsChannel;
-                await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, BL.Guild.Id));
-                await socketTextChannel.SendMessageAsync($"🏆-Match-#{match.Number} has been Reported by " + interaction.User.Mention);
+                await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, BL.Guild.Id, interaction.User));
 
 
             }
@@ -521,8 +525,7 @@ namespace MyCustomDiscordBot
                 }
                 SocketTextChannel matchLogsChannel = BL.Guild.GetTextChannel(config.MatchLogsChannelId);
                 SocketTextChannel socketTextChannel = matchLogsChannel;
-                await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, BL.Guild.Id));
-                await socketTextChannel.SendMessageAsync($"🏆-Match-#{match.Number} has been Reported by " + interaction.User.Mention);
+                await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, BL.Guild.Id, interaction.User));
 
 
             }
@@ -585,8 +588,7 @@ namespace MyCustomDiscordBot
                 }
                 SocketTextChannel matchLogsChannel = Cancel.Guild.GetTextChannel(config.MatchLogsChannelId);
                 SocketTextChannel socketTextChannel = matchLogsChannel;
-                await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, Cancel.Guild.Id));
-                await socketTextChannel.SendMessageAsync($"🏆-Match-#{match.Number} has been cancelled by " + interaction.User.Mention );
+                await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, Cancel.Guild.Id , interaction.User));
 
             }
 

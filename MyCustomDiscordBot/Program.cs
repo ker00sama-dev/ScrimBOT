@@ -77,15 +77,15 @@ namespace MyCustomDiscordBot
 
                 if (mutex.WaitOne(0, false))
                 {
-                    // Run the application
+                        // Run the application
 
 
-                    // CreateHostBuilder(args).Build().Run();
-                    // RequireAdministrator();
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
-                    Application.Run(new DiscordBOTGaming());
-                }
+                        //   CreateHostBuilder(args).Build().Run();
+                        // RequireAdministrator();
+                        Application.EnableVisualStyles();
+                        Application.SetCompatibleTextRenderingDefault(false);
+                        Application.Run(new DiscordBOTGaming());
+                    }
                 else
                 {
                     MessageBox.Show("An instance of the application is already running.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -1,5 +1,6 @@
-using Discord;
+﻿using Discord;
 using Discord.WebSocket;
+using Microsoft.VisualBasic;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using System;
@@ -166,7 +167,21 @@ namespace MyCustomDiscordBot.Services
                 SocketUser user = _client.GetUser(topPlayers[i].DiscordId);
                 if (user != null)
                 {
-                    description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO)[2]}`\n";
+                    if (XXXXX.GetValue(@"norank") != null || XXXXX.GetValue(@"Bronze") != null || XXXXX.GetValue(@"Silver") != null || XXXXX.GetValue(@"Gold") != null || XXXXX.GetValue(@"Platinum") != null || XXXXX.GetValue(@"Diamond") != null || XXXXX.GetValue(@"Master") != null || XXXXX.GetValue(@"legend") != null || XXXXX.GetValue(@"mythical") != null || XXXXX.GetValue(@"GrandMaster") != null || XXXXX.GetValue(@"startfull") != null || XXXXX.GetValue(@"centerfull") != null || XXXXX.GetValue(@"Endfull") != null || XXXXX.GetValue(@"startnull") != null || XXXXX.GetValue(@"centernull") != null || XXXXX.GetValue(@"endnull") != null)
+                    {
+
+                    //    description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO)[2]}`\n";
+                        description += $"`#{i + 1}` | `{topPlayers[i].ELO}` | {user.Mention}\n";
+
+
+                    }
+                    else
+                    {
+                        description += $"`#{i + 1}` | `{topPlayers[i].ELO}` | {user.Mention}\n";
+
+                      //  description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO)[2]}`\n";
+
+                    }
                 }
             }
             builder.WithDescription(description);
@@ -236,12 +251,24 @@ namespace MyCustomDiscordBot.Services
             }
             int gamesPlayed = totalLosses + totalWins;
             var elo = $"\n{Getrank(user.ELO)[0]} {user.ELO.ToDiscordProgressBar(12)} {Getrank(user.ELO)[1]} `{user.ELO}/{Getrank(user.ELO)[2]}`";
-            builder.WithDescription($"**ELO**: `{user.ELO}`\n**Rank**: {Getrank(user.ELO)[3]}\n{elo}\n\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`");
+            if (XXXXX.GetValue(@"norank") != null || XXXXX.GetValue(@"Bronze") != null || XXXXX.GetValue(@"Silver") != null || XXXXX.GetValue(@"Gold") != null || XXXXX.GetValue(@"Platinum") != null || XXXXX.GetValue(@"Diamond") != null || XXXXX.GetValue(@"Master") != null || XXXXX.GetValue(@"legend") != null || XXXXX.GetValue(@"mythical") != null || XXXXX.GetValue(@"GrandMaster") != null || XXXXX.GetValue(@"startfull") != null || XXXXX.GetValue(@"centerfull") != null || XXXXX.GetValue(@"Endfull") != null || XXXXX.GetValue(@"startnull") != null || XXXXX.GetValue(@"centernull") != null || XXXXX.GetValue(@"endnull") != null)
+            {
+
+
+                builder.WithDescription($"**ELO**: `{user.ELO}`\n**Rank**: {Getrank(user.ELO)[3]}\n{elo}\n\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`");
+
+            }
+            else
+            {
+                builder.WithDescription($"**ELO**: `{user.ELO}`\n\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`");
+
+
+            }
             builder.WithThumbnailUrl(_client.GetUser(user.DiscordId).GetAvatarUrl(ImageFormat.Auto, 128));
             return builder.Build();
         }
 
-        public async Task<Embed> MatchLogEmbed(Match match, ulong guildId)
+        public async Task<Embed> MatchLogEmbed(Match match, ulong guildId, SocketUser Mention)
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Red);
@@ -257,17 +284,18 @@ namespace MyCustomDiscordBot.Services
             {
                 builder.WithFooter(new EmbedFooterBuilder
                 {
-                    Text = "Decision reversed! No elo granted."
+                    Text = $"Decision reversed! No elo granted."
                 });
             }
             else if (match.Winners == 0)
             {
                 builder.WithFooter(new EmbedFooterBuilder
                 {
-                    Text = "Match cancelled!"
+                    Text = $"Match cancelled!"
                 });
             }
-            builder.WithDescription("Map: *" + match.Map + "*");
+            builder.WithDescription("Map: *" + match.Map + "*" + $"\n Reported : {Mention.Mention}");
+
             string team1Value = "";
             foreach (ulong discordId2 in match.Team1DiscordIds)
             {
@@ -280,6 +308,137 @@ namespace MyCustomDiscordBot.Services
             }
             builder.AddField("Team 1", team1Value, inline: true);
             builder.AddField("Team 2", team2Value, inline: true);
+            string Mapup = match.Map.ToUpper();
+
+            if (Mapup.Contains("SUBBASE"))
+
+            {
+
+                builder.WithImageUrl("https://cdn.discordapp.com/attachments/691520066575138866/906938436341104651/1000.png");
+
+
+
+            }
+            if (Mapup.Contains("COMPOUND"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://cdn.discordapp.com/attachments/691520066575138866/906938077711331338/latest.jpg");
+
+
+
+            }
+            if (Mapup.Contains("PORT"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906939312652832828/480.png");
+
+
+
+            }
+            if (Mapup.Contains("BLACKWIDOW"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906939006724481054/1000.png?width=901&height=676");
+
+
+
+            }
+            if (Mapup.Contains("ANKARA"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906938745842970644/1000.png");
+
+
+
+            }
+            if (Mapup.Contains("FRACTURE"))
+
+            {
+
+                builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/909178833125662760/1000.png");
+
+
+
+            }
+            if (Mapup.Contains("ASCENT"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909179873510187058/ascent1.png");
+
+
+
+            }
+            if (Mapup.Contains("SPLIT"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/909180017739698196/split4-2.png");
+
+
+
+            }
+            if (Mapup.Contains("HAVEN"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909180170559176764/haven4.png");
+
+
+
+            }
+            if (Mapup.Contains("BIND"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909180454186414120/bind3.png");
+
+
+
+            }
+
+            if (Mapup.Contains("ICEBOX"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909181094597906492/icebox_6.png");
+
+
+
+            }
+            if (Mapup.Contains("BREEZE"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909181272650301500/breeze_1.png");
+
+
+
+            }
             return builder.Build();
         }
 
@@ -309,7 +468,7 @@ namespace MyCustomDiscordBot.Services
                 description += $"`{user.ELO}`{_client.GetUser(user.DiscordId).Mention}\n";
             }
 
-            builder.WithDescription($"Click the **Join button** to join the Mixed EG/EU queue or Click **leave button** to leave queue\n\n**Players**                       **{queue.Users.Count()} / {queue.Capacity}**\n" + description);
+            builder.WithDescription($"Click the **Join button** to join the queue or Click **leave button** to leave queue\n\n**Players**                       **{queue.Users.Count()} / {queue.Capacity}**\n" + description);
             builder.WithFooter(new EmbedFooterBuilder
             {
               
@@ -339,7 +498,7 @@ namespace MyCustomDiscordBot.Services
             }
             if (match.SortType == SortType.Elo)
             {
-                builder.WithTitle($"PUG Match #{match.Number}");
+                builder.WithTitle($"Scrim Match #{match.Number}");
                 if (password != string.Empty)
                 {
                     builder.WithDescription("Map: *" + match.Map + "*\n\nPassword: *" + password + "*");
@@ -366,12 +525,7 @@ namespace MyCustomDiscordBot.Services
 
 
                 string Mapup = match.Map.ToUpper();
-                //qConfig.Maps.Add("SubBase");
-                //qConfig.Maps.Add("ankara");
-                //qConfig.Maps.Add("BlackWidow");
-                //qConfig.Maps.Add("Compound");
-                //qConfig.Maps.Add("Port");
-
+  
                 if (Mapup.Contains("SUBBASE"))
 
                 {
@@ -505,7 +659,7 @@ namespace MyCustomDiscordBot.Services
             }
             else if (match.SortType == SortType.Captains)
             {
-                builder.WithTitle($"PUG Match #{match.Number}");
+                builder.WithTitle($"Scrim Match #{match.Number}");
                 if (match.PickingPoolDiscordIds.Count > 0)
                 {
                     List<string> poolMentions = new List<string>();

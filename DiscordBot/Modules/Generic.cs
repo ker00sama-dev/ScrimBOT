@@ -265,16 +265,16 @@ aliases: " + prifx + @"needsubfor
         //    ("label", "customidhere"))
         //    //                .Build());
         //}  
-        [Command("SendMessage")]
-        [Summary("Check whether the bot is working or not.")]
-        public async Task SendMessage(Discord.WebSocket.SocketGuildUser user, string text)
-        {
-            // await Context.Channel.SendMessageAsync(text);
+        //[Command("SendMessage")]
+        //[Summary("Check whether the bot is working or not.")]
+        //public async Task SendMessage(Discord.WebSocket.SocketGuildUser user, string text)
+        //{
+        //    // await Context.Channel.SendMessageAsync(text);
 
-            await user.SendMessageAsync(text);
+        //    await user.SendMessageAsync(text);
 
 
-        }
+        //}
         [Command("pick")]
         [Alias(new string[] { "p" })]
 
@@ -394,7 +394,7 @@ aliases: " + prifx + @"needsubfor
                         {
                             await moveMe2.ModifyAsync(delegate (GuildUserProperties x)
                             {
-                                // x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)team1Voice;
+                               x.Channel = team1Voice;
                             });
                         }
                     }
@@ -405,7 +405,7 @@ aliases: " + prifx + @"needsubfor
                         {
                             await moveMe.ModifyAsync(delegate (GuildUserProperties x)
                             {
-                                //x.Channel = (Optional<IVoiceChannel>)(IVoiceChannel)team2Voice;
+                                x.Channel = team2Voice;
                             });
                         }
                     }

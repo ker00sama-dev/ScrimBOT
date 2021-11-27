@@ -6,20 +6,32 @@ using MyCustomDiscordBot.Settings;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MongoDB.Driver;
+using MongoDB.Driver.Core;
+using MongoDB.Bson;
+
 using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
+using Microsoft.VisualBasic;
+using System.Data;
+using System;
+using Discord.WebSocket;
+using MyCustomDiscordBot.Extensions;
+using System.Threading;
 
 namespace MyCustomDiscordBot.Services
 {
     public class DatabaseService
     {
         public readonly BotSettings _botSettings;
+        private readonly DiscordSocketClient _client;
 
         public static MongoClient Client { get; set; }
 
         public List<IMongoDatabase> Databases { get; set; }
 
-        public DatabaseService(IOptions<BotSettings> botSettings)
+        public DatabaseService(DiscordSocketClient client, IOptions<BotSettings> botSettings)
         {
+            _client = client;
             _botSettings = botSettings.Value;
             Client = new MongoClient(Config.DBConnectionString);
             Databases = new List<IMongoDatabase>();
@@ -49,6 +61,7 @@ namespace MyCustomDiscordBot.Services
             listCursor.Sort((DbUser a, DbUser b) => (a.ELO <= b.ELO) ? 1 : (-1));
             return listCursor.Take(25).ToList();
         }
+
 
         public async Task<DbUser> GetUserInGuild(ulong userDiscordId, ulong guildId)
         {
@@ -133,6 +146,41 @@ namespace MyCustomDiscordBot.Services
             await collection.ReplaceOneAsync((DbUser x) => x.DiscordId == user.DiscordId, user);
         }
 
+        public async Task ResetUser(ulong guildId, ISocketMessageChannel channel, string Mention, SocketGuild Guild)
+        {
+            IMongoCollection<DbUser> collection = GetUsersForGuild(guildId);
+
+            List<DbUser> listCursor = (await collection.FindAsync(new BsonDocument())).ToList();
+            List<DbUser> topPlayers = listCursor.ToList();
+            ServerConfig config = await GetServerConfigAsync(Guild.Id);
+            var Message = await channel.SendMessageAsync("Starting....");
+
+
+            for (int i = 0; i < topPlayers.Count; i++)
+            {
+            
+                var filter = Builders<DbUser>.Filter.Eq("ELO", topPlayers[i].ELO);
+                var update = Builders<DbUser>.Update.Set("ELO", 0);
+                await collection.UpdateManyAsync(filter, update);
+                SocketUser user = _client.GetUser(topPlayers[i].DiscordId);
+                //string kero = $"{user.Mention} => ELO : ({topPlayers[i].ELO}) => 0 ";
+                //await Message.ModifyAsync(msg => msg.Content = kero);
+
+
+            }
+         
+            await Message.ModifyAsync(msg => msg.Content = ":white_check_mark: Done");
+            await (Message).DeleteMessageAfterSeconds(2);
+
+            SocketTextChannel matchLogsChannel = Guild.GetTextChannel(config.MatchLogsChannelId);
+            SocketTextChannel socketTextChannel = matchLogsChannel;
+            await socketTextChannel.SendMessageAsync($"`ELO` Has been Reset By {Mention}");
+
+
+            // await Collection.InsertManyAsync(batch.AsEnumerable());
+
+
+        }
         public async Task UpsertServerConfigAsync(ServerConfig config)
         {
             IMongoDatabase database = GetDatabaseFromGuild(config.GuildId);
