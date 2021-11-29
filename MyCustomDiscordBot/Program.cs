@@ -80,7 +80,7 @@ namespace MyCustomDiscordBot
                         // Run the application
 
 
-                        //   CreateHostBuilder(args).Build().Run();
+                        //CreateHostBuilder(args).Build().Run();
                         // RequireAdministrator();
                         Application.EnableVisualStyles();
                         Application.SetCompatibleTextRenderingDefault(false);

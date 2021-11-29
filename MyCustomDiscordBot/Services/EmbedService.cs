@@ -28,7 +28,7 @@ namespace MyCustomDiscordBot.Services
         static string legend;
         static string mythical;
         static string GrandMaster;
-        public EmbedService(DiscordSocketClient client, DatabaseService databaseService)
+        public  EmbedService(DiscordSocketClient client, DatabaseService databaseService)
         {
             _client = client;
             _databaseService = databaseService;
@@ -52,38 +52,21 @@ namespace MyCustomDiscordBot.Services
             });
             return builder.Build();
         }
-        public string[] Getrank(int elo)
+        public string[] Getrank(int elo,ServerConfig config)
         {
 
-            if (XXXXX.GetValue(@"norank") != null || XXXXX.GetValue(@"Bronze") != null || XXXXX.GetValue(@"Silver") != null || XXXXX.GetValue(@"Gold") != null || XXXXX.GetValue(@"Platinum") != null || XXXXX.GetValue(@"Diamond") != null || XXXXX.GetValue(@"Master") != null || XXXXX.GetValue(@"legend") != null || XXXXX.GetValue(@"mythical") != null || XXXXX.GetValue(@"GrandMaster") != null)
-            {
+         
 
-                norank = "<" + XXXXX.GetValue(@"norank").ToString() + ">";
-                Bronze = "<" + XXXXX.GetValue(@"Bronze").ToString() + ">";
-                Silver = "<" + XXXXX.GetValue(@"Silver").ToString() + ">";
-                Gold = "<" + XXXXX.GetValue(@"Gold").ToString() + ">";
-                Platinum = "<" + XXXXX.GetValue(@"Platinum").ToString() + ">";
-                Diamond = "<" + XXXXX.GetValue(@"Diamond").ToString() + ">";
-                Master = "<" + XXXXX.GetValue(@"Master").ToString() + ">";
-                legend = "<" + XXXXX.GetValue(@"legend").ToString() + ">";
-                mythical = "<" + XXXXX.GetValue(@"mythical").ToString() + ">";
-                GrandMaster = "<" + XXXXX.GetValue(@"GrandMaster").ToString() + ">";
-
-            }
-            else
-            {
-                norank = "<:norank050:909110612456517632>";
-                Bronze = "<:pronz50100:909110618752155699>";
-                Silver = "<:silver100200:909110626134163477>";
-                Gold = "<:gold200300:909110626742337546>";
-                Platinum = "<:plat300400:909110628818501702>";
-                Diamond = "<:diamond400500:909110629766418442>";
-                Master = "<:Master500600:909110629795758130>";
-                legend = "<:legend600700:909110629288263722>";
-                mythical = "<:mythical700900:909109955955654686>";
-                GrandMaster = "<:grandm9001000:909109348633026590>";
-
-            }
+                norank = "<:e_:" + config.norank.ToString() + ">";
+                Bronze = "<:e_:" + config.Bronze.ToString() + ">";
+                Silver = "<:e_:" + config.Silver.ToString() + ">";
+                Gold = "<:e_:" + config.Gold.ToString() + ">";
+                Platinum = "<:e_:" + config.Platinum.ToString() + ">";
+                Diamond = "<:e_:" + config.Diamond.ToString() + ">";
+                Master = "<:e_:" + config.Master.ToString() + ">";
+                legend = "<:e_:" + config.legend.ToString() + ">";
+                mythical = "<:e_:" + config.mythical.ToString() + ">";
+                GrandMaster = "<:e_:" + config.GrandMaster.ToString() + ">";
 
 
             if (elo <= 0)
@@ -154,24 +137,25 @@ namespace MyCustomDiscordBot.Services
             return levelp;
         }
 #pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-        public async Task<Embed> LeaderboardEmbed(List<DbUser> topPlayers)
+        public async Task<Embed> LeaderboardEmbed(List<DbUser> topPlayers,ulong GuildId)
 #pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithTitle("**RANK | ELO | PLAYER**");
             builder.WithColor(Color.Red);
             string description = "";
+            ServerConfig config = await _databaseService.GetServerConfigAsync(GuildId);
 
             for (int i = 0; i < topPlayers.Count; i++)
             {
                 SocketUser user = _client.GetUser(topPlayers[i].DiscordId);
                 if (user != null)
                 {
-                    if (XXXXX.GetValue(@"norank") != null || XXXXX.GetValue(@"Bronze") != null || XXXXX.GetValue(@"Silver") != null || XXXXX.GetValue(@"Gold") != null || XXXXX.GetValue(@"Platinum") != null || XXXXX.GetValue(@"Diamond") != null || XXXXX.GetValue(@"Master") != null || XXXXX.GetValue(@"legend") != null || XXXXX.GetValue(@"mythical") != null || XXXXX.GetValue(@"GrandMaster") != null || XXXXX.GetValue(@"startfull") != null || XXXXX.GetValue(@"centerfull") != null || XXXXX.GetValue(@"Endfull") != null || XXXXX.GetValue(@"startnull") != null || XXXXX.GetValue(@"centernull") != null || XXXXX.GetValue(@"endnull") != null)
+                    if (config.checkranking == 1)
                     {
 
-                    //    description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO)[2]}`\n";
-                        description += $"`#{i + 1}` | `{topPlayers[i].ELO}` | {user.Mention}\n";
+                      description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO,config)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO,config)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12, config)} {Getrank(topPlayers[i].ELO, config)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO, config)[2]}`\n";
+                      //  description += $"`#{i + 1}` | `{topPlayers[i].ELO}` | {user.Mention}\n";
 
 
                     }
@@ -236,8 +220,10 @@ namespace MyCustomDiscordBot.Services
 
             return builder.Build();
         }
-        public Embed ProfileEmbed(DbUser user)
+        public Embed ProfileEmbed(DbUser user,ServerConfig config)
         {
+           // ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Blue);
             builder.WithTitle(user.Username + "'s Stats");
@@ -249,13 +235,14 @@ namespace MyCustomDiscordBot.Services
                 totalWins += record.Wins;
                 totalLosses += record.Losses;
             }
+
             int gamesPlayed = totalLosses + totalWins;
-            var elo = $"\n{Getrank(user.ELO)[0]} {user.ELO.ToDiscordProgressBar(12)} {Getrank(user.ELO)[1]} `{user.ELO}/{Getrank(user.ELO)[2]}`";
-            if (XXXXX.GetValue(@"norank") != null || XXXXX.GetValue(@"Bronze") != null || XXXXX.GetValue(@"Silver") != null || XXXXX.GetValue(@"Gold") != null || XXXXX.GetValue(@"Platinum") != null || XXXXX.GetValue(@"Diamond") != null || XXXXX.GetValue(@"Master") != null || XXXXX.GetValue(@"legend") != null || XXXXX.GetValue(@"mythical") != null || XXXXX.GetValue(@"GrandMaster") != null || XXXXX.GetValue(@"startfull") != null || XXXXX.GetValue(@"centerfull") != null || XXXXX.GetValue(@"Endfull") != null || XXXXX.GetValue(@"startnull") != null || XXXXX.GetValue(@"centernull") != null || XXXXX.GetValue(@"endnull") != null)
+            var elo = $"\n{Getrank(user.ELO, config)[0]} {user.ELO.ToDiscordProgressBar(12, config)} {Getrank(user.ELO, config)[1]} `{user.ELO}/{Getrank(user.ELO, config)[2]}`";
+            if (config.checkranking == 1)
             {
 
 
-                builder.WithDescription($"**ELO**: `{user.ELO}`\n**Rank**: {Getrank(user.ELO)[3]}\n{elo}\n\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`");
+                builder.WithDescription($"**ELO**: `{user.ELO}`\n**Rank**: {Getrank(user.ELO, config)[3]}\n{elo}\n\n**Games Played**: `{gamesPlayed}` | Wins: `{totalWins}` Losses `{totalLosses}`");
 
             }
             else
@@ -347,7 +334,7 @@ namespace MyCustomDiscordBot.Services
 
 
 
-                builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906939006724481054/1000.png?width=901&height=676");
+                builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/914920414088658944/1000.png?width=901&height=676");
 
 
 
@@ -477,11 +464,11 @@ namespace MyCustomDiscordBot.Services
             return builder.Build();
         }
 
-        public string RandomString(int length)
-        {
-            return new string((from s in Enumerable.Repeat("123364654654564974548548484", length)
-                               select s[random.Next(s.Length)]).ToArray());
-        }
+        //public  string RandomString(int length)
+        //{
+        //    return new string((from s in Enumerable.Repeat("123364654654564974548548484", length)
+        //                       select s[random.Next(s.Length)]).ToArray());
+        //}
 
         public async Task<Embed> GetMatchEmbedAsync(Match match, ulong guildId, Team team1 = null, Team team2 = null)
         {
@@ -492,7 +479,7 @@ namespace MyCustomDiscordBot.Services
             if (guildId == ServerIDs())
             {
 
-                password = RandomString(3).ToLower();
+                password = match.pwd;
 
 
             }
@@ -563,7 +550,7 @@ namespace MyCustomDiscordBot.Services
 
 
 
-                    builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906939006724481054/1000.png?width=901&height=676");
+                    builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/914920414088658944/1000.png?width=901&height=676");
 
 
 

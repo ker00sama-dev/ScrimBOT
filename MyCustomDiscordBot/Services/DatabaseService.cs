@@ -201,6 +201,7 @@ namespace MyCustomDiscordBot.Services
             IMongoCollection<ServerConfig> collection = database.GetCollection<ServerConfig>("ServerConfigs");
             return await (await collection.FindAsync(new BsonDocument())).FirstOrDefaultAsync();
         }
+      
 
         public async Task<DbUser> RegisterUserAsync(ulong guildId, string username, ulong userDiscordId)
         {

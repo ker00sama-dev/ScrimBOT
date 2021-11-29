@@ -1,10 +1,24 @@
 using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
-
+using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.VisualBasic;
+using MyCustomDiscordBot.Extensions;
+using MyCustomDiscordBot.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 namespace MyCustomDiscordBot.Models
 {
     public class Match
     {
+        private Random random = new Random();
+
         public ObjectId Id { get; set; }
 
         public long Number { get; set; }
@@ -36,9 +50,15 @@ namespace MyCustomDiscordBot.Models
         public ulong MatchInfoChannelId { get; set; }
 
         public ulong PugQueueMessageId { get; set; }
+        public string pwd { get; set; }
 
         public List<ulong> MapChangeVoteDiscordIds { get; set; }
-
+        public  string RandomString(int length)
+        {
+          
+            return new string((from s in Enumerable.Repeat("123364654654564974548548484", length)
+                               select s[random.Next(s.Length)]).ToArray());
+        }
         public Match()
         {
             Id = ObjectId.GenerateNewId();
@@ -47,6 +67,7 @@ namespace MyCustomDiscordBot.Models
             Team1DiscordIds = new List<ulong>();
             Team2DiscordIds = new List<ulong>();
             SortType = SortType.Elo;
+            pwd = RandomString(3).ToLower();
             MapChangeVoteDiscordIds = new List<ulong>();
             Winners = -1;
         }

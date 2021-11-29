@@ -37,6 +37,7 @@ namespace DiscordBot.Modules
         public async Task BotInfo()
         {
             EmbedBuilder builder = new EmbedBuilder();
+
             builder.WithTitle($"Bot Info")
     .WithColor(Color.Green)
     .WithThumbnailUrl(Context.Client.CurrentUser.GetAvatarUrl())
@@ -535,7 +536,9 @@ aliases: " + prifx + @"needsubfor
                     return;
                 }
                 ISocketMessageChannel channel = base.Context.Channel;
-                await channel.SendMessageAsync(null, isTTS: false, _embedService.ProfileEmbed(dbUser));
+                ServerConfig config2 = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+
+                await channel.SendMessageAsync(null, isTTS: false, _embedService.ProfileEmbed(dbUser, config2));
 
 
             }
@@ -556,7 +559,7 @@ aliases: " + prifx + @"needsubfor
             {
                 ISocketMessageChannel channel = base.Context.Channel;
                 EmbedService embedService = _embedService;
-                await channel.SendMessageAsync(null, isTTS: false, await embedService.LeaderboardEmbed(await _databaseService.GetTop25Users(base.Context.Guild.Id)));
+                await channel.SendMessageAsync(null, isTTS: false, await embedService.LeaderboardEmbed(await _databaseService.GetTop25Users(base.Context.Guild.Id), base.Context.Guild.Id));
             }
         }
     }

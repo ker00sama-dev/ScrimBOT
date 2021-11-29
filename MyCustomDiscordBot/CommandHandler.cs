@@ -101,7 +101,7 @@ namespace MyCustomDiscordBot
                         if (!q.Contains("createqueue") || !q.Contains("resetelo"))
                         {
                             await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered());
-
+                        
 
                         }
                         ///  await context.Channel.SendMessageAsync($"The following error occured: \n{reason}");

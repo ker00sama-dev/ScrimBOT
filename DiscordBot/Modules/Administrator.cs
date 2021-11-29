@@ -48,6 +48,7 @@ namespace DiscordBot.Modules
         [Summary("Add the reactions to a queue.")]
         public async Task AddReactionsToQueue(ulong messageId)
         {
+     
 #pragma warning disable CS0472 // The result of the expression is always 'false' since a value of type 'ulong' is never equal to 'null' of type 'ulong?'
             if (messageId == null)
 #pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'ulong' is never equal to 'null' of type 'ulong?'
@@ -167,6 +168,7 @@ namespace DiscordBot.Modules
         {
             QueueConfig qConfig = (await _databaseService.GetServerConfigAsync(base.Context.Guild.Id)).QueueConfigs.Find((QueueConfig x) => x.MessageId == messageId);
             await ReplyAsync("Maps for `" + qConfig.Name + "` queue: " + string.Join(" ", qConfig.Maps));
+     
         }
 
         [Command("clearqueue")]
@@ -687,25 +689,79 @@ namespace DiscordBot.Modules
             await ReplyAsync($"Win amount has been set to: `{config.WinAmount}`. Loss amount has been set to: `{config.LossAmount}`.");
         }
 
+        [Command("trunemoji")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+
+        public async Task trunemoji(int winAmount)
+        {
+            ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+            config.checkranking = winAmount;
+            string kero = null;
+            await _databaseService.UpsertServerConfigAsync(config);
+            if (config.checkranking == 1)
+            {
+                kero = "ON";
+
+            }
+            else
+            {
+
+                kero = "OFF";
+
+
+            }
+
+            await ReplyAsync($"Progressbar has been set to Turn:{kero}.");
+        }
+
         [Command("config")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("See your server's configuration.")]
         public async Task SeeServerConfig()
         {
+            string kero = null ;
             ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
             if (config == null)
             {
                 await ReplyAsync("Config could not be pulled up. This may be due to bot down time while inviting it to your server. Please kick this bot and then re-invite it.");
                 return;
             }
+            if (config.checkranking == 1)
+            {
+                kero = "ON";
+
+            }
+            else
+            {
+
+                kero = "OFF";
+
+
+            }
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Green);
-            builder.WithTitle(base.Context.Guild.Name + " PUG Configuration");
+            builder.WithTitle(base.Context.Guild.Name + " Configuration");
             builder.AddField("Match Logs Channel Id", config.MatchLogsChannelId.ToString(), inline: true);
             builder.AddField("Stats Channel Id", config.StatsChannelId.ToString(), inline: true);
             builder.AddField("Waiting Channel Id", config.WaitingForMatchChannelId.ToString(), inline: true);
-            builder.AddField("Matches Category Id", config.MatchesCategoryId.ToString(), inline: true);
+            builder.AddField("Start Full Emoji ID", config.Startfull.ToString(), inline: true);
+            builder.AddField("Center Full Emoji ID", config.Centerfull.ToString(), inline: true);
+            builder.AddField("End Full Emoji ID", config.Endfull.ToString(), inline: true);
+            builder.AddField("Start Null Emoji ID", config.Startnull.ToString(), inline: true);
+            builder.AddField("Center Null Emoji ID", config.Centernull.ToString(), inline: true);
+            builder.AddField("End Null Emoji ID", config.Endnull.ToString(), inline: true);
+            builder.AddField("NoRank Emoji ID", config.norank.ToString(), inline: true);
+            builder.AddField("Bronze  Emoji ID", config.Bronze.ToString(), inline: true);
+            builder.AddField("Gold Emoji ID", config.Gold.ToString(), inline: true);
+            builder.AddField("Platinum Emoji ID", config.Platinum.ToString(), inline: true);
+            builder.AddField("Diamond Emoji ID", config.Diamond.ToString(), inline: true);
+            builder.AddField("Master Emoji ID", config.Master.ToString(), inline: true);
+            builder.AddField("legend Emoji ID", config.legend.ToString(), inline: true);
+            builder.AddField("mythical Emoji ID", config.mythical.ToString(), inline: true);
+            builder.AddField("GrandMaster Emoji ID", config.GrandMaster.ToString(), inline: true);
+            builder.AddField("Matches Category Id", config.MatchesCategoryId.ToString());
             builder.AddField("Score Reporter Role Id", config.ScoreReporterRoleId.ToString());
+            builder.AddField("Progressbar Status",$"{kero}");
             builder.AddField("Win Amount", config.WinAmount.ToString(), inline: true);
             builder.AddField("Loss Amount", config.LossAmount.ToString(), inline: true);
             builder.AddField("Maximum Team Size", config.MaximumTeamSize.ToString());
@@ -728,7 +784,72 @@ namespace DiscordBot.Modules
             });
             await ReplyAsync(null, isTTS: false, builder.Build());
         }
+        ///For Test 
+        [Command("setemoji")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+        [Summary("progressbar")]
+        public async Task setEmoji(ulong startnull = 0, ulong Centerfull = 0, ulong Endfull = 0, ulong Startnull = 0, ulong Centernull = 0, ulong Endnull = 0, ulong norank = 0, ulong Bronze = 0, ulong Silver = 0, ulong Gold = 0, ulong Platinum = 0, ulong Diamond = 0, ulong Master = 0, ulong legend = 0, ulong mythical = 0, ulong GrandMaster = 0)
+        {
+            if (startnull == 0 || Centerfull == 0 || Endfull == 0 || Startnull == 0 || Centernull == 0 || Endnull == 0)
+#pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
+            {
 
+                await ReplyAsync($"{Config.Prfix}setemoji [startnull_id] [Centerfull_id] [Endfull_id]  [Startnull_id] [Centernull_id] [Endnull_id]");
+                return;
+
+            }
+            try
+            {
+                ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+                config.Startfull = startnull;
+                config.Centerfull = Centerfull;
+                config.Endfull = Endfull;
+                config.Startnull = Startnull;
+                config.Centernull = Centernull;
+                config.Endnull = Endnull;
+                config.norank = norank;
+                config.Bronze = Bronze;
+                config.Silver = Silver;
+                config.Gold = Gold;
+                config.Platinum = Platinum;
+                config.Diamond = Diamond;
+                config.Master = Master;
+                config.legend = legend;
+                config.mythical = mythical;
+                config.GrandMaster = GrandMaster;
+                await _databaseService.UpsertServerConfigAsync(config);
+                EmbedBuilder builder = new EmbedBuilder();
+                builder.WithColor(Color.Green);
+                builder.WithTitle("Emoji Configuration");
+                builder.AddField("Start Full Emoji ID", config.Startfull.ToString(), inline: true);
+                builder.AddField("Center Full Emoji ID", config.Centerfull.ToString(), inline: true);
+                builder.AddField("End Full Emoji ID", config.Endfull.ToString(), inline: true);
+                builder.AddField("Start Null Emoji ID", config.Startnull.ToString(), inline: true);
+                builder.AddField("Center Null Emoji ID", config.Centernull.ToString(), inline: true);
+                builder.AddField("End Null Emoji ID", config.Endnull.ToString(), inline: true);
+                builder.AddField("NoRank Emoji ID", config.norank.ToString(), inline: true);
+                builder.AddField("Bronze  Emoji ID", config.Bronze.ToString(), inline: true);
+                builder.AddField("Gold Emoji ID", config.Gold.ToString(), inline: true);
+                builder.AddField("Platinum Emoji ID", config.Platinum.ToString(), inline: true);
+                builder.AddField("Diamond Emoji ID", config.Diamond.ToString(), inline: true);
+                builder.AddField("Master Emoji ID", config.Master.ToString(), inline: true);
+                builder.AddField("legend Emoji ID", config.legend.ToString(), inline: true);
+                builder.AddField("mythical Emoji ID", config.mythical.ToString(), inline: true);
+                builder.AddField("GrandMaster Emoji ID", config.GrandMaster.ToString(), inline: true);
+
+                builder.WithFooter(new EmbedFooterBuilder
+                {
+                    Text = "Developed by Kirlos O. Fawzi 👑#0001"
+                });
+                await ReplyAsync(null, isTTS: false, builder.Build());
+            }
+            catch (Exception e)
+            {
+                await ReplyAsync("Error setting match logs channel: \n\n" + e.Message);
+                _logger.LogError("Error setting match logs channel in " + base.Context.Guild.Name + ": " + e.Message);
+            }
+        }
+        
 
     }
 }
