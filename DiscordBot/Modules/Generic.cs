@@ -36,13 +36,15 @@ namespace DiscordBot.Modules
         [Command("info")]
         public async Task BotInfo()
         {
+            ServerConfig config2 = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+
             EmbedBuilder builder = new EmbedBuilder();
 
             builder.WithTitle($"Bot Info")
     .WithColor(Color.Green)
     .WithThumbnailUrl(Context.Client.CurrentUser.GetAvatarUrl())
     .WithDescription($"The bot was made by {MentionUtils.MentionUser(488567658686447638)}\n\n" +
-                     $"Current Prefix **{Config.Prfix}**")
+                     $"Current Prefix **{config2.prefix.ToString()}**")
     .WithFooter($"{DateTime.Now}");
 
             await ReplyAsync("", false, builder.Build());
@@ -55,7 +57,8 @@ namespace DiscordBot.Modules
         [Summary("Get more information on how to use the bot.")]
         public async Task SeeHelp(string command = null)
         {
-            string prifx = Config.Prfix.ToString();
+            ServerConfig config2 = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+            string prifx = config2.prefix.ToString();
             await ReplyAsync(@"```
 Commands
 " + prifx + @"createqueue        - {NAMEQUEUE} {USERS MAXIMUM(22)}  {ELO" + prifx + @"CAPTAINS}
@@ -103,76 +106,7 @@ aliases: " + prifx + @"needsubfor
 
             await ReplyAsync("", false, builder.Build());
         }
-        [Command("kick")]
-        [Summary("Kick a user from the server.")]
-        [RequireBotPermission(GuildPermission.KickMembers)]
-        [RequireUserPermission(GuildPermission.KickMembers)]
-        public async Task Kick(SocketGuildUser targetUser, [Remainder] string reason = "No reason provided.")
-        {
-            await targetUser.KickAsync(reason);
-            await ReplyAsync($"**{targetUser}** has been kicked. Bye bye :wave:");
-        }
-
-        [Command("ban")]
-        [Summary("Ban a user from the server")]
-        [RequireUserPermission(GuildPermission.BanMembers)]
-        [RequireBotPermission(GuildPermission.BanMembers)]
-        public async Task Ban(SocketGuildUser targetUser, [Remainder] string reason = "No reason provided.")
-        {
-            await Context.Guild.AddBanAsync(targetUser.Id, 0, reason);
-            await ReplyAsync($"**{targetUser}** has been banned. Bye bye :wave:");
-        }
-
-        [Command("unban")]
-        [Summary("Unban a user from the server")]
-        [RequireBotPermission(GuildPermission.BanMembers)]
-        [RequireUserPermission(GuildPermission.BanMembers)]
-        public async Task Unban(ulong targetUser)
-        {
-            await Context.Guild.RemoveBanAsync(targetUser);
-            await Context.Channel.SendMessageAsync($"The user has been unbanned :clap:");
-        }
-        [Command("role")]
-        [Alias("roleinfo")]
-        [Summary("Show information about a role.")]
-        public async Task RoleInfo([Remainder] SocketRole role)
-        {
-            // Just in case someone tries to be funny.
-            if (role.Id == Context.Guild.EveryoneRole.Id)
-                return;
-            await ReplyAsync(
-                $":flower_playing_cards: **{role.Name}** information```ini" +
-                $"\n[Members]             {role.Members.Count()}" +
-                $"\n[Role ID]             {role.Id}" +
-                $"\n[Hoisted status]      {role.IsHoisted}" +
-                $"\n[Created at]          {role.CreatedAt:dd/M/yyyy}" +
-                $"\n[Hierarchy position]  {role.Position}" +
-                $"\n[Color Hex]           {role.Color}```");
-        }
-
-        //[Command("purge")]
-        //[Summary("Bulk deletes messages in chat")]
-        //[RequireBotPermission(GuildPermission.ManageMessages)]
-        //[RequireUserPermission(GuildPermission.ManageMessages)]
-        //public async Task Purge(int delNumber)
-        //{
-        //    var channel = Context.Channel as SocketTextChannel;
-        //    var items = await channel.GetMessagesAsync(delNumber + 1).FlattenAsync();
-        //    await channel.DeleteMessagesAsync(items);
-        //}
-
-        [Command("purge")]
-        [RequireUserPermission(GuildPermission.ManageMessages)]
-        public async Task PurgeChat(int amount)
-        {
-            IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
-            await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
-            const int delay = 3000;
-            IUserMessage m = await ReplyAsync(base.Context.User.Mention + $"I have deleted messages :)");
-            await Task.Delay(delay);
-            await m.DeleteAsync();
-        }
-
+      
         [Command("ping")]
         [Summary("Check whether the bot is working or not.")]
 
@@ -230,52 +164,33 @@ aliases: " + prifx + @"needsubfor
             await message.ModifyAsync(m => m.Embed = embed2.Build());
         }
 
-        //[Command("avatar")]
-        //[Summary("See your profile, or pull up a user's profile!")]
-        //public async Task KeroPHOTO(SocketGuildUser user = null)
-        //{
+        [Command("avatar")]
+        [Summary("See your profile, or pull up a user's profile!")]
+        public async Task KeroPHOTO(SocketGuildUser user = null)
+        {
 
-        //  //  SocketGuildUser member = user as SocketGuildUser;
+            //  SocketGuildUser member = user as SocketGuildUser;
 
-        //    if (user != null)
-        //    {
+            if (user != null)
+            {
 
-        //        await ReplyAsync("", false, await  _embedService.Pic(user.Id));
+                await ReplyAsync("", false, await _embedService.Pic(user.Id));
 
-        //        return;
-        //    }
+                return;
+            }
 
-        //        EmbedBuilder builder = new EmbedBuilder();
-        //        builder.WithTitle("Avatar")
-        ////.WithThumbnailUrl(Context.User.GetAvatarUrl())
-        //.WithImageUrl(Context.User.GetAvatarUrl(ImageFormat.Auto, 128))
-        //.WithFooter($"{Context.User.Username}");
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.WithTitle("Avatar")
+    //.WithThumbnailUrl(Context.User.GetAvatarUrl())
+    .WithImageUrl(Context.User.GetAvatarUrl(ImageFormat.Auto, 128))
+    .WithFooter($"{Context.User.Username}");
 
-        //        await ReplyAsync("", false, builder.Build());
-
-
-        //}
-
-        //public async Task Ping()
-        //{
-        //    ISocketMessageChannel channel = base.Context.Channel;
-        //    //await ReplyAsync("Ping: " + new Ping().Send("google.com").RoundtripTime.ToString() + " ms");
-        //    //await channel.
-        //    ("Here is a button!", component: new ComponentBuilder()
-        //    //                .WithButton(new
-        //    ("label", "customidhere"))
-        //    //                .Build());
-        //}  
-        //[Command("SendMessage")]
-        //[Summary("Check whether the bot is working or not.")]
-        //public async Task SendMessage(Discord.WebSocket.SocketGuildUser user, string text)
-        //{
-        //    // await Context.Channel.SendMessageAsync(text);
-
-        //    await user.SendMessageAsync(text);
+            await ReplyAsync("", false, builder.Build());
 
 
-        //}
+        }
+
+
         [Command("pick")]
         [Alias(new string[] { "p" })]
 

@@ -89,9 +89,15 @@ namespace MyCustomDiscordBot
             if (message != null)
             {
                 int argPos = 0;
-                Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOTValo");
-                if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
+                Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+
+                SocketTextChannel textChannel = message.Channel as SocketTextChannel;
+
+                ServerConfig config = await _databaseService.GetServerConfigAsync(textChannel.Guild.Id);
+                if ((message.HasCharPrefix(char.Parse(config.prefix.ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
                 {
+                //    if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
+                //{
                     SocketCommandContext context = new SocketCommandContext(_client, message);
                     var result = await _commands.ExecuteAsync(context, argPos, _sp);
                     if (!result.IsSuccess)
@@ -116,7 +122,7 @@ namespace MyCustomDiscordBot
         //    if (message != null)
         //    {
         //        int argPos = 0;
-        //        Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOTValo");
+        //        Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
         //        if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
         //        {
         //            SocketCommandContext context = new SocketCommandContext(_client, message);

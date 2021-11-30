@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 using VMProtect;
 using MyCustomDiscordBot.MyCustomDiscordBot;
 using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
+using System.Collections.Generic;
 
 namespace DiscordBot.Modules
 {
@@ -279,7 +280,7 @@ namespace DiscordBot.Modules
             }
         }
         [Command("createqueue")]
-        //    [Remarks("prefix [new prefix]")]
+        // [Remarks("prefix [new prefix]")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("Set up a reaction based queue in a given channel.")]
         public async Task CreateReactionQueueb(string name = null, int capacity = 0, string sortType = null)
@@ -289,8 +290,9 @@ namespace DiscordBot.Modules
             if (name == null || capacity == null || sortType == null)
 #pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
             {
+                ServerConfig config2 = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
 
-                await (await ReplyAsync($"{Config.Prfix}createqueue [name] [maximum users] [captains or elo ]")).DeleteMessageAfterSeconds(2);
+                await (await ReplyAsync($"{config2.prefix.ToString()}createqueue [name] [maximum users] [captains or elo ]")).DeleteMessageAfterSeconds(2);
                 return;
 
             }
@@ -713,6 +715,53 @@ namespace DiscordBot.Modules
 
             await ReplyAsync($"Progressbar has been set to Turn:{kero}.");
         }
+        [Command("setprefix")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+
+        public async Task setprefix(string prefix = null)
+        {
+            ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+            if (prefix == null)
+            {
+                await ReplyAsync($"{config.prefix}setprefix ex:[!,?,#,1,+,9,m] just one letter.");
+
+
+
+            }
+            if (prefix.Length == 1)
+            {
+
+
+                config.prefix = prefix;
+                await _databaseService.UpsertServerConfigAsync(config);
+                var successEmbed = new EmbedBuilder();
+
+                successEmbed.WithTitle("Prefix set!");
+                successEmbed.WithColor(Color.Red);
+
+               successEmbed.WithDescription($"The bot prefix has been set to  `{config.prefix}` :white_check_mark:");
+           //     successEmbed.WithFooter($"Sorry, I could not find that command.");
+                successEmbed.WithCurrentTimestamp();
+
+            //    await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered());
+
+                await ReplyAsync(null, isTTS: false, successEmbed.Build());
+                return;
+
+
+
+            }
+            else
+            {
+
+                await ReplyAsync($"{config.prefix}setprefix [!,?,#,1,+,9,m] just one letter.");
+
+                return;
+
+
+            }
+
+        }
 
         [Command("config")]
         [RequireUserPermission(GuildPermission.Administrator)]
@@ -761,7 +810,9 @@ namespace DiscordBot.Modules
             builder.AddField("GrandMaster Emoji ID", config.GrandMaster.ToString(), inline: true);
             builder.AddField("Matches Category Id", config.MatchesCategoryId.ToString());
             builder.AddField("Score Reporter Role Id", config.ScoreReporterRoleId.ToString());
-            builder.AddField("Progressbar Status",$"{kero}");
+           builder.AddField("Progressbar Status", $"{kero}");
+           builder.AddField("Prefix", $"{config.prefix.ToString()}");
+          //  builder.AddField("Prefix Static", $"{Config.Prfix.ToString()}");
             builder.AddField("Win Amount", config.WinAmount.ToString(), inline: true);
             builder.AddField("Loss Amount", config.LossAmount.ToString(), inline: true);
             builder.AddField("Maximum Team Size", config.MaximumTeamSize.ToString());
@@ -785,6 +836,67 @@ namespace DiscordBot.Modules
             await ReplyAsync(null, isTTS: false, builder.Build());
         }
         ///For Test 
+        [Command("kick")]
+        [Summary("Kick a user from the server.")]
+        [RequireBotPermission(GuildPermission.KickMembers)]
+        [RequireUserPermission(GuildPermission.KickMembers)]
+        public async Task Kick(SocketGuildUser targetUser, [Remainder] string reason = "No reason provided.")
+        {
+            await targetUser.KickAsync(reason);
+            await ReplyAsync($"**{targetUser}** has been kicked. Bye bye :wave:");
+        }
+
+        [Command("ban")]
+        [Summary("Ban a user from the server")]
+        [RequireUserPermission(GuildPermission.BanMembers)]
+        [RequireBotPermission(GuildPermission.BanMembers)]
+        public async Task Ban(SocketGuildUser targetUser, [Remainder] string reason = "No reason provided.")
+        {
+            await Context.Guild.AddBanAsync(targetUser.Id, 0, reason);
+            await ReplyAsync($"**{targetUser}** has been banned. Bye bye :wave:");
+        }
+
+        [Command("unban")]
+        [Summary("Unban a user from the server")]
+        [RequireBotPermission(GuildPermission.BanMembers)]
+        [RequireUserPermission(GuildPermission.BanMembers)]
+        public async Task Unban(ulong targetUser)
+        {
+            await Context.Guild.RemoveBanAsync(targetUser);
+            await Context.Channel.SendMessageAsync($"The user has been unbanned :clap:");
+        }
+        [Command("role")]
+        [Alias("roleinfo")]
+        [RequireUserPermission(GuildPermission.Administrator)]
+        [Summary("Show information about a role.")]
+        public async Task RoleInfo([Remainder] SocketRole role)
+        {
+            // Just in case someone tries to be funny.
+            if (role.Id == Context.Guild.EveryoneRole.Id)
+                return;
+            await ReplyAsync(
+                $":flower_playing_cards: **{role.Name}** information```ini" +
+                $"\n[Members]             {role.Members.Count()}" +
+                $"\n[Role ID]             {role.Id}" +
+                $"\n[Hoisted status]      {role.IsHoisted}" +
+                $"\n[Created at]          {role.CreatedAt:dd/M/yyyy}" +
+                $"\n[Hierarchy position]  {role.Position}" +
+                $"\n[Color Hex]           {role.Color}```");
+        }
+
+
+        [Command("purge")]
+        [RequireUserPermission(GuildPermission.ManageMessages)]
+        public async Task PurgeChat(int amount)
+        {
+            IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
+            await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
+            const int delay = 3000;
+            IUserMessage m = await ReplyAsync(base.Context.User.Mention + $"I have deleted messages :)");
+            await Task.Delay(delay);
+            await m.DeleteAsync();
+        }
+
         [Command("setemoji")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("progressbar")]
@@ -793,14 +905,16 @@ namespace DiscordBot.Modules
             if (startfull == 0 || Centerfull == 0 || Endfull == 0 || Startnull == 0 || Centernull == 0 || Endnull == 0 || norank == 0 || Bronze == 0 || Silver == 0 || Gold == 0 || Platinum == 0 || Diamond == 0 || Master == 0 || legend == 0 || mythical == 0 || GrandMaster == 0)
 #pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
             {
-
-                await ReplyAsync($"{Config.Prfix}setemoji [startfull_id] [Centerfull_id] [Endfull_id]  [Startnull_id] [Centernull_id] [Endnull_id] [norank_id] [Bronze_id] [Silver_id] [Endnull_id] [Gold_id] [Platinum_id] [Diamond_id] [Master_id] [legend_id] [mythical_id] [GrandMaster_id]");
+                ServerConfig config2 = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+   
+                await ReplyAsync($"{  config2.prefix.ToString()}setemoji [startfull_id] [Centerfull_id] [Endfull_id]  [Startnull_id] [Centernull_id] [Endnull_id] [norank_id] [Bronze_id] [Silver_id] [Endnull_id] [Gold_id] [Platinum_id] [Diamond_id] [Master_id] [legend_id] [mythical_id] [GrandMaster_id]");
                 return;
 
             }
             try
             {
                 ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+
                 config.Startfull = startfull;
                 config.Centerfull = Centerfull;
                 config.Endfull = Endfull;

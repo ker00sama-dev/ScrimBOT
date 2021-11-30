@@ -47,6 +47,7 @@ namespace MyCustomDiscordBot.Models
         public ulong mythical { get; set; }
         public ulong GrandMaster { get; set; }
         public int checkranking { get; set; }
+public string prefix { get; set; }
 
         public ServerConfig(ulong guildId)
         {
@@ -78,6 +79,7 @@ namespace MyCustomDiscordBot.Models
          legend  = 0uL;
          mythical  = 0uL;
          GrandMaster  = 0uL;
+        prefix = "!";
     }
     }
 }

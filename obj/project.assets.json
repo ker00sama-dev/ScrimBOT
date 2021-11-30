@@ -3777,23 +3777,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Kirlos\\.nuget\\packages\\": {},
+    "C:\\Users\\ker00sama\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\github\\DiscordGamingBOT\\MyCustomDiscordBot.csproj",
+      "projectUniqueName": "C:\\Users\\ker00sama\\Documents\\GitHub\\DiscordGamingBOT\\MyCustomDiscordBot.csproj",
       "projectName": "MyCustomDiscordBotValo",
-      "projectPath": "D:\\github\\DiscordGamingBOT\\MyCustomDiscordBot.csproj",
-      "packagesPath": "C:\\Users\\Kirlos\\.nuget\\packages\\",
-      "outputPath": "D:\\github\\DiscordGamingBOT\\obj\\",
+      "projectPath": "C:\\Users\\ker00sama\\Documents\\GitHub\\DiscordGamingBOT\\MyCustomDiscordBot.csproj",
+      "packagesPath": "C:\\Users\\ker00sama\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ker00sama\\Documents\\GitHub\\DiscordGamingBOT\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Kirlos\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ker00sama\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -3895,7 +3895,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.403\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   },

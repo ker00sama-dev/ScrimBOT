@@ -7,7 +7,7 @@ namespace MyCustomDiscordBot.Extensions
 {
     public static class Extensions
     {
-        public static Microsoft.Win32.RegistryKey XXXXX = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOTValo");
+        public static Microsoft.Win32.RegistryKey XXXXX = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
 
         public static string ToDiscordProgressBar(this int number, int size,ServerConfig config)
         {
