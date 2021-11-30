@@ -5,7 +5,7 @@ namespace DiscordBot.Modules
 {
     public class EmbedHelper
     {
-        public static Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Crossfire");
+        public static Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("ScrimBOT");
 
         public static Embed SuccessEmbed(string description, string footer = "")
         {

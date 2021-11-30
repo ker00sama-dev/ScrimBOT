@@ -141,34 +141,42 @@ namespace MyCustomDiscordBot.Services
 #pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
             EmbedBuilder builder = new EmbedBuilder();
-            builder.WithTitle("**RANK | ELO | PLAYER**");
+            builder.WithTitle("** :red_circle:  TOP 5  :red_circle: **");
             builder.WithColor(Color.Red);
             string description = "";
             ServerConfig config = await _databaseService.GetServerConfigAsync(GuildId);
-
+            try { 
             for (int i = 0; i < topPlayers.Count; i++)
             {
                 SocketUser user = _client.GetUser(topPlayers[i].DiscordId);
                 if (user != null)
                 {
-                    if (config.checkranking == 1)
-                    {
+                        if (config.checkranking == 1)
+                        {
 
-                      description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO,config)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO,config)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12, config)} {Getrank(topPlayers[i].ELO, config)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO, config)[2]}`\n";
-                      //  description += $"`#{i + 1}` | `{topPlayers[i].ELO}` | {user.Mention}\n";
+                            description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO, config)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO, config)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12, config)} {Getrank(topPlayers[i].ELO, config)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO, config)[2]}`\n";
+                            //  description += $"`#{i + 1}` | `{topPlayers[i].ELO}` | {user.Mention}\n";
 
 
-                    }
-                    else
-                    {
-                        description += $"`#{i + 1}` | `{topPlayers[i].ELO}` | {user.Mention}\n";
+                        }
+                        else
+                        {
+                            description += $"`#{i + 1}` | `{topPlayers[i].ELO}` | {user.Mention}\n";
 
-                      //  description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO)[2]}`\n";
+                            //  description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12)} {Getrank(topPlayers[i].ELO)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO)[2]}`\n";
+
+                        }
+                        //  description += $"`#{i + 1}` {Getrank(topPlayers[i].ELO, config)[3]}  | `{topPlayers[i].ELO}` | {user.Mention}\n{Getrank(topPlayers[i].ELO, config)[0]}   {topPlayers[i].ELO.ToDiscordProgressBar(12, config)} {Getrank(topPlayers[i].ELO, config)[1]}    `{topPlayers[i].ELO}/{Getrank(topPlayers[i].ELO, config)[2]}`\n";
 
                     }
                 }
+
             }
-            builder.WithDescription(description);
+            catch (Exception err)
+            {
+                description = err.ToString();
+            }
+            builder.WithDescription("\n\n👑 **RANK | ELO | PLAYER** 👑\n\n" + description);
             builder.WithFooter(new EmbedFooterBuilder
             {
                 Text = "Leaderboard"
