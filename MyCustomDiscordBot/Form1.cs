@@ -20,7 +20,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             version.Text = ToolVersion;
             INetWorkComunucator nc = new INetWorkComunucator();
             string versioncheck = nc.Version();
-
+            Console.WriteLine("Crossfire BOT");
             //if (versioncheck == "CONECTION_ERROR")
             //{
             //    MessageBox.Show("There is no internet Connections!", "Error!", MessageBoxButtons.OK,

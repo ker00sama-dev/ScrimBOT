@@ -32,13 +32,13 @@ namespace MyCustomDiscordBot.Extensions
             //};
 
             string[] emoji = {
-            "<"+config.Startfull.ToString()+">",//Start full   //0
-            "<"+config.Centerfull.ToString()+">",//Start full   //0
-            "<"+config.Endfull.ToString()+">",//Start full   //0
+            "<:e_:"+config.Startfull.ToString()+">",//Start full   //0
+            "<:e_:"+config.Centerfull.ToString()+">",//Start full   //0
+            "<:e_:"+config.Endfull.ToString()+">",//Start full   //0
 
-            "<"+config.Startnull.ToString()+">",//Start full   //0
-            "<"+config.Centernull.ToString()+">",//Start full   //0
-            "<"+config.Endnull.ToString()+">",//Start full   //0
+            "<:e_:"+config.Startnull.ToString()+">",//Start full   //0
+            "<:e_:"+config.Centernull.ToString()+">",//Start full   //0
+            "<:e_:"+config.Endnull.ToString()+">",//Start full   //0
             };
             string fillbar = (number > 0) ? emoji[0] : emoji[3];
 

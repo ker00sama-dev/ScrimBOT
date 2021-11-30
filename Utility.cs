@@ -24,8 +24,8 @@ namespace MyCustomDiscordBot
         //    public static ulong id = 909023733547671632;
         //public static char Prfix = '!';
         public static string token = (string)XXXXX2.GetValue(@"Token2");
-     public static string DBConnectionString = @"mongodb+srv://admin:01032021020aA#@botpug.g0mkk.mongodb.net/botPug?retryWrites=true&w=majority";
-    // public static string DBConnectionString = @"mongodb+srv://W5eytF3bVXUOkbom:W5eytF3bVXUOkbom@scrimbotvalo.s0fg5.mongodb.net/scrimbotvalo?retryWrites=true&w=majority";//Valo
+  public static string DBConnectionString = @"mongodb+srv://admin:01032021020aA#@botpug.g0mkk.mongodb.net/botPug?retryWrites=true&w=majority";
+ // public static string DBConnectionString = @"mongodb+srv://W5eytF3bVXUOkbom:W5eytF3bVXUOkbom@scrimbotvalo.s0fg5.mongodb.net/scrimbotvalo?retryWrites=true&w=majority";//Valo
 
         public static ulong id = Convert.ToUInt64(XXXXX2.GetValue(@"serverid").ToString());
      //   public static char Prfix = char.Parse(XXXXX2.GetValue(@"perfix").ToString());

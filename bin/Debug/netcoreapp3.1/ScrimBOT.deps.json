@@ -6,7 +6,7 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "MyCustomDiscordBot/1.0.0": {
+      "ScrimBOT/1.0.0": {
         "dependencies": {
           "Discord.Net.Labs": "3.3.2",
           "Discord.Net.Labs.Commands": "3.3.2",
@@ -24,7 +24,7 @@
           "VMProtect.SDK": "1.0.0"
         },
         "runtime": {
-          "MyCustomDiscordBot.dll": {}
+          "ScrimBOT.dll": {}
         }
       },
       "Discord.Net.Labs/3.3.2": {
@@ -883,7 +883,7 @@
     }
   },
   "libraries": {
-    "MyCustomDiscordBot/1.0.0": {
+    "ScrimBOT/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
