@@ -788,20 +788,20 @@ namespace DiscordBot.Modules
         [Command("setemoji")]
         [RequireUserPermission(GuildPermission.Administrator)]
         [Summary("progressbar")]
-        public async Task setEmoji(ulong startnull = 0, ulong Centerfull = 0, ulong Endfull = 0, ulong Startnull = 0, ulong Centernull = 0, ulong Endnull = 0, ulong norank = 0, ulong Bronze = 0, ulong Silver = 0, ulong Gold = 0, ulong Platinum = 0, ulong Diamond = 0, ulong Master = 0, ulong legend = 0, ulong mythical = 0, ulong GrandMaster = 0)
+        public async Task setEmoji(ulong startfull = 0, ulong Centerfull = 0, ulong Endfull = 0, ulong Startnull = 0, ulong Centernull = 0, ulong Endnull = 0, ulong norank = 0, ulong Bronze = 0, ulong Silver = 0, ulong Gold = 0, ulong Platinum = 0, ulong Diamond = 0, ulong Master = 0, ulong legend = 0, ulong mythical = 0, ulong GrandMaster = 0)
         {
-            if (startnull == 0 || Centerfull == 0 || Endfull == 0 || Startnull == 0 || Centernull == 0 || Endnull == 0)
+            if (startfull == 0 || Centerfull == 0 || Endfull == 0 || Startnull == 0 || Centernull == 0 || Endnull == 0 || norank == 0 || Bronze == 0 || Silver == 0 || Gold == 0 || Platinum == 0 || Diamond == 0 || Master == 0 || legend == 0 || mythical == 0 || GrandMaster == 0)
 #pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
             {
 
-                await ReplyAsync($"{Config.Prfix}setemoji [startnull_id] [Centerfull_id] [Endfull_id]  [Startnull_id] [Centernull_id] [Endnull_id]");
+                await ReplyAsync($"{Config.Prfix}setemoji [startfull_id] [Centerfull_id] [Endfull_id]  [Startnull_id] [Centernull_id] [Endnull_id] [norank_id] [Bronze_id] [Silver_id] [Endnull_id] [Gold_id] [Platinum_id] [Diamond_id] [Master_id] [legend_id] [mythical_id] [GrandMaster_id]");
                 return;
 
             }
             try
             {
                 ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
-                config.Startfull = startnull;
+                config.Startfull = startfull;
                 config.Centerfull = Centerfull;
                 config.Endfull = Endfull;
                 config.Startnull = Startnull;
