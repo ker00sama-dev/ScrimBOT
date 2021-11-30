@@ -560,7 +560,9 @@ namespace DiscordBot.Modules
             {
                 ISocketMessageChannel channel = base.Context.Channel;
                 EmbedService embedService = _embedService;
-                await channel.SendMessageAsync(null, isTTS: false, await embedService.LeaderboardEmbed(await _databaseService.GetTop25Users(base.Context.Guild.Id), base.Context.Guild.Id));
+                //await ReplyAsync(base.Context.User.Mention + ", please use this command in the stats channel only.");
+
+                 await channel.SendMessageAsync(null, isTTS: false, await embedService.LeaderboardEmbed(await _databaseService.GetTop25Users(base.Context.Guild.Id), base.Context.Guild.Id));
             }
         }
     }

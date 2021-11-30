@@ -59,7 +59,7 @@ namespace MyCustomDiscordBot.Services
             IMongoCollection<DbUser> collection = GetUsersForGuild(guildId);
             List<DbUser> listCursor = (await collection.FindAsync(new BsonDocument())).ToList();
             listCursor.Sort((DbUser a, DbUser b) => (a.ELO <= b.ELO) ? 1 : (-1));
-            return listCursor.Take(25).ToList();
+            return listCursor.Take(10).ToList();
         }
 
 

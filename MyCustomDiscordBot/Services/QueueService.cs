@@ -219,8 +219,10 @@ namespace MyCustomDiscordBot.Services
                     x.CategoryId = serverConfig.MatchesCategoryId;
                     x.UserLimit = queue.Capacity / 2 + 1;
                 });
+                ServerConfig config2 = await _databaseService.GetServerConfigAsync(guildId);
+
                 OverwritePermissions connectFalse = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Deny);
-                if (guildId != EmbedService.ServerIDs())
+                if (guildId != EmbedService.ServerIDs(config2))
                 {
                     await team1Voice.AddPermissionOverwriteAsync(_client.GetGuild(guild2.Id).EveryoneRole, connectFalse);
                     await team2Voice.AddPermissionOverwriteAsync(_client.GetGuild(guild2.Id).EveryoneRole, connectFalse);
@@ -271,7 +273,9 @@ namespace MyCustomDiscordBot.Services
                 {
                     foreach (ulong discordId2 in match.Team1DiscordIds)
                     {
-                        if (guildId != EmbedService.ServerIDs())
+                        ServerConfig config22 = await _databaseService.GetServerConfigAsync(guildId);
+
+                        if (guildId != EmbedService.ServerIDs(config22))
                         {
                             await team1Voice.AddPermissionOverwriteAsync(guild2.GetUser(discordId2), connectTrue);
                         }
@@ -286,7 +290,8 @@ namespace MyCustomDiscordBot.Services
                     }
                     foreach (ulong discordId2 in match.Team2DiscordIds)
                     {
-                        if (guildId != EmbedService.ServerIDs())
+                        ServerConfig config223 = await _databaseService.GetServerConfigAsync(guildId);
+                        if (guildId != EmbedService.ServerIDs(config223))
                         {
                             await team2Voice.AddPermissionOverwriteAsync(guild2.GetUser(discordId2), connectTrue);
                         }

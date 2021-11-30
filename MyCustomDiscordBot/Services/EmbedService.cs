@@ -475,8 +475,9 @@ namespace MyCustomDiscordBot.Services
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Green);
             string password = string.Empty;
+            ServerConfig config = await _databaseService.GetServerConfigAsync(guildId);
 
-            if (guildId == ServerIDs())
+            if (guildId == ServerIDs(config))
             {
 
                 password = match.pwd;
@@ -716,7 +717,6 @@ namespace MyCustomDiscordBot.Services
             });
             return builder.Build();
         }
-
-        public static ulong ServerIDs() => Config.id;
+        public static ulong ServerIDs(ServerConfig config) => Convert.ToUInt64(config.GuildId);
     }
 }

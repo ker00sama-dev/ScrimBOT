@@ -409,6 +409,19 @@ namespace DiscordBot.Modules
             }
             match.Winners = 0;
             await _databaseService.UpsertMatchAsync(base.Context.Guild.Id, match);
+            SocketVoiceChannel waiting = base.Context.Guild.GetVoiceChannel(config.WaitingForMatchChannelId);
+            foreach (ulong discordId in match.AllPlayerDiscordIds)
+            {
+                SocketGuildUser moveMe = base.Context.Guild.GetUser(discordId);
+                if (moveMe != null && moveMe.VoiceChannel != null)
+                {
+                    await moveMe.ModifyAsync(delegate (GuildUserProperties x)
+                    {
+                        x.Channel = waiting;
+                    });
+                    await Task.Delay(250);
+                }
+            }
             SocketVoiceChannel team1Voice = base.Context.Guild.GetVoiceChannel(match.Team1VoiceChannelId);
             if (team1Voice != null)
             {

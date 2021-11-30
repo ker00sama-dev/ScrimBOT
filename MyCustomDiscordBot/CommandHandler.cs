@@ -89,7 +89,7 @@ namespace MyCustomDiscordBot
             if (message != null)
             {
                 int argPos = 0;
-                Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+                Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Crossfire");
 
                 SocketTextChannel textChannel = message.Channel as SocketTextChannel;
 
@@ -104,10 +104,10 @@ namespace MyCustomDiscordBot
                     {
                         var reason = result.Error;
                         string q = message.ToString().ToLower();
-                        if (!q.Contains("createqueue") || !q.Contains("resetelo"))
+                        if (!q.Contains("createqueue"))
                         {
-                            await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered());
-                        
+                            await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered(reason.ToString()));
+
 
                         }
                         ///  await context.Channel.SendMessageAsync($"The following error occured: \n{reason}");
@@ -122,7 +122,7 @@ namespace MyCustomDiscordBot
         //    if (message != null)
         //    {
         //        int argPos = 0;
-        //        Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+        //        Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Crossfire");
         //        if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
         //        {
         //            SocketCommandContext context = new SocketCommandContext(_client, message);
@@ -575,6 +575,19 @@ namespace MyCustomDiscordBot
                 }
                 match.Winners = 0;
                 await _databaseService.UpsertMatchAsync(Cancel.Guild.Id, match);
+                SocketVoiceChannel waiting = Cancel.Guild.GetVoiceChannel(config.WaitingForMatchChannelId);
+                foreach (ulong discordId in match.AllPlayerDiscordIds)
+                {
+                    SocketGuildUser moveMe = Cancel.Guild.GetUser(discordId);
+                    if (moveMe != null && moveMe.VoiceChannel != null)
+                    {
+                        await moveMe.ModifyAsync(delegate (GuildUserProperties x)
+                        {
+                            x.Channel = waiting;
+                        });
+                        await Task.Delay(250);
+                    }
+                }
                 SocketVoiceChannel team1Voice = Cancel.Guild.GetVoiceChannel(match.Team1VoiceChannelId);
                 if (team1Voice != null)
                 {

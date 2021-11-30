@@ -5,7 +5,7 @@ namespace DiscordBot.Modules
 {
     public class EmbedHelper
     {
-        public static Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+        public static Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Crossfire");
 
         public static Embed SuccessEmbed(string description, string footer = "")
         {
@@ -19,7 +19,7 @@ namespace DiscordBot.Modules
 
             return successEmbed.Build();
         }
-        public static Embed Unregistered()
+        public static Embed Unregistered(string reason)
         {
             var successEmbed = new EmbedBuilder();
 
@@ -27,7 +27,7 @@ namespace DiscordBot.Modules
             successEmbed.WithColor(Color.DarkRed);
 
             //successEmbed.WithDescription(description);
-            successEmbed.WithFooter($"Sorry, I could not find that command.");
+            successEmbed.WithFooter($"The following error occured: \n{reason}");
           //  successEmbed.WithCurrentTimestamp();
 
             return successEmbed.Build();

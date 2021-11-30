@@ -8,7 +8,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 {
     public partial class DiscordBOTGaming : Form
     {
-        public static Microsoft.Win32.RegistryKey XXXXX = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+        public static Microsoft.Win32.RegistryKey XXXXX = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Crossfire");
         public static string ToolVersion = "1.0.0.0";
         //public static char ConfigPerfix = (char)XXXXX.GetValue(@"perfix");
         //public static string ConfigToken = (string)XXXXX.GetValue(@"Token2");
@@ -37,7 +37,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             //    Environment.Exit(0);
             //    return;
             //}
-            if ( XXXXX.GetValue(@"Token2") != null || XXXXX.GetValue(@"serverid") != null)
+            if ( XXXXX.GetValue(@"Token2") != null )
             {
 
 
@@ -45,7 +45,6 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 
                 //perfix.Text = XXXXX.GetValue(@"perfix").ToString();
                 Token2.Text = XXXXX.GetValue(@"Token2").ToString();
-                serverid.Text = XXXXX.GetValue(@"serverid").ToString();
 
                 // XXXXX.Close();
 
@@ -107,9 +106,9 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             {
 
 
-                if ( serverid.Text == "" || Token2.Text == "")
+                if ( Token2.Text == "")
                 {
-                    MessageBox.Show("Please Write (Prefix, Token, Server ID) !");
+                    MessageBox.Show("Please Write ( Token ) !");
 
 
                     return;
@@ -119,7 +118,6 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 
              //   XXXXX.SetValue(@"perfix", perfix.Text);
                 XXXXX.SetValue(@"Token2", Token2.Text);
-                XXXXX.SetValue(@"serverid", serverid.Text);
 
 
 
@@ -161,13 +159,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 
         }
 
-        private void serverid_TextChanged(object sender, EventArgs e)
-        {
-            if (System.Text.RegularExpressions.Regex.IsMatch(serverid.Text, "  ^ [0-9]"))
-            {
-                serverid.Text = "";
-            }
-        }
+
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
