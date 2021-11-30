@@ -59,33 +59,69 @@ namespace DiscordBot.Modules
         {
             ServerConfig config2 = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
             string prifx = config2.prefix.ToString();
-            await ReplyAsync(@"```
-Commands
-" + prifx + @"createqueue        - {NAMEQUEUE} {USERS MAXIMUM(22)}  {ELO" + prifx + @"CAPTAINS}
-" + prifx + @"giveelo            - {@USER} {AMOUNT}
-" + prifx + @"config
-" + prifx + @"clearqueue         - {NAMEQUEUE} / Clear the queue
-" + prifx + @"addmap             - {ID MASSGE} {NAMEMAP}
-" + prifx + @"setmatchlogs       - {#channelName}
-" + prifx + @"setwaitingchannel  - {#channelName}
-" + prifx + @"setupreaction      - Recreates the reaction message to join the queue
-" + prifx + @"eloreset           - Resets all elo" + prifx + @" must be superuser" + prifx + @" So I can do it or I added AshK as a superuser" + prifx + @" If you want someone else added let me know who
-" + prifx + @"leaderboard        - Leaderboard in the stats channel
-aliases: lb
-" + prifx + @"pick               - Pick a player in captain pick matches" + prifx + @" Ex: " + prifx + @"pick @Player
-aliases: " + prifx + @"p
-" + prifx + @"needsub            - Need sub command used to find the next player in the queue to fill a spot for a missing player" + prifx + @" Ex: " + prifx + @"needsub @Player 
-aliases: " + prifx + @"needsubfor
-" + prifx + @"report             - Report the score of the match" + prifx + @" 0 - Cancel" + prifx + @" 1 - Team 1" + prifx + @" 2 - Team 2" + prifx + @" Ex: " + prifx + @"report 1
-" + prifx + @"profile            - View a player profile" + prifx + @" Ex: " + prifx + @"profile || " + prifx + @"profile @Player
-" + prifx + @"warn               - Mod warn a player" + prifx + @" Ex: " + prifx + @"warn @Player reason
-" + prifx + @"warnings           - View the warnings of a player" + prifx + @" Ex: " + prifx + @"warnings @Player
-    aliases: " + prifx + @"warns
-" + prifx + @"disablequeue       - Disable queue for a specific time" + prifx + @" Ex: " + prifx + @"disablequeue 5d 12h
+            //            await ReplyAsync(@"```
+            //Commands
+            //" + prifx + @"createqueue        - {NAMEQUEUE} {USERS MAXIMUM(22)}  {ELO" + prifx + @"CAPTAINS}
+            //" + prifx + @"giveelo            - {@USER} {AMOUNT}
+            //" + prifx + @"config
+            //" + prifx + @"clearqueue         - {NAMEQUEUE} / Clear the queue
+            //" + prifx + @"addmap             - {ID MASSGE} {NAMEMAP}
+            //" + prifx + @"setmatchlogs       - {#channelName}
+            //" + prifx + @"setwaitingchannel  - {#channelName}
+            //" + prifx + @"setupreaction      - Recreates the reaction message to join the queue
+            //" + prifx + @"eloreset           - Resets all elo" + prifx + @" must be superuser" + prifx + @" So I can do it or I added AshK as a superuser" + prifx + @" If you want someone else added let me know who
+            //" + prifx + @"leaderboard        - Leaderboard in the stats channel
+            //aliases: lb
+            //" + prifx + @"pick               - Pick a player in captain pick matches" + prifx + @" Ex: " + prifx + @"pick @Player
+            //aliases: " + prifx + @"p
+            //" + prifx + @"needsub            - Need sub command used to find the next player in the queue to fill a spot for a missing player" + prifx + @" Ex: " + prifx + @"needsub @Player 
+            //aliases: " + prifx + @"needsubfor
+            //" + prifx + @"report             - Report the score of the match" + prifx + @" 0 - Cancel" + prifx + @" 1 - Team 1" + prifx + @" 2 - Team 2" + prifx + @" Ex: " + prifx + @"report 1
+            //" + prifx + @"profile            - View a player profile" + prifx + @" Ex: " + prifx + @"profile || " + prifx + @"profile @Player
+            //" + prifx + @"warn               - Mod warn a player" + prifx + @" Ex: " + prifx + @"warn @Player reason
+            //" + prifx + @"warnings           - View the warnings of a player" + prifx + @" Ex: " + prifx + @"warnings @Player
+            //    aliases: " + prifx + @"warns
+            //" + prifx + @"disablequeue       - Disable queue for a specific time" + prifx + @" Ex: " + prifx + @"disablequeue 5d 12h
 
-```");
-            // await ReplyAsync("test");
-            //  await ReplyAsync(description);
+            //```");
+            /////new help 
+
+            string admin = $"{prifx}setscorereporter     - [Mention Role]\n" +
+                           $"{prifx}setmatchlogs         - [Mention Channel]\n" +
+                           $"{prifx}setwaitingchannel    - [Mention Channel ex : <#id>]\n" +
+                           $"{prifx}setstatschannel      - [Mention Channel]\n" +
+                           $"{prifx}setmaxteamsize       - [maxTeamSize]\n" +
+                           $"{prifx}setmatchescategory   - [Mtches Category ID]\n" +
+                           $"{prifx}setwinloss           - [winAmount] [lossAmount] \n" +
+                           $"{prifx}progressbar          - [To Turn ON Progressbar ex: `progressbar 1`]\n[To Turn OFF Progressbar ex: `progressbar 0`]\n" +
+                           $"{prifx}setprefix            - [!,?,#,1,+,9,m] just one letter.\n" +
+                           $"{prifx}setemoji             - \n[startfull_id] [Centerfull_id] [Endfull_id]\n [Startnull_id] [Centernull_id] [Endnull_id]\n [norank_id] [Bronze_id] [Silver_id]\n [Endnull_id] [Gold_id] [Platinum_id]\n [Diamond_id] [Master_id] [legend_id]\n [mythical_id] [GrandMaster_id]\n" +
+                           $"{prifx}config               -  " +
+                           $"";
+
+            string Reporter = $"{prifx}setscorereporter        - [Mention Role]\n" +
+                           $"{prifx}setmatchlogs            - [Mention Channel]\n" +
+                           $"{prifx}setwaitingchannel       - [Mention Channel ex : <#id>]\n" +
+                           $"{prifx}setstatschannel         - [Mention Channel]\n" +
+                           $"{prifx}setmaxteamsize          - [maxTeamSize]\n" +
+                           $"{prifx}setmatchescategory      - [Mtches Category ID]\n" +
+                           $"{prifx}setwinloss              - [winAmount] [lossAmount] \n" +
+
+                           $"";
+
+
+            EmbedBuilder builder = new EmbedBuilder();
+            builder.WithColor(Color.Green);
+            builder.WithTitle("How To Use ScrimBOT");
+            builder.AddField("Setup", $"```{admin}```");
+            builder.AddField("Reporter", $"```{Reporter}```");
+           
+
+            builder.WithFooter(new EmbedFooterBuilder
+            {
+                Text = "Developed by Kirlos O. Fawzi 👑#0001"
+            });
+            await ReplyAsync(null, isTTS: false, builder.Build());
         }
 
         [Command("serverinfo")]

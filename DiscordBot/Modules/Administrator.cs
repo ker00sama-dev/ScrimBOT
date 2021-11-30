@@ -691,7 +691,7 @@ namespace DiscordBot.Modules
             await ReplyAsync($"Win amount has been set to: `{config.WinAmount}`. Loss amount has been set to: `{config.LossAmount}`.");
         }
 
-        [Command("trunemoji")]
+        [Command("progressbar")]
         [RequireUserPermission(GuildPermission.Administrator)]
 
         public async Task trunemoji(int winAmount)
@@ -907,7 +907,7 @@ namespace DiscordBot.Modules
             {
                 ServerConfig config2 = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
    
-                await ReplyAsync($"{  config2.prefix.ToString()}setemoji [startfull_id] [Centerfull_id] [Endfull_id]  [Startnull_id] [Centernull_id] [Endnull_id] [norank_id] [Bronze_id] [Silver_id] [Endnull_id] [Gold_id] [Platinum_id] [Diamond_id] [Master_id] [legend_id] [mythical_id] [GrandMaster_id]");
+                await ReplyAsync($"{  config2.prefix.ToString()}setemoji [startfull_id] [Centerfull_id] [Endfull_id]  [Startnull_id] [Centernull_id] [Endnull_id] [norank_id] [Bronze_id] [Silver_id]  [Gold_id] [Platinum_id] [Diamond_id] [Master_id] [legend_id] [mythical_id] [GrandMaster_id]");
                 return;
 
             }
