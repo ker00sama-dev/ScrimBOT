@@ -307,7 +307,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             this.groupBox2.Controls.Add(this.Centernull);
             this.groupBox2.Controls.Add(this.Startnull);
             this.groupBox2.Controls.Add(this.Endfull);
-            this.groupBox2.Location = new System.Drawing.Point(3, 202);
+            this.groupBox2.Location = new System.Drawing.Point(3, 209);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(405, 157);
             this.groupBox2.TabIndex = 11;
@@ -353,7 +353,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(412, 582);
+            this.ClientSize = new System.Drawing.Size(412, 210);
             this.ControlBox = false;
             this.Controls.Add(this.version);
             this.Controls.Add(this.label1);

@@ -8,7 +8,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 {
     public partial class DiscordBOTGaming : Form
     {
-        public static Microsoft.Win32.RegistryKey XXXXX = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+        public static Microsoft.Win32.RegistryKey XXXXX = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOTValo");
         public static string ToolVersion = "1.0.0.0";
         //public static char ConfigPerfix = (char)XXXXX.GetValue(@"perfix");
         //public static string ConfigToken = (string)XXXXX.GetValue(@"Token2");

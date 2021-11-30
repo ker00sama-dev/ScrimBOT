@@ -462,7 +462,7 @@ namespace DiscordBot.Modules
             Match match = await _databaseService.GetMatchForChannelAsync(base.Context.Guild.Id, base.Context.Channel.Id);
             if (match.Winners == 1 || match.Winners == 2)
             {
-                        Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOT");
+                        Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("DiscordBOTValo");
 
         await ReplyAsync($"This match has already been reported as a team ${match.Winners} victory. You may use `{char.Parse(XXXXX2.GetValue(@"perfix").ToString())}giveelo @User AMOUNT` and ` {char.Parse(XXXXX2.GetValue(@"perfix").ToString())}takeelo @User AMOUNT` to correct any mistakes.");
                 return;
