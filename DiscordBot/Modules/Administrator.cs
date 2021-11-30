@@ -657,7 +657,7 @@ namespace DiscordBot.Modules
             SocketGuildChannel statsChannel = base.Context.Message.MentionedChannels.FirstOrDefault();
             if (statsChannel == null)
             {
-                await ReplyAsync("Something weird happened. Contact Kirlos O. Fawzi 👑#0001. Stats channel mention is null.");
+                await ReplyAsync("Something weird happened. Contact Kirlos O. Fawzi 👑#0588. Stats channel mention is null.");
                 return;
             }
             try
@@ -831,7 +831,7 @@ namespace DiscordBot.Modules
             }
             builder.WithFooter(new EmbedFooterBuilder
             {
-                Text = "Developed by Kirlos O. Fawzi 👑#0001"
+                Text = "Developed by Kirlos O. Fawzi 👑#0588"
             });
             await ReplyAsync(null, isTTS: false, builder.Build());
         }
@@ -953,7 +953,7 @@ namespace DiscordBot.Modules
 
                 builder.WithFooter(new EmbedFooterBuilder
                 {
-                    Text = "Developed by Kirlos O. Fawzi 👑#0001"
+                    Text = "Developed by Kirlos O. Fawzi 👑#0588"
                 });
                 await ReplyAsync(null, isTTS: false, builder.Build());
             }

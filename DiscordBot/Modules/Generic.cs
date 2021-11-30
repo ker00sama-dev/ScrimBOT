@@ -86,7 +86,7 @@ namespace DiscordBot.Modules
             //```");
             /////new help 
 
-            string admin = $"{prifx}setscorereporter     - [Mention Role]\n" +
+            string setup = $"{prifx}setscorereporter     - [Mention Role]\n" +
                            $"{prifx}setmatchlogs         - [Mention Channel]\n" +
                            $"{prifx}setwaitingchannel    - [Mention Channel ex : <#id>]\n" +
                            $"{prifx}setstatschannel      - [Mention Channel]\n" +
@@ -95,31 +95,79 @@ namespace DiscordBot.Modules
                            $"{prifx}setwinloss           - [winAmount] [lossAmount] \n" +
                            $"{prifx}progressbar          - [To Turn ON Progressbar ex: `progressbar 1`]\n[To Turn OFF Progressbar ex: `progressbar 0`]\n" +
                            $"{prifx}setprefix            - [!,?,#,1,+,9,m] just one letter.\n" +
-                           $"{prifx}setemoji             - \n[startfull_id] [Centerfull_id] [Endfull_id]\n [Startnull_id] [Centernull_id] [Endnull_id]\n [norank_id] [Bronze_id] [Silver_id]\n [Endnull_id] [Gold_id] [Platinum_id]\n [Diamond_id] [Master_id] [legend_id]\n [mythical_id] [GrandMaster_id]\n" +
+                           $"{prifx}setemoji             - \n [startfull_id] [Centerfull_id] [Endfull_id]\n [Startnull_id] [Centernull_id] [Endnull_id]\n [norank_id] [Bronze_id] [Silver_id]\n [Endnull_id] [Gold_id] [Platinum_id]\n [Diamond_id] [Master_id] [legend_id]\n [mythical_id] [GrandMaster_id]\n" +
+                           $"{prifx}createscrimboard               -  " +
                            $"{prifx}config               -  " +
                            $"";
 
-            string Reporter = $"{prifx}setscorereporter        - [Mention Role]\n" +
-                           $"{prifx}setmatchlogs            - [Mention Channel]\n" +
-                           $"{prifx}setwaitingchannel       - [Mention Channel ex : <#id>]\n" +
-                           $"{prifx}setstatschannel         - [Mention Channel]\n" +
-                           $"{prifx}setmaxteamsize          - [maxTeamSize]\n" +
-                           $"{prifx}setmatchescategory      - [Mtches Category ID]\n" +
-                           $"{prifx}setwinloss              - [winAmount] [lossAmount] \n" +
+            string Administrator = $"{prifx}addreactions    - [messageId]\n" +
+                                   $"{prifx}createqueue     - [name] [maximum users] [captains or elo ]\n" +
+                                   $"{prifx}deletequeue     - [queueName]\n" +
+                                   $"{prifx}clearqueue      - [queueName]\n" +
+                                   $"{prifx}setteamsort     - [queueMessageId] [`captains` or `elo`]\n" +
+                                   $"{prifx}addmap          - [queueMessageId] [NameMap]\n" +
+                                   $"{prifx}removemap       - [queueMessageId] [NameMap]\n" +
+                                   $"{prifx}maps            - [queueMessageId]\n" +
+                                   $"{prifx}resetelo        - \n" +
+                                   $"{prifx}kick            - [targetUser] [reason] \n" +
+                                   $"{prifx}ban             - [targetUser] [reason] \n" +
+                                   $"{prifx}unban           - [targetUser] \n" +
+                                   $"{prifx}role            - Show information about a role.] \n" +
+                                   $"{prifx}purge           - [amount] \n" +
+
+
+                                $"";
+
+            string Reporter = $"{prifx}replace         - [Current User] [SubToUser] \n" +
+                              $"{prifx}needsub         - [userToSub] \n" +
+                              $"{prifx}cooldown        - [user] [minutes] \n" +
+                              $"{prifx}removecd        - [user]\n" +
+                              $"{prifx}takeelo         - [user] [amount]\n" +
+                              $"{prifx}giveelo         - [user] [amount]\n" +
+                              $"{prifx}cancel          - Cancel a match\n" +
+                              $"{prifx}report          - Report a victory by the team number.\n" +
+
 
                            $"";
+            string Teams = $"{prifx}post            - [description]  \n" +
+                           $"{prifx}accept          - [Mention Enemy(User)] \n" +
+                           $"{prifx}removepost      - Remove your post from the scrim board. \n" +
+                           $"{prifx}createteam      - [name]\n" +
+                           $"{prifx}addplayers      - [@Mention Players] \n" +
+                           $"{prifx}removeplayers   - [@Mention Players] \n" +
+                           $"{prifx}team            - See your team's profile, or a specfic @Mentioned user's team info.\n" +
+                           $"{prifx}setcaptain      - [@Mention newCaptain]\n" +
+                           $"{prifx}deleteteam      - As a captain, delete your own team.\n" +
+
+
+                                       $"";
+          string Members = $"{prifx}serverinfo  - BotInfo\n" +
+                           $"{prifx}info        - Check whether the bot is working or not. \n" +
+                           $"{prifx}ping        - Check whether the bot is working or not. \n" +
+                           $"{prifx}avatar      - See your avatar, or pull up a user's profile! \n" +
+                           $"{prifx}pick        - Pick a player to join your team.\n" +
+                           $"{prifx}changemap   - Vote to change to another random map. \n" +
+                           $"{prifx}profile       - See your profile, or pull up a user's profile! \n" +
+                           $"{prifx}lb          - See the top 25 users in your server. \n" +
+                  
+
+
+                        $"";
 
 
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Green);
             builder.WithTitle("How To Use ScrimBOT");
-            builder.AddField("Setup", $"```{admin}```");
+            builder.AddField("Setup", $"```{setup}```");
+            builder.AddField("Administrator", $"```{Administrator}```");
             builder.AddField("Reporter", $"```{Reporter}```");
+            builder.AddField("Teams", $"```{Teams}```");
+            builder.AddField("Members", $"```{Members}```");
            
 
             builder.WithFooter(new EmbedFooterBuilder
             {
-                Text = "Developed by Kirlos O. Fawzi 👑#0001"
+                Text = "Developed by Kirlos O. Fawzi 👑#0588"
             });
             await ReplyAsync(null, isTTS: false, builder.Build());
         }
@@ -444,20 +492,22 @@ namespace DiscordBot.Modules
         //[Summary("")]
         //public async Task SetNickCF(string url)
         //{
-        //    if (url == null)
-        //    {
 
-        //        await (await ReplyAsync($"{Config.Prfix}setnickname [URL = https://crossfire.z8games.com/profile/19323248] ")).DeleteMessageAfterSeconds(2);
-        //        return;
+        //    var oldNick = discordMember.Nickname;
+        //    await ctx.TriggerTypingAsync();
+        //    try
+        //    {
+        //        await discordMember.ModifyAsync(x => x.Nickname = nickname);
+        //        var newNick = discordMember.Nickname;
+        //        await ctx.Channel.SendMessageAsync($"{ctx.Member.Username} changed {oldNick}'s nickname to: {newNick}.").ConfigureAwait(false);
+        //        newNick = "";
 
         //    }
-        //    SocketUser user = base.Context.User;
-        //    var html = new WebClient().DownloadString(url);
-        //    HtmlDocument doc = new HtmlDocument();
-        //    doc.Load(html);
-        //    var result = doc.DocumentNode.SelectNodes("//h1[@class='PlayerHeader_ign_heading__AT-l_']");
-        //    ISocketMessageChannel channel = base.Context.Channel;
-        //    await channel.SendMessageAsync(result.ToString());
+        //    catch (Exception e)
+        //    {
+        //        await ctx.Channel.SendMessageAsync
+        //            ($"An error occured: {e}").ConfigureAwait(false);
+        //    }
         //}
         [Command("stats")]
         [Alias(new string[] { "profile", "statistics" })]

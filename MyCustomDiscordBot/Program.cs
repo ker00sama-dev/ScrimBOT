@@ -80,13 +80,13 @@ namespace MyCustomDiscordBot
                         // Run the application
 
 
-                        CreateHostBuilder(args).Build().Run();
+                        //   CreateHostBuilder(args).Build().Run();
                         // RequireAdministrator();
-                        //Application.EnableVisualStyles();
-                        //Application.SetCompatibleTextRenderingDefault(false);
-                        //Application.Run(new DiscordBOTGaming());
+                        Application.EnableVisualStyles();
+                        Application.SetCompatibleTextRenderingDefault(false);
+                        Application.Run(new DiscordBOTGaming());
                     }
-                else
+                    else
                 {
                     MessageBox.Show("An instance of the application is already running.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
