@@ -1,6 +1,8 @@
-﻿using System;
+﻿using MyCustomDiscordBot.MyCustomDiscordBot;
+using System;
 using System.IO;
 using System.Net;
+using System.Security.Cryptography;
 using System.ServiceProcess;
 using System.Text;
 using VMProtect;
@@ -22,9 +24,9 @@ namespace MyCustomDiscordBot
         {
 
         }
-        string url1 = XORCipher(XORCipher("https://www.scrimbot.co/version", "X45x54x54xx54x45x45x4"), "X45x54x54xx54x45x45x4");
- 
-        
+        string url1 = XORCipher(XORCipher("https://api.scrimbot.co/version", "X45x54x54xx54x45x45x4"), "X45x54x54xx54x45x45x4");
+
+
         //Devuelve la version de la applicacion
         public string Version()
         {
@@ -34,18 +36,34 @@ namespace MyCustomDiscordBot
 
             try
             {
-                var url = "https://scrimbot.co/versionxyz.php";
+                var url = url1;
+                AntiFiddler();
+                var random = new Random(System.DateTime.Now.Millisecond);
+                int challenge = random.Next(100000, 999999);
 
                 var httpRequest = (HttpWebRequest)WebRequest.Create(url);
                 httpRequest.Method = "POST";
+                AntiFiddler();
+                httpRequest.UserAgent = USERAGENT;
 
-                httpRequest.Headers["User-agent"] = "DiscordBOT";
+                httpRequest.Timeout = 12000;
+                httpRequest.Headers.Add("ScrimBot-Auth", APPTOKEN);
+                httpRequest.Headers.Add("ScrimBot-challenge", challenge.ToString());
                 httpRequest.Headers["Cache-Control"] = "no-cache";
                 httpRequest.Headers["Pragma"] = "no-cache";
                 httpRequest.ContentType = "application/x-www-form-urlencoded";
                 httpRequest.Headers["Content-Length"] = "0";
 
+                AntiFiddler();
 
+                var httpContent = USERAGENT.ToString() + ":" + APPTOKEN.ToString() + ":" + challenge.ToString() + ":" + DiscordBOTGaming.ToolVersion.ToString();
+
+                var data = $"Data={EncodeBase64(httpContent.ToString())}";
+             //   Console.WriteLine(data);
+                using (var streamWriter = new StreamWriter(httpRequest.GetRequestStream()))
+                {
+                    streamWriter.Write(data);
+                }
 
                 var httpResponse = (HttpWebResponse)httpRequest.GetResponse();
 
@@ -72,8 +90,7 @@ namespace MyCustomDiscordBot
                 return "CONECTION_ERROR";
             }
         }
-
-       
+      
         public static string XORCipher(string data, string key)
         {
             int dataLen = data.Length;

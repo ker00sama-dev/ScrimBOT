@@ -28,6 +28,7 @@ namespace MyCustomDiscordBot
         public override async Task StartAsync(CancellationToken cancellationToken)
         {
             await _client.LoginAsync(TokenType.Bot, Config.token);
+            await _client.SetGameAsync("ScrimBOT.Me", "", ActivityType.Watching);
             await _client.StartAsync();
             await _commandHandler.Init();
             await base.StartAsync(cancellationToken);

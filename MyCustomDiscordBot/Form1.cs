@@ -17,11 +17,10 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
         public DiscordBOTGaming()
         {
             InitializeComponent();
-            version.Text = ToolVersion;
+            //version.Text = ToolVersion;
             INetWorkComunucator nc = new INetWorkComunucator();
-            string versioncheck = nc.Version();
-            Console.WriteLine("Crossfire BOT");
-            //if (versioncheck == "CONECTION_ERROR")
+           string versioncheck = nc.Version();
+       //if (versioncheck == "CONECTION_ERROR")
             //{
             //    MessageBox.Show("There is no internet Connections!", "Error!", MessageBoxButtons.OK,
             //        MessageBoxIcon.Error);
@@ -32,11 +31,12 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             //if (ToolVersion != versioncheck)
             //{
             //    MessageBox.Show("A new version [" + versioncheck + "] was realeased with some improves!. Please download it and try again the bypass process. This version was deprecated.", "ERROR: This version is deprecated!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    //Process.Start("https://www.itools-removal.com/");
+            //    //Process.Start("https://www.scrimbot.me/");
             //    // Process.Start("https://mega.nz/folder/yfZUkbgC#mBZCQwIyrlEQl2xYmiBtUA");
             //    Environment.Exit(0);
             //    return;
-            //}
+            //}oncheck");
+
             if ( XXXXX.GetValue(@"Token2") != null )
             {
 
@@ -125,8 +125,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 
                 Debug.Visible = true;
                 Conncet.Enabled = false;
-                button2.Enabled = false;
-                button3.Enabled = false;
+             
                 button1.Enabled = false;
                 // Conncet.Text = "Connecting";
                 Thread.Sleep(1000);
@@ -136,8 +135,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
                 await BOT.RunAsync();
                 Conncet.Enabled = true;
                 button1.Enabled = true;
-                button2.Enabled = true;
-                button3.Enabled = true;
+        
                 await BOT.StopAsync();
                 Console.Clear();
                 Conncet.Text = "Connect";
@@ -223,21 +221,21 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (Startfull.Text == "" || Centerfull.Text == "" || Endfull.Text == "" || Startnull.Text == "" || Centernull.Text == "" || Endnull.Text == "")
-            {
-                MessageBox.Show("Please Write (ALL ID's Emoji) !");
+            //if (Startfull.Text == "" || Centerfull.Text == "" || Endfull.Text == "" || Startnull.Text == "" || Centernull.Text == "" || Endnull.Text == "")
+            //{
+            //    MessageBox.Show("Please Write (ALL ID's Emoji) !");
 
 
-                return;
+            //    return;
 
-            }
-            XXXXX.SetValue(@"startfull", Startfull.Text);
-            XXXXX.SetValue(@"centerfull", Centerfull.Text);
-            XXXXX.SetValue(@"Endfull", Endfull.Text);
-            XXXXX.SetValue(@"startnull", Startnull.Text);
-            XXXXX.SetValue(@"centernull", Centernull.Text);
-            XXXXX.SetValue(@"endnull", Endnull.Text);
-            MessageBox.Show("Done");
+            //}
+            //XXXXX.SetValue(@"startfull", Startfull.Text);
+            //XXXXX.SetValue(@"centerfull", Centerfull.Text);
+            //XXXXX.SetValue(@"Endfull", Endfull.Text);
+            //XXXXX.SetValue(@"startnull", Startnull.Text);
+            //XXXXX.SetValue(@"centernull", Centernull.Text);
+            //XXXXX.SetValue(@"endnull", Endnull.Text);
+            //MessageBox.Show("Done");
 
         }
 
@@ -246,30 +244,35 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (norank.Text == "" || Bronze.Text == "" || Silver.Text == "" || Gold.Text == "" || Platinum.Text == "" || Diamond.Text == "" || Master.Text == "" || legend.Text == "" || mythical.Text == "" || GrandMaster.Text == "")
-            {
-                MessageBox.Show("Please Write (ALL ID's Emoji) !");
+        //private void button3_Click(object sender, EventArgs e)
+        //{
+        //    if (norank.Text == "" || Bronze.Text == "" || Silver.Text == "" || Gold.Text == "" || Platinum.Text == "" || Diamond.Text == "" || Master.Text == "" || legend.Text == "" || mythical.Text == "" || GrandMaster.Text == "")
+        //    {
+        //        MessageBox.Show("Please Write (ALL ID's Emoji) !");
 
 
-                return;
+        //        return;
 
-            }
-            XXXXX.SetValue(@"norank", norank.Text);
-            XXXXX.SetValue(@"Bronze", Bronze.Text);
-            XXXXX.SetValue(@"Silver", Silver.Text);
-            XXXXX.SetValue(@"Gold", Gold.Text);
-            XXXXX.SetValue(@"Platinum", Platinum.Text);
-            XXXXX.SetValue(@"Diamond", Diamond.Text);
-            XXXXX.SetValue(@"Master", Master.Text);
-            XXXXX.SetValue(@"legend", legend.Text);
-            XXXXX.SetValue(@"mythical", mythical.Text);
-            XXXXX.SetValue(@"GrandMaster", GrandMaster.Text);
-            MessageBox.Show("Done");
-        }
+        //    }
+        //    XXXXX.SetValue(@"norank", norank.Text);
+        //    XXXXX.SetValue(@"Bronze", Bronze.Text);
+        //    XXXXX.SetValue(@"Silver", Silver.Text);
+        //    XXXXX.SetValue(@"Gold", Gold.Text);
+        //    XXXXX.SetValue(@"Platinum", Platinum.Text);
+        //    XXXXX.SetValue(@"Diamond", Diamond.Text);
+        //    XXXXX.SetValue(@"Master", Master.Text);
+        //    XXXXX.SetValue(@"legend", legend.Text);
+        //    XXXXX.SetValue(@"mythical", mythical.Text);
+        //    XXXXX.SetValue(@"GrandMaster", GrandMaster.Text);
+        //    MessageBox.Show("Done");
+        //}
 
         private void version_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
         {
 
         }
