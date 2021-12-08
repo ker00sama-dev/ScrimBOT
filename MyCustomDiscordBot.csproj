@@ -3,7 +3,7 @@
     <AssemblyName>ScrimBOT</AssemblyName>
     <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net6.0-windows</TargetFramework>
     <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup>
@@ -13,7 +13,7 @@
   <PropertyGroup>
     <UseWindowsForms>True</UseWindowsForms>
     <StartupObject>MyCustomDiscordBot.Program</StartupObject>
-    <ApplicationIcon>discord_game_gaming_voice_chat_icon_134334.ico</ApplicationIcon>
+    <ApplicationIcon>scrimbotico.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>True</Optimize>
@@ -24,6 +24,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <Optimize>True</Optimize>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="scrimbotico.ico" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Discord.Net.Labs" Version="3.3.2" />
     <PackageReference Include="Discord.Net.Labs.Commands" Version="3.3.2" />

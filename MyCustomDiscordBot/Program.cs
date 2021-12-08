@@ -72,37 +72,37 @@ namespace MyCustomDiscordBot
                 }
 
                 Mutex mutex = new System.Threading.Mutex(false, "MyUniqueMutexName");
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new DiscordBOTGaming());
-                //try
-                //{
+                //Application.EnableVisualStyles();
+                //Application.SetCompatibleTextRenderingDefault(false);
+                //Application.Run(new DiscordBOTGaming());
+                try
+                {
 
-                //    if (mutex.WaitOne(0, false))
-                //    {
-                //            // Run the application
+                    if (mutex.WaitOne(0, false))
+                    {
+                        // Run the application
 
 
-                //            //   CreateHostBuilder(args).Build().Run();
-                //            // RequireAdministrator();
-                //            Application.EnableVisualStyles();
-                //            Application.SetCompatibleTextRenderingDefault(false);
-                //            Application.Run(new DiscordBOTGaming());
-                //        }
-                //        else
-                //    {
-                //        MessageBox.Show("An instance of the application is already running.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        //   CreateHostBuilder(args).Build().Run();
+                        // RequireAdministrator();
+                        Application.EnableVisualStyles();
+                        Application.SetCompatibleTextRenderingDefault(false);
+                        Application.Run(new DiscordBOTGaming());
+                    }
+                    else
+                    {
+                        MessageBox.Show("An instance of the application is already running.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-                //    }
-                //}
-                //finally
-                //{
-                //    if (mutex != null)
-                //    {
-                //        mutex.Close();
-                //        mutex = null;
-                //    }
-                //}
+                    }
+                }
+                finally
+                {
+                    if (mutex != null)
+                    {
+                        mutex.Close();
+                        mutex = null;
+                    }
+                }
             }
         }
 
