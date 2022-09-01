@@ -33,39 +33,39 @@ namespace MyCustomDiscordBot
 
         private readonly IServiceProvider _sp;
 
-        public CommandHandler(IServiceProvider services)
-        {
-
-            this._sp = services;
-            this._client = services.GetRequiredService<DiscordSocketClient>();
-            this._commands = services.GetRequiredService<CommandService>();
-            this._globalServersService = services.GetRequiredService<GlobalServersService>();
-            this._databaseService = services.GetRequiredService<DatabaseService>();
-            this._queueService = services.GetRequiredService<QueueService>();
-            this._utilityService = services.GetRequiredService<UtilityService>();
-            this._embedService = services.GetRequiredService<EmbedService>();
-            this._matchService = services.GetRequiredService<MatchService>();
-            this._logger = services.GetRequiredService<ILogger<Worker>>();
-
-            //okay try now <3
-
-        }
-        //public CommandHandler(IServiceProvider sp, EmbedService test ,Discord.WebSocket.DiscordSocketClient client, CommandService commandService, GlobalServersService globalServersService, DatabaseService databaseService, QueueService queueService, UtilityService utilityService, ILogger<Worker> logger)
+        //public CommandHandler(IServiceProvider services)
         //{
 
-        //    _embedService = test;
-        //    _client = client;
-        //    //_client = new DiscordSocketClient();
-        //    _commands = commandService;
-        //    _sp = sp;
-        //    _logger = logger;
-        //    _globalServersService = globalServersService;
-        //    _databaseService = databaseService;
-        //    _queueService = queueService;
-        //    _utilityService = utilityService; 
+        //    this._sp = services;
+        //    this._client = services.GetRequiredService<DiscordSocketClient>();
+        //    this._commands = services.GetRequiredService<CommandService>();
+        //    this._globalServersService = services.GetRequiredService<GlobalServersService>();
+        //    this._databaseService = services.GetRequiredService<DatabaseService>();
+        //    this._queueService = services.GetRequiredService<QueueService>();
+        //    this._utilityService = services.GetRequiredService<UtilityService>();
+        //    this._embedService = services.GetRequiredService<EmbedService>();
+        //    this._matchService = services.GetRequiredService<MatchService>();
+        //    this._logger = services.GetRequiredService<ILogger<Worker>>();
 
+        //    //okay try now <3
 
         //}
+        public CommandHandler(IServiceProvider sp, EmbedService test, Discord.WebSocket.DiscordSocketClient client, CommandService commandService, GlobalServersService globalServersService, DatabaseService databaseService, QueueService queueService, UtilityService utilityService, ILogger<Worker> logger)
+        {
+
+            _embedService = test;
+            _client = client;
+            //_client = new DiscordSocketClient();
+            _commands = commandService;
+            _sp = sp;
+            _logger = logger;
+            _globalServersService = globalServersService;
+            _databaseService = databaseService;
+            _queueService = queueService;
+            _utilityService = utilityService;
+
+
+        }
 
         public async Task Init()
         {
@@ -79,43 +79,92 @@ namespace MyCustomDiscordBot
             await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _sp);
         }
 
+        //private async Task HandleCommandAsync(SocketMessage messageParam)
+        //{
+        //    SocketUserMessage message = messageParam as SocketUserMessage;
+
+        //    //if (message.Author.IsBot) return;
+
+        //    //int pos = 0;
+        //    if (message != null)
+        //    {
+        //        int argPos = 0;
+        //        Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("ScrimBOT");
+
+        //        SocketTextChannel textChannel = message.Channel as SocketTextChannel;
+
+        //        ServerConfig config = await _databaseService.GetServerConfigAsync(textChannel.Guild.Id);
+        //        if ((message.HasCharPrefix(char.Parse(config.prefix.ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
+        //        {
+        //            //    if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
+        //            //{
+        //            SocketCommandContext context = new SocketCommandContext(_client, message);
+        //            var result = await _commands.ExecuteAsync(context, argPos, _sp);
+        //            if (!result.IsSuccess)
+        //            {
+        //                var reason = result.Error;
+        //                string q = message.ToString().ToLower();
+        //                if (!q.Contains("createqueue"))
+        //                {
+        //                    await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered(reason.ToString()));
+
+
+        //                }
+        //                ///  await context.Channel.SendMessageAsync($"The following error occured: \n{reason}");
+        //             //   Console.WriteLine(reason);
+        //            }
+        //        }
+        //    }
+        //}
+
         private async Task HandleCommandAsync(SocketMessage messageParam)
         {
-            SocketUserMessage message = messageParam as SocketUserMessage;
+            // Don't process the command if it was a system message
+            var message = messageParam as SocketUserMessage;
+            if (message == null) return;
 
-            //if (message.Author.IsBot) return;
-
-            //int pos = 0;
-            if (message != null)
-            {
-                int argPos = 0;
-                Microsoft.Win32.RegistryKey XXXXX2 = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("ScrimBOT");
-
+            // Create a number to track where the prefix ends and the command begins
+            int argPos = 0;
+            Console.WriteLine(message);
+            //Determine if the message is a command based on the prefix and make sure no bots trigger commands
                 SocketTextChannel textChannel = message.Channel as SocketTextChannel;
 
-                ServerConfig config = await _databaseService.GetServerConfigAsync(textChannel.Guild.Id);
-                if ((message.HasCharPrefix(char.Parse(config.prefix.ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
-                {
+            ServerConfig config = await _databaseService.GetServerConfigAsync(textChannel.Guild.Id);
+
+
+            if ((message.HasCharPrefix(char.Parse(config.prefix.ToString()), ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
+            {
                 //    if ((message.HasCharPrefix(char.Parse(XXXXX2.GetValue(@"perfix").ToString())/*Config.Prfix*/, ref argPos) || message.HasMentionPrefix(_client.CurrentUser, ref argPos)) && !message.Author.IsBot)
                 //{
-                    SocketCommandContext context = new SocketCommandContext(_client, message);
-                    var result = await _commands.ExecuteAsync(context, argPos, _sp);
-                    if (!result.IsSuccess)
+                var context = new SocketCommandContext(_client, message);
+
+                var result = await _commands.ExecuteAsync(context, argPos, _sp);
+                if (!result.IsSuccess)
+                {
+                    var reason = result.Error;
+                    string q = message.ToString().ToLower();
+                    if (!q.Contains("createqueue"))
                     {
-                        var reason = result.Error;
-                        string q = message.ToString().ToLower();
-                        if (!q.Contains("createqueue"))
-                        {
-                            await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered(reason.ToString()));
+                        await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered(reason.ToString()));
 
 
-                        }
-                        ///  await context.Channel.SendMessageAsync($"The following error occured: \n{reason}");
-                     //   Console.WriteLine(reason);
                     }
+                    ///  await context.Channel.SendMessageAsync($"The following error occured: \n{reason}");
+                    //   Console.WriteLine(reason);
                 }
             }
+            //    }
+
+            // Create a WebSocket-based command context based on the message
+
+         
+
         }
+
+        /// <summary>
+        /// ////////////////////////////
+        /// </summary>
+        /// <returns></returns>
         //private async Task HandleCommandAsync(SocketMessage messageParam)
         //{
         //    SocketUserMessage message = messageParam as SocketUserMessage;
@@ -184,9 +233,7 @@ namespace MyCustomDiscordBot
             if (textChannel == null)
             {
                 return;
-#pragma warning disable CS0162 // Unreachable code detected
                 await interaction.UpdateAsync(x =>
-#pragma warning restore CS0162 // Unreachable code detected
                 {
                     //  x.Content = "text"; //text
                     // x.Components = null;
