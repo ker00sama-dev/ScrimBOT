@@ -18,25 +18,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
         {
             InitializeComponent();
             //version.Text = ToolVersion;
-            INetWorkComunucator nc = new INetWorkComunucator();
-           string versioncheck = nc.Version();
-       //if (versioncheck == "CONECTION_ERROR")
-            //{
-            //    MessageBox.Show("There is no internet Connections!", "Error!", MessageBoxButtons.OK,
-            //        MessageBoxIcon.Error);
-            //    Environment.Exit(0);
-            //    return;
-            //}
-
-            //if (ToolVersion != versioncheck)
-            //{
-            //    MessageBox.Show("A new version [" + versioncheck + "] was realeased with some improves!. Please download it and try again the bypass process. This version was deprecated.", "ERROR: This version is deprecated!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    //Process.Start("https://www.scrimbot.me/");
-            //    // Process.Start("https://mega.nz/folder/yfZUkbgC#mBZCQwIyrlEQl2xYmiBtUA");
-            //    Environment.Exit(0);
-            //    return;
-            //}oncheck");
-
+  
             if ( XXXXX.GetValue(@"Token2") != null )
             {
 
