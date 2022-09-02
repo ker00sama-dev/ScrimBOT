@@ -33,39 +33,39 @@ namespace MyCustomDiscordBot
 
         private readonly IServiceProvider _sp;
 
-        //public CommandHandler(IServiceProvider services)
-        //{
-
-        //    this._sp = services;
-        //    this._client = services.GetRequiredService<DiscordSocketClient>();
-        //    this._commands = services.GetRequiredService<CommandService>();
-        //    this._globalServersService = services.GetRequiredService<GlobalServersService>();
-        //    this._databaseService = services.GetRequiredService<DatabaseService>();
-        //    this._queueService = services.GetRequiredService<QueueService>();
-        //    this._utilityService = services.GetRequiredService<UtilityService>();
-        //    this._embedService = services.GetRequiredService<EmbedService>();
-        //    this._matchService = services.GetRequiredService<MatchService>();
-        //    this._logger = services.GetRequiredService<ILogger<Worker>>();
-
-        //    //okay try now <3
-
-        //}
-        public CommandHandler(IServiceProvider sp, EmbedService test, Discord.WebSocket.DiscordSocketClient client, CommandService commandService, GlobalServersService globalServersService, DatabaseService databaseService, QueueService queueService, UtilityService utilityService, ILogger<Worker> logger)
+        public CommandHandler(IServiceProvider services)
         {
 
-            _embedService = test;
-            _client = client;
-            //_client = new DiscordSocketClient();
-            _commands = commandService;
-            _sp = sp;
-            _logger = logger;
-            _globalServersService = globalServersService;
-            _databaseService = databaseService;
-            _queueService = queueService;
-            _utilityService = utilityService;
+            this._sp = services;
+            this._client = services.GetRequiredService<DiscordSocketClient>();
+            this._commands = services.GetRequiredService<CommandService>();
+            this._globalServersService = services.GetRequiredService<GlobalServersService>();
+            this._databaseService = services.GetRequiredService<DatabaseService>();
+            this._queueService = services.GetRequiredService<QueueService>();
+            this._utilityService = services.GetRequiredService<UtilityService>();
+            this._embedService = services.GetRequiredService<EmbedService>();
+            this._matchService = services.GetRequiredService<MatchService>();
+            this._logger = services.GetRequiredService<ILogger<Worker>>();
 
+            //okay try now <3
 
         }
+        //public CommandHandler(IServiceProvider sp, EmbedService test, Discord.WebSocket.DiscordSocketClient client, CommandService commandService, GlobalServersService globalServersService, DatabaseService databaseService, QueueService queueService, UtilityService utilityService, ILogger<Worker> logger)
+        //{
+
+        //    _embedService = test;
+        //    _client = client;
+        //    //_client = new DiscordSocketClient();
+        //    _commands = commandService;
+        //    _sp = sp;
+        //    _logger = logger;
+        //    _globalServersService = globalServersService;
+        //    _databaseService = databaseService;
+        //    _queueService = queueService;
+        //    _utilityService = utilityService;
+
+
+        //}
 
         public async Task Init()
         {
@@ -455,6 +455,7 @@ namespace MyCustomDiscordBot
                     await interaction.Channel.SendMessageAsync("Either this is not a match channel or something went wrong.");
                     return;
                 }
+
                 await _matchService.CalculateWinForMatch(match, teamNumber, BL.Guild.Id);
                 SocketVoiceChannel waiting = BL.Guild.GetVoiceChannel(config.WaitingForMatchChannelId);
                 foreach (ulong discordId in match.AllPlayerDiscordIds)
