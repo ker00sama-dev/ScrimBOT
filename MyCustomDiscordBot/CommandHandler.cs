@@ -125,7 +125,6 @@ namespace MyCustomDiscordBot
 
             // Create a number to track where the prefix ends and the command begins
             int argPos = 0;
-            Console.WriteLine(message);
             //Determine if the message is a command based on the prefix and make sure no bots trigger commands
                 SocketTextChannel textChannel = message.Channel as SocketTextChannel;
 
@@ -447,7 +446,8 @@ namespace MyCustomDiscordBot
                 Match match = await _databaseService.GetMatchForChannelAsync(BL.Guild.Id, interaction.Channel.Id);
                 if (match.Winners == 1 || match.Winners == 2)
                 {
-                    await interaction.Channel.SendMessageAsync($"This match has already been reported as a team ${match.Winners} victory. You may use `.giveelo @User AMOUNT` and `.takeelo @User AMOUNT` to correct any mistakes.");
+                    
+                    await interaction.Channel.SendMessageAsync($"This match has already been reported as a team ${match.Winners} victory. You may use `${config.prefix.ToString()}giveelo @User AMOUNT` and `.${config.prefix.ToString()} @User AMOUNT` to correct any mistakes.");
                     return;
                 }
                 if (match == null)
@@ -538,7 +538,7 @@ namespace MyCustomDiscordBot
                 Match match = await _databaseService.GetMatchForChannelAsync(BL.Guild.Id, interaction.Channel.Id);
                 if (match.Winners == 1 || match.Winners == 2)
                 {
-                    await interaction.Channel.SendMessageAsync($"This match has already been reported as a team ${match.Winners} victory. You may use `.giveelo @User AMOUNT` and `.takeelo @User AMOUNT` to correct any mistakes.");
+                    await interaction.Channel.SendMessageAsync($"This match has already been reported as a team ${match.Winners} victory. You may use `${config.prefix.ToString()}giveelo @User AMOUNT` and `${config.prefix.ToString()}takeelo @User AMOUNT` to correct any mistakes.");
                     return;
                 }
                 if (match == null)
