@@ -1,3 +1,19 @@
+<h1 align="center">ScrimBOT - Documentation l PUG , CPL , Scrims </h1>
+
+<h3 align="left">ScrimBOT - Documentation :</h3>
+
+- **https://scrimbot.pages.dev/**
+
+<h3 align="left">- Installation Requirement :</h3>
+
+<a href="https://www.computerbase.de/downloads/systemtools/all-in-one-runtimes/">- All in One Runtimes </a>
+ 
+<a href="https://github.com/dotnet/core/blob/main/release-notes/3.1/3.1.28/3.1.28.md?WT.mc_id=dotnet-35129-website">- .NET Core 3.1.28</a>
+
+<a href="https://www.mongodb.com/cloud/atlas/register">- Create DataBase (MangeDB) *Free*</a>
+
+<h3 align="left">- Developer info </h3>
+
 <h1 align="center">Hi 👋, I'm Kirlos O. Fawzi</h1>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=ker00sama-dev&label=Profile%20views&color=0e75b6&style=flat" alt="ker00sama-dev" /> </p>
@@ -28,10 +44,3 @@
 
 <p><img align="center" src="https://github-readme-streak-stats.herokuapp.com/?user=ker00sama-dev&" alt="ker00sama-dev" /></p>
 
-
-<h1 align="center">ScrimBOT - Documentation , CPL , Scrims </h1>
-
-<h3 align="left">ScrimBOT - Documentation :</h3>
-
-- **https://scrimbot.pages.dev/**
-		
