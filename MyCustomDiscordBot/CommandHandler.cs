@@ -1,20 +1,18 @@
 using Discord;
-using VMProtect;
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
+using DiscordBot.Modules;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
-using DiscordBot.Modules;
 using MyCustomDiscordBot.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
 
 namespace MyCustomDiscordBot
 {
@@ -126,7 +124,7 @@ namespace MyCustomDiscordBot
             // Create a number to track where the prefix ends and the command begins
             int argPos = 0;
             //Determine if the message is a command based on the prefix and make sure no bots trigger commands
-                SocketTextChannel textChannel = message.Channel as SocketTextChannel;
+            SocketTextChannel textChannel = message.Channel as SocketTextChannel;
 
             ServerConfig config = await _databaseService.GetServerConfigAsync(textChannel.Guild.Id);
 
@@ -156,7 +154,7 @@ namespace MyCustomDiscordBot
 
             // Create a WebSocket-based command context based on the message
 
-         
+
 
         }
 
@@ -232,12 +230,6 @@ namespace MyCustomDiscordBot
             if (textChannel == null)
             {
                 return;
-                await interaction.UpdateAsync(x =>
-                {
-                    //  x.Content = "text"; //text
-                    // x.Components = null;
-                    // x.Embed = null;
-                });
             }
 
             if (interaction.Data.CustomId == "join") //or anything that you want
@@ -446,7 +438,7 @@ namespace MyCustomDiscordBot
                 Match match = await _databaseService.GetMatchForChannelAsync(BL.Guild.Id, interaction.Channel.Id);
                 if (match.Winners == 1 || match.Winners == 2)
                 {
-                    
+
                     await interaction.Channel.SendMessageAsync($"This match has already been reported as a team ${match.Winners} victory. You may use `${config.prefix.ToString()}giveelo @User AMOUNT` and `.${config.prefix.ToString()} @User AMOUNT` to correct any mistakes.");
                     return;
                 }
@@ -655,7 +647,7 @@ namespace MyCustomDiscordBot
                 }
                 SocketTextChannel matchLogsChannel = Cancel.Guild.GetTextChannel(config.MatchLogsChannelId);
                 SocketTextChannel socketTextChannel = matchLogsChannel;
-                await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, Cancel.Guild.Id , interaction.User));
+                await socketTextChannel.SendMessageAsync(null, isTTS: false, await _embedService.MatchLogEmbed(match, Cancel.Guild.Id, interaction.User));
 
             }
 
@@ -710,6 +702,6 @@ namespace MyCustomDiscordBot
             await _globalServersService.ConfigureNewServer(arg.Id);
         }
 
-       
+
     }
 }

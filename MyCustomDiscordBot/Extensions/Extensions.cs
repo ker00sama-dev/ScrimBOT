@@ -1,7 +1,6 @@
 using Discord;
-using System.Threading.Tasks;
-using VMProtect;
 using MyCustomDiscordBot.Models;
+using System.Threading.Tasks;
 
 namespace MyCustomDiscordBot.Extensions
 {
@@ -9,11 +8,11 @@ namespace MyCustomDiscordBot.Extensions
     {
         public static Microsoft.Win32.RegistryKey XXXXX = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("ScrimBOT");
 
-        public static string ToDiscordProgressBar(this int number, int size,ServerConfig config)
+        public static string ToDiscordProgressBar(this int number, int size, ServerConfig config)
         {
             if (number == 0) number = 1;
             number = (int)(number / (size * 6.7));
-         
+
             //config.Startfull = startnull;
             //config.Centerfull = Centerfull;
             //config.Endfull = Endfull;

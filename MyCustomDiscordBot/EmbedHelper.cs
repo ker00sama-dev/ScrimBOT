@@ -1,5 +1,4 @@
 ﻿using Discord;
-using VMProtect;
 
 namespace DiscordBot.Modules
 {
@@ -28,7 +27,7 @@ namespace DiscordBot.Modules
 
             //successEmbed.WithDescription(description);
             successEmbed.WithFooter($"The following error occured: \n{reason}");
-          //  successEmbed.WithCurrentTimestamp();
+            //  successEmbed.WithCurrentTimestamp();
 
             return successEmbed.Build();
         }

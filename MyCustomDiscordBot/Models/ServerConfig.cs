@@ -47,7 +47,7 @@ namespace MyCustomDiscordBot.Models
         public ulong mythical { get; set; }
         public ulong GrandMaster { get; set; }
         public int checkranking { get; set; }
-public string prefix { get; set; }
+        public string prefix { get; set; }
 
         public ServerConfig(ulong guildId)
         {
@@ -69,17 +69,17 @@ public string prefix { get; set; }
             Startnull = 0uL;
             Centernull = 0uL;
             Endnull = 0uL;
-            norank  = 0uL;
-            Bronze  = 0uL;
-         Silver  = 0uL;
-         Gold  = 0uL;
-         Platinum  = 0uL;
-         Diamond  = 0uL;
-         Master  = 0uL;
-         legend  = 0uL;
-         mythical  = 0uL;
-         GrandMaster  = 0uL;
-        prefix = "!";
-    }
+            norank = 0uL;
+            Bronze = 0uL;
+            Silver = 0uL;
+            Gold = 0uL;
+            Platinum = 0uL;
+            Diamond = 0uL;
+            Master = 0uL;
+            legend = 0uL;
+            mythical = 0uL;
+            GrandMaster = 0uL;
+            prefix = "!";
+        }
     }
 }

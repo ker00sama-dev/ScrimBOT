@@ -1,22 +1,13 @@
+using Discord.WebSocket;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Settings;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MongoDB.Driver;
-using MongoDB.Driver.Core;
-using MongoDB.Bson;
-
-using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
-using Microsoft.VisualBasic;
-using System.Data;
-using System;
-using Discord.WebSocket;
-using MyCustomDiscordBot.Extensions;
-using System.Threading;
 
 namespace MyCustomDiscordBot.Services
 {
@@ -158,7 +149,7 @@ namespace MyCustomDiscordBot.Services
 
             for (int i = 0; i < topPlayers.Count; i++)
             {
-            
+
                 var filter = Builders<DbUser>.Filter.Eq("ELO", topPlayers[i].ELO);
                 var update = Builders<DbUser>.Update.Set("ELO", 0);
                 await collection.UpdateManyAsync(filter, update);
@@ -168,7 +159,7 @@ namespace MyCustomDiscordBot.Services
 
 
             }
-         
+
             await Message.ModifyAsync(msg => msg.Content = ":white_check_mark: Done");
             await (Message).DeleteMessageAfterSeconds(2);
 
@@ -201,7 +192,7 @@ namespace MyCustomDiscordBot.Services
             IMongoCollection<ServerConfig> collection = database.GetCollection<ServerConfig>("ServerConfigs");
             return await (await collection.FindAsync(new BsonDocument())).FirstOrDefaultAsync();
         }
-      
+
 
         public async Task<DbUser> RegisterUserAsync(ulong guildId, string username, ulong userDiscordId)
         {

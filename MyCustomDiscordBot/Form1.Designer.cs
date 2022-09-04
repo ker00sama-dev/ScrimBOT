@@ -36,12 +36,13 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             this.Token2 = new System.Windows.Forms.TextBox();
             this.Conncet = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.DBConnectionString = new System.Windows.Forms.TextBox();
             this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(118, 84);
+            this.button1.Location = new System.Drawing.Point(118, 120);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(172, 23);
             this.button1.TabIndex = 8;
@@ -52,7 +53,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             // Debug
             // 
             this.Debug.AutoSize = true;
-            this.Debug.Location = new System.Drawing.Point(105, 110);
+            this.Debug.Location = new System.Drawing.Point(105, 146);
             this.Debug.Name = "Debug";
             this.Debug.Size = new System.Drawing.Size(204, 15);
             this.Debug.TabIndex = 6;
@@ -72,7 +73,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             // 
             // Conncet
             // 
-            this.Conncet.Location = new System.Drawing.Point(118, 54);
+            this.Conncet.Location = new System.Drawing.Point(118, 90);
             this.Conncet.Name = "Conncet";
             this.Conncet.Size = new System.Drawing.Size(172, 25);
             this.Conncet.TabIndex = 4;
@@ -82,31 +83,42 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.DBConnectionString);
             this.groupBox3.Controls.Add(this.button1);
             this.groupBox3.Controls.Add(this.Conncet);
             this.groupBox3.Controls.Add(this.Debug);
             this.groupBox3.Controls.Add(this.Token2);
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(405, 142);
+            this.groupBox3.Size = new System.Drawing.Size(405, 171);
             this.groupBox3.TabIndex = 11;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Configuration";
             this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // DBConnectionString
+            // 
+            this.DBConnectionString.Location = new System.Drawing.Point(7, 47);
+            this.DBConnectionString.Name = "DBConnectionString";
+            this.DBConnectionString.PlaceholderText = "DBConnectionString";
+            this.DBConnectionString.Size = new System.Drawing.Size(385, 23);
+            this.DBConnectionString.TabIndex = 9;
+            this.DBConnectionString.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.DBConnectionString.TextChanged += new System.EventHandler(this.DBConnectionString_TextChanged);
             // 
             // DiscordBOTGaming
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoValidate = System.Windows.Forms.AutoValidate.EnableAllowFocusChange;
-            this.ClientSize = new System.Drawing.Size(412, 149);
+            this.ClientSize = new System.Drawing.Size(412, 180);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "DiscordBOTGaming";
-            this.Text = "DiscordBOTGaming";
+            this.Text = "ScrimBOT ( PUG BOT )";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
@@ -125,5 +137,6 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
         private System.Windows.Forms.Label Debug;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.TextBox DBConnectionString;
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System;
-using System.Diagnostics;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -18,8 +17,8 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
         {
             InitializeComponent();
             //version.Text = ToolVersion;
-  
-            if ( XXXXX.GetValue(@"Token2") != null )
+
+            if (XXXXX.GetValue(@"Token2") != null)
             {
 
 
@@ -27,6 +26,18 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 
                 //perfix.Text = XXXXX.GetValue(@"perfix").ToString();
                 Token2.Text = XXXXX.GetValue(@"Token2").ToString();
+
+                // XXXXX.Close();
+
+            }
+            if (XXXXX.GetValue(@"DBConnectionString") != null)
+            {
+
+
+
+
+                //perfix.Text = XXXXX.GetValue(@"perfix").ToString();
+                DBConnectionString.Text = XXXXX.GetValue(@"DBConnectionString").ToString();
 
                 // XXXXX.Close();
 
@@ -88,7 +99,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
             {
 
 
-                if ( Token2.Text == "")
+                if (Token2.Text == "")
                 {
                     MessageBox.Show("Please Write ( Token ) !");
 
@@ -96,10 +107,19 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
                     return;
 
                 }
+                if (DBConnectionString.Text == "")
+                {
+                    MessageBox.Show("Please Write ( DBConnectionString ) !");
 
 
-             //   XXXXX.SetValue(@"perfix", perfix.Text);
+                    return;
+
+                }
+
+
+                //   XXXXX.SetValue(@"perfix", perfix.Text);
                 XXXXX.SetValue(@"Token2", Token2.Text);
+                XXXXX.SetValue(@"DBConnectionString", DBConnectionString.Text);
 
 
 
@@ -107,7 +127,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
 
                 Debug.Visible = true;
                 Conncet.Enabled = false;
-             
+
                 button1.Enabled = false;
                 // Conncet.Text = "Connecting";
                 Thread.Sleep(1000);
@@ -117,7 +137,7 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
                 await BOT.RunAsync();
                 Conncet.Enabled = true;
                 button1.Enabled = true;
-        
+
                 await BOT.StopAsync();
                 Console.Clear();
                 Conncet.Text = "Connect";
@@ -258,6 +278,11 @@ namespace MyCustomDiscordBot.MyCustomDiscordBot
         {
 
         }
+
+        private void DBConnectionString_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
-    }
+}
 

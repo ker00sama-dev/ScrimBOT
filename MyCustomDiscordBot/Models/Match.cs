@@ -2,17 +2,6 @@ using MongoDB.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.VisualBasic;
-using MyCustomDiscordBot.Extensions;
-using MyCustomDiscordBot.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 namespace MyCustomDiscordBot.Models
 {
     public class Match
@@ -53,9 +42,9 @@ namespace MyCustomDiscordBot.Models
         public string pwd { get; set; }
 
         public List<ulong> MapChangeVoteDiscordIds { get; set; }
-        public  string RandomString(int length)
+        public string RandomString(int length)
         {
-          
+
             return new string((from s in Enumerable.Repeat("123364654654564974548548484", length)
                                select s[random.Next(s.Length)]).ToArray());
         }

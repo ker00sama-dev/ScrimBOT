@@ -187,7 +187,7 @@ namespace DiscordBot.Modules
                     {
                         await userSubbedIn2.ModifyAsync(delegate (GuildUserProperties x)
                         {
-                          x.Channel = team1;
+                            x.Channel = team1;
                         });
                     }
                 }
@@ -218,7 +218,7 @@ namespace DiscordBot.Modules
                     {
                         await userSubbedIn2.ModifyAsync(delegate (GuildUserProperties x)
                         {
-                            	x.Channel = team2;
+                            x.Channel = team2;
                         });
                     }
                 }
@@ -475,9 +475,9 @@ namespace DiscordBot.Modules
             Match match = await _databaseService.GetMatchForChannelAsync(base.Context.Guild.Id, base.Context.Channel.Id);
             if (match.Winners == 1 || match.Winners == 2)
             {
-                      
 
-        await ReplyAsync($"This match has already been reported as a team ${match.Winners} victory. You may use `{config.prefix.ToString()}giveelo @User AMOUNT` and ` {config.prefix.ToString()}takeelo @User AMOUNT` to correct any mistakes.");
+
+                await ReplyAsync($"This match has already been reported as a team ${match.Winners} victory. You may use `{config.prefix.ToString()}giveelo @User AMOUNT` and ` {config.prefix.ToString()}takeelo @User AMOUNT` to correct any mistakes.");
                 return;
             }
             if (match == null)

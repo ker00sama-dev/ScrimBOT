@@ -8,12 +8,9 @@ using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using VMProtect;
-using MyCustomDiscordBot.MyCustomDiscordBot;
-using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
-using System.Collections.Generic;
 
 namespace DiscordBot.Modules
 {
@@ -49,7 +46,7 @@ namespace DiscordBot.Modules
         [Summary("Add the reactions to a queue.")]
         public async Task AddReactionsToQueue(ulong messageId)
         {
-     
+
 #pragma warning disable CS0472 // The result of the expression is always 'false' since a value of type 'ulong' is never equal to 'null' of type 'ulong?'
             if (messageId == null)
 #pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'ulong' is never equal to 'null' of type 'ulong?'
@@ -76,7 +73,7 @@ namespace DiscordBot.Modules
         public async Task resetelo()
         {
             await _databaseService.ResetUser(base.Context.Guild.Id, channel: base.Context.Channel, base.Context.User.Mention, base.Context.Guild);
-         //   await ReplyAsync(@"All Users Has been Reset To ELO : ( 0 ) ");
+            //   await ReplyAsync(@"All Users Has been Reset To ELO : ( 0 ) ");
 
         }
 
@@ -169,7 +166,7 @@ namespace DiscordBot.Modules
         {
             QueueConfig qConfig = (await _databaseService.GetServerConfigAsync(base.Context.Guild.Id)).QueueConfigs.Find((QueueConfig x) => x.MessageId == messageId);
             await ReplyAsync("Maps for `" + qConfig.Name + "` queue: " + string.Join(" ", qConfig.Maps));
-     
+
         }
 
         [Command("clearqueue")]
@@ -739,11 +736,11 @@ namespace DiscordBot.Modules
                 successEmbed.WithTitle("Prefix set!");
                 successEmbed.WithColor(Color.Red);
 
-               successEmbed.WithDescription($"The bot prefix has been set to  `{config.prefix}` :white_check_mark:");
-           //     successEmbed.WithFooter($"Sorry, I could not find that command.");
+                successEmbed.WithDescription($"The bot prefix has been set to  `{config.prefix}` :white_check_mark:");
+                //     successEmbed.WithFooter($"Sorry, I could not find that command.");
                 successEmbed.WithCurrentTimestamp();
 
-            //    await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered());
+                //    await context.Channel.SendMessageAsync(null, isTTS: false, EmbedHelper.Unregistered());
 
                 await ReplyAsync(null, isTTS: false, successEmbed.Build());
                 return;
@@ -768,7 +765,7 @@ namespace DiscordBot.Modules
         [Summary("See your server's configuration.")]
         public async Task SeeServerConfig()
         {
-            string kero = null ;
+            string kero = null;
             ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
             if (config == null)
             {
@@ -810,9 +807,9 @@ namespace DiscordBot.Modules
             builder.AddField("GrandMaster Emoji ID", config.GrandMaster.ToString(), inline: true);
             builder.AddField("Matches Category Id", config.MatchesCategoryId.ToString());
             builder.AddField("Score Reporter Role Id", config.ScoreReporterRoleId.ToString());
-           builder.AddField("Progressbar Status", $"{kero}");
-           builder.AddField("Prefix", $"{config.prefix.ToString()}");
-          //  builder.AddField("Prefix Static", $"{Config.Prfix.ToString()}");
+            builder.AddField("Progressbar Status", $"{kero}");
+            builder.AddField("Prefix", $"{config.prefix.ToString()}");
+            //  builder.AddField("Prefix Static", $"{Config.Prfix.ToString()}");
             builder.AddField("Win Amount", config.WinAmount.ToString(), inline: true);
             builder.AddField("Loss Amount", config.LossAmount.ToString(), inline: true);
             builder.AddField("Maximum Team Size", config.MaximumTeamSize.ToString());
@@ -886,8 +883,8 @@ namespace DiscordBot.Modules
 
 
         [Command("purge")]
-        [RequireUserPermission(GuildPermission.ManageMessages)]
-        public async Task PurgeChat(int amount)
+        // [RequireUserPermission(GuildPermission.ManageMessages)]
+        public async Task PurgeChat(int amount = 500)
         {
             IEnumerable<IMessage> messages = await Context.Channel.GetMessagesAsync(amount + 1).FlattenAsync();
             await ((ITextChannel)Context.Channel).DeleteMessagesAsync(messages);
@@ -906,8 +903,8 @@ namespace DiscordBot.Modules
 #pragma warning restore CS0472 // The result of the expression is always 'false' since a value of type 'int' is never equal to 'null' of type 'int?'
             {
                 ServerConfig config2 = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
-   
-                await ReplyAsync($"{  config2.prefix.ToString()}setemoji [startfull_id] [Centerfull_id] [Endfull_id]  [Startnull_id] [Centernull_id] [Endnull_id] [norank_id] [Bronze_id] [Silver_id]  [Gold_id] [Platinum_id] [Diamond_id] [Master_id] [legend_id] [mythical_id] [GrandMaster_id]");
+
+                await ReplyAsync($"{config2.prefix.ToString()}setemoji [startfull_id] [Centerfull_id] [Endfull_id]  [Startnull_id] [Centernull_id] [Endnull_id] [norank_id] [Bronze_id] [Silver_id]  [Gold_id] [Platinum_id] [Diamond_id] [Master_id] [legend_id] [mythical_id] [GrandMaster_id]");
                 return;
 
             }
@@ -963,7 +960,7 @@ namespace DiscordBot.Modules
                 _logger.LogError("Error setting match logs channel in " + base.Context.Guild.Name + ": " + e.Message);
             }
         }
-        
+
 
     }
 }

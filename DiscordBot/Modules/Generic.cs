@@ -2,17 +2,13 @@
 using Discord.Commands;
 using Discord.Rest;
 using Discord.WebSocket;
-using MyCustomDiscordBot;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
-using MyCustomDiscordBot.MyCustomDiscordBot;
-using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
 
 namespace DiscordBot.Modules
 {
@@ -141,18 +137,18 @@ namespace DiscordBot.Modules
 
 
                                        $"";
-          string Members = $"{prifx}serverinfo  - BotInfo\n" +
-                           $"{prifx}info        - Check whether the bot is working or not. \n" +
-                           $"{prifx}ping        - Check whether the bot is working or not. \n" +
-                           $"{prifx}avatar      - See your avatar, or pull up a user's profile! \n" +
-                           $"{prifx}pick        - Pick a player to join your team.\n" +
-                           $"{prifx}changemap   - Vote to change to another random map. \n" +
-                           $"{prifx}profile       - See your profile, or pull up a user's profile! \n" +
-                           $"{prifx}lb          - See the top 25 users in your server. \n" +
-                  
+            string Members = $"{prifx}serverinfo  - BotInfo\n" +
+                             $"{prifx}info        - Check whether the bot is working or not. \n" +
+                             $"{prifx}ping        - Check whether the bot is working or not. \n" +
+                             $"{prifx}avatar      - See your avatar, or pull up a user's profile! \n" +
+                             $"{prifx}pick        - Pick a player to join your team.\n" +
+                             $"{prifx}changemap   - Vote to change to another random map. \n" +
+                             $"{prifx}profile       - See your profile, or pull up a user's profile! \n" +
+                             $"{prifx}lb          - See the top 25 users in your server. \n" +
 
 
-                        $"";
+
+                          $"";
 
 
             EmbedBuilder builder = new EmbedBuilder();
@@ -163,7 +159,7 @@ namespace DiscordBot.Modules
             builder.AddField("Reporter", $"```{Reporter}```");
             builder.AddField("Teams", $"```{Teams}```");
             builder.AddField("Members", $"```{Members}```");
-           
+
 
             builder.WithFooter(new EmbedFooterBuilder
             {
@@ -190,7 +186,7 @@ namespace DiscordBot.Modules
 
             await ReplyAsync("", false, builder.Build());
         }
-      
+
         [Command("ping")]
         [Summary("Check whether the bot is working or not.")]
 
@@ -394,7 +390,7 @@ namespace DiscordBot.Modules
                         {
                             await moveMe2.ModifyAsync(delegate (GuildUserProperties x)
                             {
-                               x.Channel = team1Voice;
+                                x.Channel = team1Voice;
                             });
                         }
                     }
@@ -519,7 +515,7 @@ namespace DiscordBot.Modules
             {
                 await (await ReplyAsync(base.Context.User.Mention + ", please use this command in the stats channel only.")).DeleteMessageAfterSeconds(1);
 
-             //   await base.Context.Message.DeleteAsync();
+                //   await base.Context.Message.DeleteAsync();
                 return;
             }
             SocketUser user2 = base.Context.User;
@@ -562,7 +558,7 @@ namespace DiscordBot.Modules
                 EmbedService embedService = _embedService;
                 //await ReplyAsync(base.Context.User.Mention + ", please use this command in the stats channel only.");
 
-                 await channel.SendMessageAsync(null, isTTS: false, await embedService.LeaderboardEmbed(await _databaseService.GetTop25Users(base.Context.Guild.Id), base.Context.Guild.Id));
+                await channel.SendMessageAsync(null, isTTS: false, await embedService.LeaderboardEmbed(await _databaseService.GetTop25Users(base.Context.Guild.Id), base.Context.Guild.Id));
             }
         }
     }

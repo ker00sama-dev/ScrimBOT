@@ -1,13 +1,11 @@
 ﻿using Discord;
 using Discord.WebSocket;
-using Microsoft.VisualBasic;
 using MyCustomDiscordBot.Extensions;
 using MyCustomDiscordBot.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static MyCustomDiscordBot.MyCustomDiscordBot.DiscordBOTGaming;
 
 namespace MyCustomDiscordBot.Services
 {
@@ -28,7 +26,7 @@ namespace MyCustomDiscordBot.Services
         static string legend;
         static string mythical;
         static string GrandMaster;
-        public  EmbedService(DiscordSocketClient client, DatabaseService databaseService)
+        public EmbedService(DiscordSocketClient client, DatabaseService databaseService)
         {
             _client = client;
             _databaseService = databaseService;
@@ -52,26 +50,26 @@ namespace MyCustomDiscordBot.Services
             });
             return builder.Build();
         }
-        public string[] Getrank(int elo,ServerConfig config)
+        public string[] Getrank(int elo, ServerConfig config)
         {
 
-         
 
-                norank = "<:e_:" + config.norank.ToString() + ">";
-                Bronze = "<:e_:" + config.Bronze.ToString() + ">";
-                Silver = "<:e_:" + config.Silver.ToString() + ">";
-                Gold = "<:e_:" + config.Gold.ToString() + ">";
-                Platinum = "<:e_:" + config.Platinum.ToString() + ">";
-                Diamond = "<:e_:" + config.Diamond.ToString() + ">";
-                Master = "<:e_:" + config.Master.ToString() + ">";
-                legend = "<:e_:" + config.legend.ToString() + ">";
-                mythical = "<:e_:" + config.mythical.ToString() + ">";
-                GrandMaster = "<:e_:" + config.GrandMaster.ToString() + ">";
+
+            norank = "<:e_:" + config.norank.ToString() + ">";
+            Bronze = "<:e_:" + config.Bronze.ToString() + ">";
+            Silver = "<:e_:" + config.Silver.ToString() + ">";
+            Gold = "<:e_:" + config.Gold.ToString() + ">";
+            Platinum = "<:e_:" + config.Platinum.ToString() + ">";
+            Diamond = "<:e_:" + config.Diamond.ToString() + ">";
+            Master = "<:e_:" + config.Master.ToString() + ">";
+            legend = "<:e_:" + config.legend.ToString() + ">";
+            mythical = "<:e_:" + config.mythical.ToString() + ">";
+            GrandMaster = "<:e_:" + config.GrandMaster.ToString() + ">";
 
 
             if (elo <= 0)
             {
-                string[] level = { norank, Bronze, "50", "No Rank "+ norank };
+                string[] level = { norank, Bronze, "50", "No Rank " + norank };
 
                 return level;
 
@@ -79,20 +77,20 @@ namespace MyCustomDiscordBot.Services
             if (elo <= 50)
             {
 
-                string[] level = { Bronze, Silver, "180", "Bronze " + Bronze};
+                string[] level = { Bronze, Silver, "180", "Bronze " + Bronze };
 
                 return level;
             }
             if (elo <= 180)
             {
-                string[] level = { Silver, Gold, "250", "Silver "+ Silver };
+                string[] level = { Silver, Gold, "250", "Silver " + Silver };
 
                 return level;
 
             }
             if (elo <= 250)
             {
-                string[] level = { Gold, Platinum, "350", "Gold "+ Gold };
+                string[] level = { Gold, Platinum, "350", "Gold " + Gold };
 
                 return level;
 
@@ -100,7 +98,7 @@ namespace MyCustomDiscordBot.Services
             if (elo <= 350)
             {
 
-                string[] level = { Platinum, Diamond, "500", "Platinum "+ Platinum };
+                string[] level = { Platinum, Diamond, "500", "Platinum " + Platinum };
 
                 return level;
             }
@@ -113,21 +111,21 @@ namespace MyCustomDiscordBot.Services
             }
             if (elo <= 750)
             {
-                string[] level = { Master, legend, "850", "Master "+Master };
+                string[] level = { Master, legend, "850", "Master " + Master };
 
                 return level;
 
             }
             if (elo <= 850)
             {
-                string[] level = { legend, mythical, "1000", "Mythical "+ mythical };
+                string[] level = { legend, mythical, "1000", "Mythical " + mythical };
 
                 return level;
 
             }
             if (elo <= 1000)
             {
-                string[] level = { mythical, GrandMaster, "1000", "Grand Master "+ GrandMaster };
+                string[] level = { mythical, GrandMaster, "1000", "Grand Master " + GrandMaster };
 
                 return level;
 
@@ -137,7 +135,7 @@ namespace MyCustomDiscordBot.Services
             return levelp;
         }
 #pragma warning disable CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
-        public async Task<Embed> LeaderboardEmbed(List<DbUser> topPlayers,ulong GuildId)
+        public async Task<Embed> LeaderboardEmbed(List<DbUser> topPlayers, ulong GuildId)
 #pragma warning restore CS1998 // This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.
         {
             EmbedBuilder builder = new EmbedBuilder();
@@ -145,12 +143,13 @@ namespace MyCustomDiscordBot.Services
             builder.WithColor(Color.Red);
             string description = "";
             ServerConfig config = await _databaseService.GetServerConfigAsync(GuildId);
-            try { 
-            for (int i = 0; i < topPlayers.Count; i++)
+            try
             {
-                SocketUser user = _client.GetUser(topPlayers[i].DiscordId);
-                if (user != null)
+                for (int i = 0; i < topPlayers.Count; i++)
                 {
+                    SocketUser user = _client.GetUser(topPlayers[i].DiscordId);
+                    if (user != null)
+                    {
                         if (config.checkranking == 1)
                         {
 
@@ -228,9 +227,9 @@ namespace MyCustomDiscordBot.Services
 
             return builder.Build();
         }
-        public Embed ProfileEmbed(DbUser user,ServerConfig config)
+        public Embed ProfileEmbed(DbUser user, ServerConfig config)
         {
-           // ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
+            // ServerConfig config = await _databaseService.GetServerConfigAsync(base.Context.Guild.Id);
 
             EmbedBuilder builder = new EmbedBuilder();
             builder.WithColor(Color.Blue);
@@ -446,7 +445,7 @@ namespace MyCustomDiscordBot.Services
 
             builder.WithFooter(new EmbedFooterBuilder
             {
-             //   Text = $"Powered by CrossFire Stars League"
+                //   Text = $"Powered by CrossFire Stars League"
             });
             return builder.Build();
         }
@@ -466,9 +465,9 @@ namespace MyCustomDiscordBot.Services
             builder.WithDescription($"Click the **Join button** to join the queue or Click **leave button** to leave queue\n\n**Players**                       **{queue.Users.Count()} / {queue.Capacity}**\n" + description);
             builder.WithFooter(new EmbedFooterBuilder
             {
-              
-              //Text = $"Powered by {base.Context.Guild.Name}" 
-            });;
+
+                //Text = $"Powered by {base.Context.Guild.Name}" 
+            }); ;
             return builder.Build();
         }
 
@@ -521,7 +520,7 @@ namespace MyCustomDiscordBot.Services
 
 
                 string Mapup = match.Map.ToUpper();
-  
+
                 if (Mapup.Contains("SUBBASE"))
 
                 {

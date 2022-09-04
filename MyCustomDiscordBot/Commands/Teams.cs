@@ -8,7 +8,6 @@ using MyCustomDiscordBot.Models;
 using MyCustomDiscordBot.Services;
 using System;
 using System.Threading.Tasks;
-using VMProtect;
 
 namespace MyCustomDiscordBot.Commands
 {
