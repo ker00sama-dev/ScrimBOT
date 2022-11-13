@@ -1,2 +1,0 @@
-D:\github\DiscordGamingBOT\bin\Debug\netcoreapp3.1\publish\win-x86\ScrimBOT.pdb
-D:\github\DiscordGamingBOT\bin\Debug\netcoreapp3.1\publish\win-x86\ScrimBOT.exe

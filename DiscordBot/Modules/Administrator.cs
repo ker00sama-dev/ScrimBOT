@@ -361,6 +361,8 @@ namespace DiscordBot.Modules
                     {
                         await ReplyAsync("That map: " + "Subbase" + " is already in the map pool for the " + qConfig.Name + " queue.");
                         await ReplyAsync("That map: " + "ankara" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "Mexico" + " is already in the map pool for the " + qConfig.Name + " queue.");
+                        await ReplyAsync("That map: " + "EagleEye" + " is already in the map pool for the " + qConfig.Name + " queue.");
                         await ReplyAsync("That map: " + "BlackWidow" + " is already in the map pool for the " + qConfig.Name + " queue.");
                         await ReplyAsync("That map: " + "Compound" + " is already in the map pool for the " + qConfig.Name + " queue.");
                         await ReplyAsync("That map: " + "Port" + " is already in the map pool for the " + qConfig.Name + " queue.");
@@ -374,6 +376,8 @@ namespace DiscordBot.Modules
                 qConfig.Maps.Add("SubBase");
                 qConfig.Maps.Add("ankara");
                 qConfig.Maps.Add("BlackWidow");
+                qConfig.Maps.Add("EagleEye");
+                qConfig.Maps.Add("Mexico");
                 qConfig.Maps.Add("Compound");
                 qConfig.Maps.Add("Port");
 

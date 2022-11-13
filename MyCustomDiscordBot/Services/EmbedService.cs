@@ -433,6 +433,28 @@ namespace MyCustomDiscordBot.Services
 
 
             }
+            if (Mapup.Contains("EAGLEEYE"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://cdn.discordapp.com/attachments/781231699895910440/1041356342453084160/EagleEye_Balcony.png");
+
+
+
+            } 
+            if (Mapup.Contains("MEXICO"))
+            {
+
+
+
+
+                builder.WithImageUrl("https://cdn.discordapp.com/attachments/781231699895910440/1041354500948103168/Comp_Mexico.jpg");
+
+
+
+            }
             return builder.Build();
         }
 
