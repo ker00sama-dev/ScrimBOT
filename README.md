@@ -1,4 +1,6 @@
-# ScrimBOT - No More Scams! | Crossfire PUG BOT
+# ScrimBOT - No More Scams! | Crossfire PUG BOT - Help Us Combat Scammers
+## Epic PUG | RANKED BOT | SCRIM BOT | RAGE BOT | ANBUIS BOT | PHARAOH BOT
+
 
 ## ScrimBOT Documentation
 
