@@ -20,7 +20,7 @@ If you find this project helpful and would like to support its development, you 
 
 ### Donations Accepted in USDT (Tether)
 
-![USDT Logo](usdt-logo.png)
+![USDT Logo]([usdt-logo.png](https://w7.pngwing.com/pngs/581/504/png-transparent-tether-usdt-cryptocoins-icon.png))
 
 **USDT Address**: `TQFZuMkp4VWEWjtVSPaHVXWba1549LdzVF`
 
