@@ -15,8 +15,9 @@
 If you find this project helpful and want to support its development, you can contribute by making a cryptocurrency donation. Your contributions enable us to continue our work and make valuable enhancements.
 
 ### Accepting Donations in USDT (Tether)
+<img src="https://cdn.discordapp.com/attachments/1063090460899409992/1157270293216251925/tether-usdt-logo.png?ex=6517ff72&is=6516adf2&hm=362956a04fa02e2a0ada7927cb6b5571c720aa5593bdaf63d0f2abf79f815606&" width="150" height="150">
+<img src="https://cdn.discordapp.com/attachments/1063090460899409992/1157271068495577169/Donate-PNG-Transparent.png?ex=6518002b&is=6516aeab&hm=e0eb95d599ede5173b1f6789ec436cfe6a109d652fd20f9a19314279ed5614dc&" width="200">
 
-![USDT Logo]([https://w7.pngwing.com/pngs/581/504/png-transparent-tether-usdt-cryptocoins-icon.png](https://cdn.discordapp.com/attachments/1063090460899409992/1157270293216251925/tether-usdt-logo.png?ex=6517ff72&is=6516adf2&hm=362956a04fa02e2a0ada7927cb6b5571c720aa5593bdaf63d0f2abf79f815606&))
 
 **USDT Address**: `TQFZuMkp4VWEWjtVSPaHVXWba1549LdzVF`
 
