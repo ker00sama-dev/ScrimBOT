@@ -1,4 +1,4 @@
-<h1 align="center">ScrimBOT - Documentation l PUG , CPL , Scrims </h1>
+<h1 align="center">ScrimBOT -  No Scam More ! l  BOT CROSSFIRE PUG    </h1>
 
 <h3 align="left">ScrimBOT - Documentation :</h3>
 
