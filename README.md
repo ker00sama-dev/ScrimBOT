@@ -39,6 +39,8 @@ We genuinely appreciate your support for our project!
 
 ### Help Section
 
+Discord : @ker00sama
+
 If you require assistance or any fixes, kindly consider making a donation first to enable us to provide support. Our services are not freely available, and becoming a customer through a donation allows us to prioritize and assist you promptly. Donations can start from as little as $5. Here's a guide on how to donate:
 
 1. Open your preferred Tron TRC20 wallet application.
