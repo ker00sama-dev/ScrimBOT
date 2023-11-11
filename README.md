@@ -1,7 +1,6 @@
 # ScrimBOT - No More Scams! | Crossfire PUG BOT - Help Us Combat Scammers
 ## CPL BOT| PUG BOT | Epic PUG | RANKED BOT | SCRIM BOT | RAGE BOT | ANBUIS BOT | PHARAOH BOT
 
-
 ## ScrimBOT Documentation
 
 - **[Official Documentation](https://scrimbot.pages.dev/)**
@@ -37,6 +36,17 @@ We genuinely appreciate your support for our project!
 ### Help Us Combat Scammers
 
 **Warning**: Scammers are attempting to profit from this project by selling fake versions. Please help us protect the community by sharing the legitimate project source and donation address. Let's work together to expose and stop scammers from exploiting our hard work and dedication.
+
+### Help Section
+
+If you require assistance or any fixes, kindly consider making a donation first to enable us to provide support. Our services are not freely available, and becoming a customer through a donation allows us to prioritize and assist you promptly. Donations can start from as little as $5. Here's a guide on how to donate:
+
+1. Open your preferred Tron TRC20 wallet application.
+2. Utilize the provided address (`TQFZuMkp4VWEWjtVSPaHVXWba1549LdzVF`) to initiate your donation.
+3. Specify the amount you wish to contribute.
+4. Confirm the transaction details and submit your donation.
+
+Your support allows us to continue providing assistance. Thank you for your understanding and contribution.
 
 ---
 
