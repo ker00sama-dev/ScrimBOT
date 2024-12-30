@@ -543,134 +543,80 @@ namespace MyCustomDiscordBot.Services
 
                 string Mapup = match.Map.ToUpper();
 
-                if (Mapup.Contains("SUBBASE"))
 
-                {
-
-                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/691520066575138866/906938436341104651/1000.png");
-
-
-
-                }
-                if (Mapup.Contains("COMPOUND"))
-                {
-
-
-
-
-                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/691520066575138866/906938077711331338/latest.jpg");
-
-
-
-                }
-                if (Mapup.Contains("PORT"))
-                {
-
-
-
-
-                    builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906939312652832828/480.png");
-
-
-
-                }
-                if (Mapup.Contains("BLACKWIDOW"))
-                {
-
-
-
-
-                    builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/914920414088658944/1000.png?width=901&height=676");
-
-
-
-                }
-                if (Mapup.Contains("ANKARA"))
-                {
-
-
-
-
-                    builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906938745842970644/1000.png");
-
-
-
-                }
                 if (Mapup.Contains("FRACTURE"))
-
                 {
-
-                    builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/909178833125662760/1000.png");
-
-
-
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/FRACTURE.png");
                 }
                 if (Mapup.Contains("ASCENT"))
                 {
-
-
-
-
-                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909179873510187058/ascent1.png");
-
-
-
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/ASCENT.png");
                 }
                 if (Mapup.Contains("SPLIT"))
                 {
-
-
-
-
-                    builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/909180017739698196/split4-2.png");
-
-
-
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/SPLIT.webp");
                 }
                 if (Mapup.Contains("HAVEN"))
                 {
-
-
-
-
-                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909180170559176764/haven4.png");
-
-
-
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/HAVEN.png");
                 }
                 if (Mapup.Contains("BIND"))
                 {
-
-
-
-
-                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909180454186414120/bind3.png");
-
-
-
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/BIND.png");
                 }
-
                 if (Mapup.Contains("ICEBOX"))
                 {
-
-
-
-
-                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909181094597906492/icebox_6.png");
-
-
-
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/ICEBOX.png");
                 }
                 if (Mapup.Contains("BREEZE"))
                 {
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/BREEZE.png");
+                }
+                if (Mapup.Contains("PEARL"))
+                {
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/PEARL.png");
+                }
+                if (Mapup.Contains("LOTUS"))
+                {
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/LOTUS.png");
+                }
+                if (Mapup.Contains("ABYSS"))
+                {
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/ABYSS.png");
+                }
+                if (Mapup.Contains("SUNSET"))
+                {
+                    builder.WithImageUrl("https://scrimbot.pages.dev/valorant/SUNSET.png");
+                }
 
-
-
-
-                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909181272650301500/breeze_1.png");
-
-
-
+                // CrossFire Maps and Images
+                if (Mapup.Contains("SUBBASE"))
+                {
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/691520066575138866/906938436341104651/1000.png");
+                }
+                if (Mapup.Contains("COMPOUND"))
+                {
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/691520066575138866/906938077711331338/latest.jpg");
+                }
+                if (Mapup.Contains("PORT"))
+                {
+                    builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906939312652832828/480.png");
+                }
+                if (Mapup.Contains("BLACKWIDOW"))
+                {
+                    builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/914920414088658944/1000.png?width=901&height=676");
+                }
+                if (Mapup.Contains("ANKARA"))
+                {
+                    builder.WithImageUrl("https://media.discordapp.net/attachments/691520066575138866/906938745842970644/1000.png");
+                }
+                if (Mapup.Contains("EAGLEEYE"))
+                {
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/781231699895910440/1041356342453084160/EagleEye_Balcony.png");
+                }
+                if (Mapup.Contains("MEXICO"))
+                {
+                    builder.WithImageUrl("https://cdn.discordapp.com/attachments/781231699895910440/1041354500948103168/Comp_Mexico.jpg");
                 }
 
             }

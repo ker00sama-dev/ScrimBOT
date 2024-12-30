@@ -1,0 +1,103 @@
+# Visual Studio
+.vs/
+.vscode/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build Results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]ppPackages/
+[Aa]ssembly[Ii]nfo.cs
+*.dll
+*.exe
+*.app
+*.ipa
+*.js
+*.jar
+*.json
+*.pdb
+*.csv
+*.so
+*.plist
+*.nupkg
+*.cache
+*.zip
+*.log
+
+# Visual Studio Code
+.vscode/
+
+# Windows
+[Tt]humbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Logs
+*.log
+*.tlog
+
+# IDEs
+.idea/
+*.swp
+*.sublime-workspace
+*.sublime-project
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+packages/
+
+# Rider
+.idea/
+*.DotSettings.user
+
+# DotNetCore
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Azure DevOps
+*.coverage
+*.coveragexml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# DotNetConsole
+bin/
+obj/
+
+# Azure Web Apps
+local.settings.json
+
+# StyleCop
+StyleCopReport.xml
+
+# LibMan
+libman.json
+
+# JetBrains Rider
+.idea/
+
+# npm Package Directory
+node_modules/
+
+# Azure Functions
+.local.settings.json
+
+# Others
+*.sql
+*.mdf
+*.ldf

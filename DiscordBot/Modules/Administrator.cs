@@ -411,6 +411,11 @@ namespace DiscordBot.Modules
                 qConfig.Maps.Add("BIND");
                 qConfig.Maps.Add("ICEBOX");
                 qConfig.Maps.Add("BREEZE");
+                qConfig.Maps.Add("PEARL");
+                qConfig.Maps.Add("LOTUS");
+                qConfig.Maps.Add("ABYSS");
+                qConfig.Maps.Add("SUNSET");
+
                 await _databaseService.UpsertServerConfigAsync(config);
                 _queueService.UpdatePugQueue(qConfig);
                 await base.Context.Message.DeleteAsync();
