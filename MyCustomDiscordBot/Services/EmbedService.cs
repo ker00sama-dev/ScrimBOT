@@ -377,51 +377,51 @@ namespace MyCustomDiscordBot.Services
 
 
             }
+            if (Mapup.Contains("FRACTURE"))
+            {
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/FRACTURE.png");
+            }
+            if (Mapup.Contains("ASCENT"))
+            {
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/ASCENT.png");
+            }
             if (Mapup.Contains("SPLIT"))
             {
-
-
-
-
-                builder.WithImageUrl("https://media.discordapp.net/attachments/875229845745971211/909180017739698196/split4-2.png");
-
-
-
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/SPLIT.webp");
             }
             if (Mapup.Contains("HAVEN"))
             {
-
-
-
-
-                builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909180170559176764/haven4.png");
-
-
-
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/HAVEN.png");
             }
             if (Mapup.Contains("BIND"))
             {
-
-
-
-
-                builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909180454186414120/bind3.png");
-
-
-
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/BIND.png");
             }
-
             if (Mapup.Contains("ICEBOX"))
             {
-
-
-
-
-                builder.WithImageUrl("https://cdn.discordapp.com/attachments/875229845745971211/909181094597906492/icebox_6.png");
-
-
-
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/ICEBOX.png");
             }
+            if (Mapup.Contains("BREEZE"))
+            {
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/BREEZE.png");
+            }
+            if (Mapup.Contains("PEARL"))
+            {
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/PEARL.png");
+            }
+            if (Mapup.Contains("LOTUS"))
+            {
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/LOTUS.png");
+            }
+            if (Mapup.Contains("ABYSS"))
+            {
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/ABYSS.png");
+            }
+            if (Mapup.Contains("SUNSET"))
+            {
+                builder.WithImageUrl("https://scrimbot.pages.dev/valorant/SUNSET.png");
+            }
+
             if (Mapup.Contains("BREEZE"))
             {
 
