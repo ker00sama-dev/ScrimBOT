@@ -201,8 +201,8 @@ namespace MyCustomDiscordBot.Services
                 Match match = await _matchService.GenerateMatchAsync(copyList, queue.SortType, queue.GuildId, queue.MessageId);
                 match.PugQueueMessageId = queue.MessageId;
                 SocketGuild guild2 = _client.GetGuild(queue.GuildId);
-                RestVoiceChannel team1Voice = await guild2.CreateVoiceChannelAsync($"Match #{match.Number} Team 1");
-                RestVoiceChannel team2Voice = await guild2.CreateVoiceChannelAsync($"Match #{match.Number} Team 2");
+                RestVoiceChannel team1Voice = await guild2.CreateVoiceChannelAsync($"Match #{match.Number} Team 1 #Attacker");
+                RestVoiceChannel team2Voice = await guild2.CreateVoiceChannelAsync($"Match #{match.Number} Team 2 #Defender");
                 ServerConfig serverConfig = await _databaseService.GetServerConfigAsync(guild2.Id);
                 RestTextChannel matchInfoChannel = await guild2.CreateTextChannelAsync($"\ud83c\udfc6-match-#{match.Number}");
                 await matchInfoChannel.ModifyAsync(delegate (TextChannelProperties x)
@@ -212,12 +212,12 @@ namespace MyCustomDiscordBot.Services
                 await team1Voice.ModifyAsync(delegate (VoiceChannelProperties x)
                 {
                     x.CategoryId = serverConfig.MatchesCategoryId;
-                    x.UserLimit = queue.Capacity / 2 + 1;
+                    x.UserLimit = queue.Capacity / 2 ;
                 });
                 await team2Voice.ModifyAsync(delegate (VoiceChannelProperties x)
                 {
                     x.CategoryId = serverConfig.MatchesCategoryId;
-                    x.UserLimit = queue.Capacity / 2 + 1;
+                    x.UserLimit = queue.Capacity / 2 ;
                 });
                 ServerConfig config2 = await _databaseService.GetServerConfigAsync(guildId);
 

@@ -300,8 +300,8 @@ namespace MyCustomDiscordBot.Services
             {
                 team2Value += $"`{(await _databaseService.GetUserInGuild(discordId2, guildId)).ELO}`{_client.GetUser(discordId2).Mention}\n";
             }
-            builder.AddField("Team 1", team1Value, inline: true);
-            builder.AddField("Team 2", team2Value, inline: true);
+            builder.AddField("Team 1 #Attacker", team1Value, inline: true);
+            builder.AddField("Team 2 #Defender", team2Value, inline: true);
             string Mapup = match.Map.ToUpper();
 
             if (Mapup.Contains("SUBBASE"))
@@ -518,7 +518,8 @@ namespace MyCustomDiscordBot.Services
                 builder.WithTitle($"Scrim Match #{match.Number}");
                 if (password != string.Empty)
                 {
-                    builder.WithDescription("Map: *" + match.Map + "*\n\nPassword: *" + password + "*");
+                   // Password: *" + password + " * "
+                    builder.WithDescription("Map: *" + match.Map + "*\n\n");
 
                 }
                 else
@@ -536,8 +537,8 @@ namespace MyCustomDiscordBot.Services
                     team2Value3 += $"`{(await _databaseService.GetUserInGuild(discordId5, guildId)).ELO}`{_client.GetUser(discordId5).Mention}\n";
                 }
 
-                builder.AddField("Team 1", team1Value3, inline: true);
-                builder.AddField("Team 2", team2Value3, inline: true);
+                builder.AddField("Team 1 #Attacker", team1Value3, inline: true);
+                builder.AddField("Team 2 #Defender", team2Value3, inline: true);
 
 
 
@@ -642,8 +643,8 @@ namespace MyCustomDiscordBot.Services
                     {
                         team1Value3 += $"`{(await _databaseService.GetUserInGuild(discordId5, guildId)).ELO}`{_client.GetUser(discordId5).Mention}\n";
                     }
-                    builder.AddField("Team 1", team2Value3, inline: true);
-                    builder.AddField("Team 2", team1Value3, inline: true);
+                    builder.AddField("Team 1 #Attacker", team2Value3, inline: true);
+                    builder.AddField("Team 2 #Defender", team1Value3, inline: true);
                 }
                 else
                 {
@@ -665,8 +666,8 @@ namespace MyCustomDiscordBot.Services
                     {
                         team2Value3 += $"`{(await _databaseService.GetUserInGuild(discordId5, guildId)).ELO}`{_client.GetUser(discordId5).Mention}\n";
                     }
-                    builder.AddField("Team 1", team1Value3, inline: true);
-                    builder.AddField("Team 2", team2Value3, inline: true);
+                    builder.AddField("Team 1 #Attacker", team1Value3, inline: true);
+                    builder.AddField("Team 2 #Defender", team2Value3, inline: true);
                 }
             }
             else if (match.SortType == SortType.Scrim)
