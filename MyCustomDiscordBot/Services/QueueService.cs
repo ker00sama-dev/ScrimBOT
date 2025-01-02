@@ -6,6 +6,7 @@ using MyCustomDiscordBot.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace MyCustomDiscordBot.Services
 {
@@ -156,6 +157,9 @@ namespace MyCustomDiscordBot.Services
             return true;
         }
 
+       
+
+
         public async Task<bool> AddToPugQueue(ulong messageId, DbUser user, ulong guildId)
         {
             foreach (PugQueue queueCurr in Queues)
@@ -204,7 +208,7 @@ namespace MyCustomDiscordBot.Services
                 RestVoiceChannel team1Voice = await guild2.CreateVoiceChannelAsync($"Match #{match.Number} Team 1 #Attacker");
                 RestVoiceChannel team2Voice = await guild2.CreateVoiceChannelAsync($"Match #{match.Number} Team 2 #Defender");
                 ServerConfig serverConfig = await _databaseService.GetServerConfigAsync(guild2.Id);
-                RestTextChannel matchInfoChannel = await guild2.CreateTextChannelAsync($"\ud83c\udfc6-match-#{match.Number}");
+                RestTextChannel matchInfoChannel = await guild2.CreateTextChannelAsync($"\ud83c\udfc6-Match-#{match.Number}");
                 await matchInfoChannel.ModifyAsync(delegate (TextChannelProperties x)
                 {
                     x.CategoryId = serverConfig.MatchesCategoryId;
@@ -220,8 +224,12 @@ namespace MyCustomDiscordBot.Services
                     x.UserLimit = queue.Capacity / 2 ;
                 });
                 ServerConfig config2 = await _databaseService.GetServerConfigAsync(guildId);
+                OverwritePermissions connectFalse = new OverwritePermissions(
+    viewChannel: PermValue.Allow,
+     sendMessages: PermValue.Deny,
+    connect: PermValue.Deny
+);
 
-                OverwritePermissions connectFalse = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Deny);
                 if (guildId != EmbedService.ServerIDs(config2))
                 {
                     await team1Voice.AddPermissionOverwriteAsync(_client.GetGuild(guild2.Id).EveryoneRole, connectFalse);
@@ -257,10 +265,21 @@ namespace MyCustomDiscordBot.Services
                       .WithButton(map)
                      .WithButton(Cancel);
                 await blankEmbedMessage.ModifyAsync(x => x.Components = componentBuilder.Build());
+                OverwritePermissions sendMessagesFalse = new OverwritePermissions(
+                    createInstantInvite: PermValue.Inherit,
+                    manageChannel: PermValue.Inherit,
+                    addReactions: PermValue.Inherit,
+                    viewChannel: PermValue.Inherit,
+                    sendMessages: PermValue.Deny // Explicitly deny sending messages
+                );
 
-                OverwritePermissions sendMessagesFalse = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Deny);
-                OverwritePermissions sendMessagesTrue = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow);
 
+                var guild = _client.GetGuild(queue.GuildId);
+
+                OverwritePermissions sendMessagesTrue = new OverwritePermissions(
+    viewChannel: PermValue.Allow,    // Allow viewing the channel
+    sendMessages: PermValue.Allow   // Allow sending messages
+);
                 foreach (ulong discordId3 in match.AllPlayerDiscordIds)
                 {
                     await matchInfoChannel.AddPermissionOverwriteAsync(guild2.GetUser(discordId3), sendMessagesTrue);
@@ -268,9 +287,46 @@ namespace MyCustomDiscordBot.Services
                 await matchInfoChannel.AddPermissionOverwriteAsync(guild2.EveryoneRole, sendMessagesFalse);
 
 
-                OverwritePermissions connectTrue = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow);
+
+
+          
+                OverwritePermissions connectTrue = new OverwritePermissions(
+                    viewChannel: PermValue.Allow,
+                    sendMessages: PermValue.Allow,
+                    connect: PermValue.Allow
+                );
+
+                await team1Voice.AddPermissionOverwriteAsync(guild.EveryoneRole, connectFalse);
+                await team2Voice.AddPermissionOverwriteAsync(guild.EveryoneRole, connectFalse);
+
+
                 if (queue.SortType == SortType.Elo)
                 {
+
+
+                    await team1Voice.AddPermissionOverwriteAsync(guild.EveryoneRole, connectFalse);
+                    await team2Voice.AddPermissionOverwriteAsync(guild.EveryoneRole, connectFalse);
+
+                    foreach (ulong discordId in match.Team1DiscordIds)
+                    {
+                        var userToMove = guild.GetUser(discordId);
+                        await team1Voice.AddPermissionOverwriteAsync(userToMove, connectTrue);
+                        if (userToMove?.VoiceChannel != null)
+                        {
+                            await userToMove.ModifyAsync(props => props.Channel = team1Voice);
+                        }
+                    }
+
+                    foreach (ulong discordId in match.Team2DiscordIds)
+                    {
+                        var userToMove = guild.GetUser(discordId);
+                        await team2Voice.AddPermissionOverwriteAsync(userToMove, connectTrue);
+                        if (userToMove?.VoiceChannel != null)
+                        {
+                            await userToMove.ModifyAsync(props => props.Channel = team2Voice);
+                        }
+                    }
+
                     foreach (ulong discordId2 in match.Team1DiscordIds)
                     {
                         ServerConfig config22 = await _databaseService.GetServerConfigAsync(guildId);

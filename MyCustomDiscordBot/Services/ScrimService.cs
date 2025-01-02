@@ -109,7 +109,10 @@ namespace MyCustomDiscordBot.Services
                 x.CategoryId = serverConfig.MatchesCategoryId;
                 x.UserLimit = serverConfig.MaximumTeamSize + 1;
             });
-            OverwritePermissions connectFalse = new OverwritePermissions(PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Allow, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Inherit, PermValue.Deny);
+            OverwritePermissions connectFalse = new OverwritePermissions(
+          viewChannel: PermValue.Allow,
+          connect: PermValue.Deny
+      );
             await team1Voice.AddPermissionOverwriteAsync(_client.GetGuild(guild.Id).EveryoneRole, connectFalse);
             await Task.Delay(250);
             await team2Voice.AddPermissionOverwriteAsync(_client.GetGuild(guild.Id).EveryoneRole, connectFalse);

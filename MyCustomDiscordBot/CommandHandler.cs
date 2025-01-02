@@ -309,7 +309,7 @@ namespace MyCustomDiscordBot
 
             if (interaction.Data.CustomId == "map")
             {
-                //     var _user = button.User;
+             
 
                 SocketTextChannel VOTEChannel = interaction.Channel as SocketTextChannel;
 
@@ -328,6 +328,15 @@ namespace MyCustomDiscordBot
                     await interaction.Channel.SendMessageAsync(_client.GetUser(_user.Id).Mention + " you have already voted to change the map.");
                     return;
                 }
+
+                // Check if the user is in the match
+                if (!match.AllPlayerDiscordIds.Contains(_user.Id))
+                {
+                    await interaction.Channel.SendMessageAsync(_client.GetUser(_user.Id).Mention + " you are not part of this match and cannot vote to change the map.");
+                    return;
+                }
+
+
                 match.MapChangeVoteDiscordIds.Add(_user.Id);
                 int mapChangeVotesNeeded = _queueService.GetPugQueue(match.PugQueueMessageId).Capacity / 2 + 1;
                 if (match.MapChangeVoteDiscordIds.Count < mapChangeVotesNeeded)
